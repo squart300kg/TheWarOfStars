@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TheWarOfStars</string>
+    <string name="title_home">홈</string>
+    <string name="title_message">메시지</string>
+    <string name="title_mypage">마이페이지</string>
+
+</resources>

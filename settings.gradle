@@ -1,0 +1,2 @@
+rootProject.name = "TheWarOfStars"
+include ':app'
