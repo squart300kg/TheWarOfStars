@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "542672756272",
+    "project_id": "thewarofstars-8f9a8",
+    "storage_bucket": "thewarofstars-8f9a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542672756272:android:ce14c1570de7dc4f22d7f5",
+        "android_client_info": {
+          "package_name": "com.the.war.of.thewarofstars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542672756272-7f9r50dkmkh105jv8iqkv86gpfilbqa3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.the.war.of.thewarofstars",
+            "certificate_hash": "ff6abce79a14a0bb7c1ade52511c3f65ea381fc3"
+          }
+        },
+        {
+          "client_id": "542672756272-6k58l90c6qnm51n3fnue1r5485i850io.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbI-3e2HjYb_4RZOJedk3OgAGawr7wbMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542672756272-6k58l90c6qnm51n3fnue1r5485i850io.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
