@@ -14,7 +14,7 @@ class HomeViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _gamerList = MutableLiveData<Gamer>()
+    private val _gamerList = MutableLiveData<ArrayList<Gamer>>()
     val gamerList
         get() = _gamerList
 
@@ -22,6 +22,32 @@ class HomeViewModel : ViewModel() {
 
     fun getGamerList() {
         val db = Application?.instance?.firebaseDB
+
+        val gamerList = db?.collection("GamerList")
+        gamerList?.get()
+            ?.addOnSuccessListener { collection ->
+                if (collection != null) {
+                    for (document in collection.documents ) {
+                        Log.i(TAG, "${document.data}")
+                        var gamerList = ArrayList<Gamer>()
+                        gamerList.add(
+                            Gamer(
+                                document.data?.get("name") as String,
+                                document.data?.get("price") as Int,
+                                document.data?.get("title") as String,
+                                null
+                            )
+                        )
+
+                        _gamerList.value = gamerList
+                    }
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            }
+            ?.addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }
 
     }
 }

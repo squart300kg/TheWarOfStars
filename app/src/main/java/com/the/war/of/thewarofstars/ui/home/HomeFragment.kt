@@ -28,8 +28,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         binding {
-            // TODO saucelive latestAdapter참고할 것
+
+            homeVm = homeViewModel
             gamerListRecyclerView.apply {
+                setHasFixedSize(true)
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 layoutManager = linearLayoutManager
                 adapter = GamerListAdapter()

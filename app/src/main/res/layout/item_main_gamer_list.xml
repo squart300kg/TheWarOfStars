@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/main_gamer_list_all_padding"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:id="@+id/hello"
+<layout>
+    <data>
+        <variable
+            name="gamerModel"
+            type="com.the.war.of.thewarofstars.model.Gamer" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="@dimen/main_gamer_list_all_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:padding="@dimen/item_main_gamer_list_all_padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="40"
-            android:layout_height="@dimen/item_main_gamer_list_height"
-            android:layout_marginEnd="8sp"
-            android:src="@mipmap/ic_launcher"/>
+        <LinearLayout
+            android:id="@+id/hello"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:padding="@dimen/item_main_gamer_list_all_padding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="0dp"
-            android:layout_weight="60"
-            android:layout_height="@dimen/item_main_gamer_list_height"
-            android:layout_marginStart="8sp"
-            android:orientation="vertical"
-            android:weightSum="100">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+            <ImageView
+                android:layout_width="0dp"
                 android:layout_weight="40"
-                android:text="이것만 하면 양민학살은 문제 없다"
-                android:textStyle="bold"
-                android:textSize="@dimen/global_font_size"/>
+                android:layout_height="@dimen/item_main_gamer_list_height"
+                android:layout_marginEnd="8sp"
+                android:src="@mipmap/ic_launcher"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="20"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:textSize="@dimen/global_font_size"
-                    android:text="8 / 10점"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_weight="60"
+                android:layout_height="@dimen/item_main_gamer_list_height"
+                android:layout_marginStart="8sp"
+                android:orientation="vertical"
+                android:weightSum="100">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textSize="@dimen/global_font_size"
-                    android:text="10개 후기"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="40"
+                    android:text="이것만 하면 양민학살은 문제 없다"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/global_font_size"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="40"
-                android:text="100,000원 / 1판"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="@dimen/global_font_size"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="20"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:textSize="@dimen/global_font_size"
+                        android:text="8 / 10점"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textSize="@dimen/global_font_size"
+                        android:text="10개 후기"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="40"
+                    android:text="100,000원 / 1판"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/global_font_size"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+

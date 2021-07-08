@@ -8,10 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.base.BaseViewHolder
+import com.the.war.of.thewarofstars.databinding.ItemMainGamerListBinding
+import com.the.war.of.thewarofstars.model.Gamer
 
 class GamerListAdapter(
 
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val items: MutableList<Gamer> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
@@ -21,9 +26,10 @@ class GamerListAdapter(
                 HeaderViewHolder(view)
             }
             GAMER_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_main_gamer_list, parent, false)
-                GamerListViewHolder(view)
+                GamerListViewHolder(
+                    BR.gamerModel,
+                    parent,
+                    R.layout.item_main_gamer_list)
             }
 
             else -> throw IllegalArgumentException("Unknown view type")
@@ -40,32 +46,31 @@ class GamerListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when( getItemViewType(position)) {
             HEADER_TYPE -> (holder as HeaderViewHolder).bind()
-            GAMER_TYPE -> (holder as GamerListViewHolder).bind()
+            GAMER_TYPE -> (holder as GamerListViewHolder).bindItem(items[position])
         }
     }
 
-    override fun getItemCount(): Int = 10
+    override fun getItemCount(): Int = items.size + 1
 
-    inner class GamerListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind() {
-        }
-
+    fun loadGamerList(list: ArrayList<Gamer>) {
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
     }
 
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind() {
-
-//            itemView.imageViewTerran.background = ShapeDrawable(OvalShape())
-//            itemView.imageViewZerg.background = ShapeDrawable(OvalShape())
-//            itemView.imageViewProtoss.background = ShapeDrawable(OvalShape())
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                itemView.imageViewTerran.clipToOutline = true
-//                itemView.imageViewZerg.clipToOutline = true
-//                itemView.imageViewProtoss.clipToOutline = true
-//            }
         }
 
     }
+
+
+    class GamerListViewHolder(
+        itemId: Int,
+        parent: ViewGroup,
+        layoutRes: Int
+    ): BaseViewHolder<Gamer, ItemMainGamerListBinding>(itemId, parent, layoutRes)
+
     companion object {
         const val HEADER_TYPE = 0
         const val GAMER_TYPE = 1
