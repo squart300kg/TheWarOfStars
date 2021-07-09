@@ -14,20 +14,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-    private var gamerListAdapter: GamerListAdapter? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        homeViewModel.getGamerList()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        homeViewModel.getGamers()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,6 +33,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         })
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getGamers()
     }
 
 }
