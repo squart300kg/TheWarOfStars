@@ -17,6 +17,7 @@ class GamerListAdapter(
 
     private val items: MutableList<Gamer> = mutableListOf()
 
+    private val THE_NUBER_OF_HEADER = 1
     private val TAG = "GamerListAdapterLog"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -47,18 +48,22 @@ class GamerListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when( getItemViewType(position)) {
             HEADER_TYPE -> (holder as HeaderViewHolder).bind()
-            GAMER_TYPE -> (holder as GamerListViewHolder).bindItem(items[position])
+            GAMER_TYPE -> (holder as GamerListViewHolder).bindItem(items[position - THE_NUBER_OF_HEADER])
         }
     }
 
-    override fun getItemCount(): Int = items.size + 1
+    override fun getItemCount(): Int {
+        return items.size + THE_NUBER_OF_HEADER
+    }
 
     fun loadGamerList(list: List<Gamer>) {
-        Log.i(TAG, list.toString())
-        Log.i(TAG, list.size.toString())
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
+
+        Log.i(TAG, list.toString())
+        Log.i(TAG, list.size.toString())
+        Log.i(TAG, items.size.toString())
     }
 
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
