@@ -21,33 +21,36 @@ class HomeViewModel : ViewModel() {
     private val TAG = "HomeViewModelLog"
 
     fun getGamers() {
-        val db = Application?.instance?.firebaseDB
 
-        val gamerList = db?.collection("GamerList")
-        gamerList?.get()
-            ?.addOnSuccessListener { collection ->
-                if (collection != null) {
-                    var gamerList = mutableListOf<Gamer>()
-                    for (document in collection.documents ) {
-                        Log.i(TAG, "${document.data}")
-                        gamerList.add(
-                            Gamer(
-                                document.data?.get("name") as String,
-                                document.data?.get("price") as Long,
-                                document.data?.get("title") as String,
-                                null
-                            )
-                        )
+        Application?.instance?.firebaseDB.let { firebaseDB ->
+            firebaseDB?.collection("GamerList").let { gamerList ->
+                gamerList?.get()
+                    ?.addOnSuccessListener { collection ->
+                        if (collection != null) {
+                            var gamerList = mutableListOf<Gamer>()
+                            for (document in collection.documents ) {
+                                Log.i(TAG, "${document.data}")
+                                gamerList.add(
+                                    Gamer(
+                                        document.data?.get("name") as String,
+                                        document.data?.get("price") as Long,
+                                        document.data?.get("title") as String,
+                                        null
+                                    )
+                                )
 
-                        _gamerList.value = gamerList
+                                _gamerList.value = gamerList
+                            }
+                        } else {
+                            Log.d(TAG, "No such document")
+                        }
                     }
-                } else {
-                    Log.d(TAG, "No such document")
-                }
+                    ?.addOnFailureListener { exception ->
+                        Log.d(TAG, "get failed with ", exception)
+                    }
+
             }
-            ?.addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }
+        }
 
     }
 }
