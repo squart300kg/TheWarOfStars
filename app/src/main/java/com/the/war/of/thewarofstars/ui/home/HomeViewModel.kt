@@ -9,11 +9,6 @@ import com.the.war.of.thewarofstars.model.Gamer
 
 class HomeViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment!!!!"
-    }
-    val text: LiveData<String> = _text
-
     private val _gamerList = MutableLiveData<MutableList<Gamer>>()
     val gamerList: LiveData<MutableList<Gamer>>
         get() = _gamerList

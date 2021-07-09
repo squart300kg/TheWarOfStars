@@ -29,10 +29,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         }
 
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-
-        })
-
     }
 
     override fun onResume() {
