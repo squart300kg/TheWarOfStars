@@ -2,7 +2,6 @@ package com.the.war.of.thewarofstars.ui.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +19,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        homeViewModel.getGamerList()
+//        homeViewModel.getGamerList()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getGamers()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

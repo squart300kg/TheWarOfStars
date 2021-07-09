@@ -14,26 +14,26 @@ class HomeViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _gamerList = MutableLiveData<ArrayList<Gamer>>()
-    val gamerList
+    private val _gamerList = MutableLiveData<MutableList<Gamer>>()
+    val gamerList: LiveData<MutableList<Gamer>>
         get() = _gamerList
 
     private val TAG = "HomeViewModelLog"
 
-    fun getGamerList() {
+    fun getGamers() {
         val db = Application?.instance?.firebaseDB
 
         val gamerList = db?.collection("GamerList")
         gamerList?.get()
             ?.addOnSuccessListener { collection ->
                 if (collection != null) {
+                    var gamerList = mutableListOf<Gamer>()
                     for (document in collection.documents ) {
                         Log.i(TAG, "${document.data}")
-                        var gamerList = ArrayList<Gamer>()
                         gamerList.add(
                             Gamer(
                                 document.data?.get("name") as String,
-                                document.data?.get("price") as Int,
+                                document.data?.get("price") as Long,
                                 document.data?.get("title") as String,
                                 null
                             )

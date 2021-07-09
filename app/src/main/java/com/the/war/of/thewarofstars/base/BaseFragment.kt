@@ -21,6 +21,7 @@ open class BaseFragment<T: ViewDataBinding>(layoutRes: Int) : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
+        binding.lifecycleOwner = this
         return binding.root
     }
 

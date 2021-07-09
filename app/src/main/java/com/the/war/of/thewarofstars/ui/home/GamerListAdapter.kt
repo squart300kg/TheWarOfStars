@@ -1,13 +1,12 @@
 package com.the.war.of.thewarofstars.ui.home
 
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
-import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.BR
 import com.the.war.of.thewarofstars.base.BaseViewHolder
 import com.the.war.of.thewarofstars.databinding.ItemMainGamerListBinding
 import com.the.war.of.thewarofstars.model.Gamer
@@ -17,6 +16,8 @@ class GamerListAdapter(
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items: MutableList<Gamer> = mutableListOf()
+
+    private val TAG = "GamerListAdapterLog"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
@@ -52,7 +53,9 @@ class GamerListAdapter(
 
     override fun getItemCount(): Int = items.size + 1
 
-    fun loadGamerList(list: ArrayList<Gamer>) {
+    fun loadGamerList(list: List<Gamer>) {
+        Log.i(TAG, list.toString())
+        Log.i(TAG, list.size.toString())
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
