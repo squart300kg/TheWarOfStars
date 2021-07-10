@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myPage"
+    app:startDestination="@+id/mypage">
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/home_navigation"-->
+    <!--        android:name="com.the.war.of.thewarofstars.ui.home.HomeFragment"-->
+    <!--        android:label="@string/title_home"-->
+    <!--        tools:layout="@layout/fragment_home" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/message_navigation"-->
+<!--        android:name="com.the.war.of.thewarofstars.ui.dashboard.MessageFragment"-->
+<!--        android:label="@string/title_message"-->
+<!--        tools:layout="@layout/fragment_dashboard" />-->
+
+        <fragment
+            android:id="@+id/mypage"
+            android:name="com.the.war.of.thewarofstars.ui.notifications.NotificationsFragment"
+            android:label="@string/title_mypage"
+            tools:layout="@layout/fragment_mypage" />
+</navigation>

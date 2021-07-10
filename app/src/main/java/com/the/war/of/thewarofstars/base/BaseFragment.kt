@@ -28,4 +28,7 @@ open class BaseFragment<T: ViewDataBinding>(layoutRes: Int) : Fragment() {
     protected fun binding(action: T.() -> Unit) {
         binding.run(action)
     }
+
+
+
 }

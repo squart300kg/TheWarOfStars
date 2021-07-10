@@ -1,10 +1,10 @@
-package com.the.war.of.thewarofstars.ui.dashboard
+package com.the.war.of.thewarofstars.ui.message
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class MessageViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
