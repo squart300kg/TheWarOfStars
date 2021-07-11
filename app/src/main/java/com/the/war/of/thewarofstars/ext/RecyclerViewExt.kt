@@ -9,7 +9,7 @@ import com.the.war.of.thewarofstars.ui.home.GamerListAdapter
 
 @BindingAdapter("theWarsOfStar:setItems")
 fun <T> RecyclerView.setItems(items: List<T>?) {
-    val TAG = "BindingAdapterLog"
+    val TAG = "BindingAdapterLog_RecyclerView"
     Log.i(TAG, items.toString())
     items?.let {
         when(adapter) {

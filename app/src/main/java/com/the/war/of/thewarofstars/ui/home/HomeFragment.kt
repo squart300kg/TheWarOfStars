@@ -29,6 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
         homeViewModel.getGamers()
+        homeViewModel.getBanners()
     }
 
     override fun onCreateView(

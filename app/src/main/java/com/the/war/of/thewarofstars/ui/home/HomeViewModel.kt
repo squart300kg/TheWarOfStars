@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.the.war.of.thewarofstars.Application
+import com.the.war.of.thewarofstars.model.Banner
 import com.the.war.of.thewarofstars.model.Gamer
 
 class HomeViewModel : ViewModel() {
@@ -12,6 +13,10 @@ class HomeViewModel : ViewModel() {
     private val _gamerList = MutableLiveData<MutableList<Gamer>>()
     val gamerList: LiveData<MutableList<Gamer>>
         get() = _gamerList
+
+    private val _bannerList = MutableLiveData<MutableList<Banner>>()
+    val bannerList: LiveData<MutableList<Banner>>
+        get() = _bannerList
 
     private val TAG = "HomeViewModelLog"
 
@@ -22,7 +27,7 @@ class HomeViewModel : ViewModel() {
                 gamerList?.get()
                     ?.addOnSuccessListener { collection ->
                         if (collection != null) {
-                            var gamerList = mutableListOf<Gamer>()
+                            val gamerList = mutableListOf<Gamer>()
                             for (document in collection.documents ) {
                                 Log.i(TAG, "${document.data}")
                                 gamerList.add(
@@ -45,6 +50,37 @@ class HomeViewModel : ViewModel() {
                     }
 
             }
+        }
+
+    }
+
+    fun getBanners() {
+        Application?.instance?.firebaseDB.let { firebaseDB ->
+            firebaseDB?.collection("Banner").let { banner ->
+                banner?.get()
+                    ?.addOnSuccessListener { collection ->
+                        if (collection != null) {
+                            val bannerList = mutableListOf<Banner>()
+                            for (document in collection.documents ) {
+                                Log.i(TAG, "${document.data}")
+                                bannerList.add(
+                                    Banner(
+                                        document.data?.get("imageURL") as String,
+                                        document.data?.get("gamer") as String
+                                    )
+                                )
+
+                                _bannerList.value = bannerList
+                            }
+                        }
+                    }
+                    ?.addOnFailureListener { exception ->
+                        Log.d(TAG, "get failed with ", exception)
+                    }
+
+            }
+
+
         }
 
     }
