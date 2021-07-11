@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.glide_version = '4.11.0'
     ext.nav_version = "2.3.0"
     ext.kotlin_version = "1.5.0"
     ext.koin_version = "3.1.2"

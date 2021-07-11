@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:theWarsOfStar="http://schemas.android.com/tools">
+<layout xmlns:theWarsOfStar="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="homeVm"
             type="com.the.war.of.thewarofstars.ui.home.HomeViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="@dimen/global_start_padding"
-        android:paddingEnd="@dimen/global_end_padding"
-        theWarsOfStar:context=".ui.home.HomeFragment">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/gamer_list_recycler_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            theWarsOfStar:setItems="@{homeVm.gamerList}"
-            android:paddingBottom="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:paddingStart="@dimen/global_start_padding"
+            android:paddingEnd="@dimen/global_end_padding"
+            theWarsOfStar:context=".ui.home.HomeFragment">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/banner_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_banner_height"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gamer_list_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                theWarsOfStar:setItems="@{homeVm.gamerList}"
+                android:paddingBottom="?attr/actionBarSize"
+                app:layout_constraintTop_toBottomOf="@+id/banner_view_pager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

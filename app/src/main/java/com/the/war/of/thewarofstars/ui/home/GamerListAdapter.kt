@@ -4,11 +4,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.BR
 import com.the.war.of.thewarofstars.base.BaseViewHolder
 import com.the.war.of.thewarofstars.databinding.ItemMainGamerListBinding
+import com.the.war.of.thewarofstars.databinding.ItemMainHeaderBinding
 import com.the.war.of.thewarofstars.model.Gamer
 
 class GamerListAdapter(
@@ -46,7 +48,7 @@ class GamerListAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when( getItemViewType(position)) {
+        when(getItemViewType(position)) {
             HEADER_TYPE -> (holder as HeaderViewHolder).bind()
             GAMER_TYPE -> (holder as GamerListViewHolder).bindItem(items[position - THE_NUBER_OF_HEADER])
         }
@@ -66,8 +68,12 @@ class GamerListAdapter(
         Log.i(TAG, items.size.toString())
     }
 
-    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class HeaderViewHolder(
+        itemView: View
+    ) : RecyclerView.ViewHolder(itemView) {
         fun bind() {
+            itemView
+
         }
 
     }
