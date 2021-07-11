@@ -1,6 +1,8 @@
 package com.the.war.of.thewarofstars
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,13 +17,16 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.the.war.of.thewarofstars.databinding.ActivityMainBinding
 import com.the.war.of.thewarofstars.ui.navigation.setupWithNavController
-//import androidx.navigation.ui.setupWithNavController
-
+import com.the.war.of.thewarofstars.util.BackButtonCloseHandler
 
 
 class MainActivity : AppCompatActivity() {
 
     private var currentNavController: LiveData<NavController>? = null
+
+    private val backButtonCloseHandler = BackButtonCloseHandler(this)
+
+    private val TAG = "MainActivityLog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,19 +35,6 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             setUpBottomNavigationBar()
         } // Else, need to wait for onRestoreInstanceState
-
-//        val navView = findViewById<BottomNavigationView>(R.id.nav_view)
-//
-//        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.home, R.layout.fragment_message, R.layout.fragment_mypage
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
 
     }
 
@@ -62,6 +54,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
+    }
+
+    override fun onBackPressed() {
+        when (currentNavController?.value?.currentDestination?.label) {
+            getString(R.string.title_home) -> backButtonCloseHandler.onBackPressed()
+            else -> super.onBackPressed()
+
+        }
+
     }
 
 }

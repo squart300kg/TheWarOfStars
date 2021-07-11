@@ -5,10 +5,10 @@
     android:id="@+id/message"
     app:startDestination="@+id/message">
 
-        <fragment
-            android:id="@+id/message"
-            android:name="com.the.war.of.thewarofstars.ui.message.MessageFragment"
-            android:label="@string/title_message"
-            tools:layout="@layout/fragment_message" />
+    <fragment
+        android:id="@+id/message"
+        android:name="com.the.war.of.thewarofstars.ui.message.MessageFragment"
+        android:label="@string/title_message"
+        tools:layout="@layout/fragment_message" />
 
 </navigation>

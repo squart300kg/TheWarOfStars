@@ -12,7 +12,7 @@
         android:title="@string/title_message" />
 
     <item
-        android:id="@+id/mypage"
+        android:id="@+id/myPage"
         android:icon="@drawable/ic_mypage_24"
         android:title="@string/title_mypage" />
 
