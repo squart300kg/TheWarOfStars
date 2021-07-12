@@ -29,12 +29,13 @@ class HomeViewModel : ViewModel() {
                         if (collection != null) {
                             val gamerList = mutableListOf<Gamer>()
                             for (document in collection.documents ) {
-                                Log.i(TAG, "${document.data}")
+
                                 gamerList.add(
                                     Gamer(
                                         document.data?.get("name") as String,
                                         document.data?.get("price") as Long,
                                         document.data?.get("title") as String,
+                                        document.data?.get("thumbnailURL") as String,
                                         null
                                     )
                                 )

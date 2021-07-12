@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:theWarsOfStar="http://schemas.android.com/tools">
     <data>
-
+        <variable
+            name="bannerModel"
+            type="com.the.war.of.thewarofstars.model.Banner" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,6 +13,7 @@
 
         <ImageView
             android:id="@+id/coverImageView"
+            theWarsOfStar:setBanner = "@{bannerModel.imageURL}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

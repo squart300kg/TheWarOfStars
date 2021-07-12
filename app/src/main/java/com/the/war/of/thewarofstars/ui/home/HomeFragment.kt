@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import androidx.viewpager.widget.ViewPager
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseFragment
@@ -49,17 +51,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             homeVm = homeViewModel
 
-            bannerViewPager.apply {
-                val bannerAdapter = BannerAdapter { position ->
-                    Log.i(TAG, "bannerPosition : $position")
-                }
-                adapter = bannerAdapter
-                addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-                    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
-                    override fun onPageSelected(position: Int) { }
-                    override fun onPageScrollStateChanged(state: Int) { }
-                })
+            bannerRecyclerView.apply {
+                setHasFixedSize(true)
+                val linearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                layoutManager = linearLayoutManager
+                adapter = BannerAdapter()
+
+                val snapHelper = PagerSnapHelper()
+                snapHelper.attachToRecyclerView(this)
             }
+
 
             gamerListRecyclerView.apply {
                 setHasFixedSize(true)

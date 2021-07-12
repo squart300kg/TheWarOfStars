@@ -11,7 +11,7 @@
     <dimen name="main_categoty_image_size">50sp</dimen>
     <dimen name="main_vertical_top_margin">30sp</dimen>
     <dimen name="main_gamer_list_all_padding">15sp</dimen>
-    <dimen name="main_banner_height">150sp</dimen>
+    <dimen name="main_banner_height">250sp</dimen>
 
 
     <dimen name="item_main_gamer_list_height">150sp</dimen>

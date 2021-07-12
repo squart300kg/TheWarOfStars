@@ -4,5 +4,6 @@ data class Gamer(
     val name: String,
     val price: Long,
     val title: String,
+    val thumbnailURL: String,
     val review_list: Review?
 )

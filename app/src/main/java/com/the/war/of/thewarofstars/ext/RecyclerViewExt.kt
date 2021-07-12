@@ -4,7 +4,9 @@ package com.the.war.of.thewarofstars.ext
 import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.the.war.of.thewarofstars.model.Banner
 import com.the.war.of.thewarofstars.model.Gamer
+import com.the.war.of.thewarofstars.ui.home.BannerAdapter
 import com.the.war.of.thewarofstars.ui.home.GamerListAdapter
 
 @BindingAdapter("theWarsOfStar:setItems")
@@ -16,6 +18,10 @@ fun <T> RecyclerView.setItems(items: List<T>?) {
             is GamerListAdapter -> {
                 (adapter as GamerListAdapter).loadGamerList(items as List<Gamer>)
             }
+            is BannerAdapter -> {
+                (adapter as BannerAdapter).loadBannerList(items as List<Banner>)
+            }
+
         }
     }
 }

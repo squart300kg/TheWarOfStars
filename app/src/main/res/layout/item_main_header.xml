@@ -11,29 +11,20 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/global_top_margin"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-
-<!--        <androidx.viewpager.widget.ViewPager-->
-<!--            android:id="@+id/banner_view_pager"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/main_banner_height"-->
-<!--            android:overScrollMode="never"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
         <LinearLayout
             android:id="@+id/category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/global_top_margin"
             android:orientation="vertical"
-            android:layout_marginTop="@dimen/main_vertical_top_margin"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
+                android:id="@+id/allToCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -106,8 +97,15 @@
                         android:textSize="@dimen/global_font_size"
                         android:text="프로토스"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
             </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                android:id="@+id/allToSee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/main_vertical_top_margin"
+                android:textSize="@dimen/global_font_size"
+                android:text="전체 보기"/>
         </LinearLayout>
 
 
