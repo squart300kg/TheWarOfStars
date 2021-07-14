@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kakao.sdk.common.KakaoSdk
 import com.the.war.of.thewarofstars.di.appComponent
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
@@ -14,6 +15,8 @@ open class Application: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        KakaoSdk.init(this, getString(R.string.kakao_app_key))
 
         configureDi()
 
