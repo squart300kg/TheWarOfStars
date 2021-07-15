@@ -13,21 +13,21 @@
         tools:context=".ui.LoginActivity">
 
         <VideoView
-            android:id="@+id/videoView"
+            android:id="@+id/video_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="Hello"
             android:textSize="100dp"
-            app:layout_constraintBottom_toTopOf="@id/kakao_login_button"
+            app:layout_constraintBottom_toTopOf="@id/naver_login_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/kakao_login_button"
+        <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+            android:id="@+id/naver_login_button"
             android:layout_width="300sp"
-            android:layout_height="50sp"
-            android:src="@drawable/kakao_login_large_wide"
+            android:layout_height="60sp"
+            android:src="@drawable/naver_login_button"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/email_login_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,11 +36,11 @@
         <TextView
             android:id="@+id/email_login_button"
             android:layout_width="300sp"
-            android:layout_height="50sp"
+            android:layout_height="60sp"
             android:background="@drawable/border_round_email"
             android:layout_marginBottom="20dp"
-            android:text="이메일 로그인"
-            android:textSize="12sp"
+            android:text="이메일로 로그인"
+            android:textSize="20sp"
             android:textAlignment="center"
             android:gravity="center_vertical"
             android:textStyle="bold"

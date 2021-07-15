@@ -41,14 +41,15 @@ android {
 
 dependencies {
 
-    // 카카오 로그인
-    implementation "com.kakao.sdk:v2-user:$kakao_login_version"
+    // Naver Login
+    implementation "com.naver.nid:naveridlogin-android-sdk:$naver_login_version"
+//    implementation files('libs/naveridlogin_android_sdk_4.2.6.aar')
 
     // GLIDE
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
-    // firebase
+    // Firebase
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'

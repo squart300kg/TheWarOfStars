@@ -20,6 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-# kakao proguard settings
--keep class com.kakao.sdk.**.model.* { <fields>; }
--keep class * extends com.google.gson.TypeAdapter
+# Naver Proguard
+-keep public class com.nhn.android.naverlogin.** {
+       public protected *;
+}
