@@ -2,6 +2,7 @@ package com.the.war.of.thewarofstars.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,10 +28,12 @@ class LoginActivity : AppCompatActivity() {
             videoView.start()
 
             naverLoginButton.setOnClickListener { startNaverLogin() }
-            videoView.setOnClickListener{  }
+            videoView.setOnClickListener{ startNaverLogout() }
         }
 
     }
+    private fun startNaverLogout() = Application.instance?.naverLoginModule?.logoutAndDeleteToken(this@LoginActivity)
+
     private fun startNaverLogin() =
         Application.instance?.naverLoginModule?.startOauthLoginActivity(this@LoginActivity, naverLoginListener())
 
@@ -40,8 +43,13 @@ class LoginActivity : AppCompatActivity() {
                 val naverLoginModule = Application.instance?.naverLoginModule
                 val accessToken = naverLoginModule?.getAccessToken(this@LoginActivity)
                 val refreshToken = naverLoginModule?.getRefreshToken(this@LoginActivity)
+                val result = naverLoginModule?.requestApi(this@LoginActivity, accessToken, "https://openapi.naver.com/v1/nid/me")
+
+
+
                 Log.i(TAG, "accessToken : $accessToken")
                 Log.i(TAG, "refreshToken : $refreshToken")
+                Log.i(TAG, "result : $result")
             } else {
 
             }
@@ -67,4 +75,5 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
 }
