@@ -4,8 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import com.nhn.android.naverlogin.OAuthLoginHandler
-import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityLoginBinding
@@ -32,7 +30,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
 
         observing {
-
+            email.observe(this@LoginActivity, { email ->
+                Log.i(TAG, "observe email : $email")
+                loginViewModel.isRegister(email)
+            })
         }
 
     }
@@ -56,4 +57,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
 
 }
+
+
 

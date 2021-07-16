@@ -53,4 +53,7 @@ class LoginViewModel(
         }
 
     }
+    fun isRegister(email: String?) {
+
+    }
 }
