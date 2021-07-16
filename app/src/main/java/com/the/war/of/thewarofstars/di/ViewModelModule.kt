@@ -1,5 +1,6 @@
 package com.the.war.of.thewarofstars.di
 
+import com.the.war.of.thewarofstars.ui.LoginViewModel
 import com.the.war.of.thewarofstars.ui.message.MessageViewModel
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.ui.mypage.MyPageViewModel
@@ -10,4 +11,5 @@ val viewModelModule = module {
     viewModel { HomeViewModel() }
     viewModel { MessageViewModel() }
     viewModel { MyPageViewModel() }
+    viewModel { LoginViewModel(get()) }
 }

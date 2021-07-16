@@ -17,6 +17,8 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
+        buildConfigField("String", "naverLoginURL", '"https://openapi.naver.com/v1/nid/me"')
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,6 +42,17 @@ android {
 }
 
 dependencies {
+
+    // NETWORK
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "androidx.paging:paging-runtime-ktx:$pagination_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+
+    // Koin
+    implementation "io.insert-koin:koin-android:$koin_version"
 
     // Naver Login
     implementation "com.naver.nid:naveridlogin-android-sdk:$naver_login_version"
