@@ -1,16 +1,11 @@
 package com.the.war.of.thewarofstars.ui
 
-import android.app.Application
-import android.os.Handler
-import android.os.Looper
+
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.the.war.of.thewarofstars.BuildConfig
 import com.the.war.of.thewarofstars.base.BaseViewModel
-import com.the.war.of.thewarofstars.model.NaverUserResponse
 import com.the.war.of.thewarofstars.repository.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -24,6 +19,14 @@ class LoginViewModel(
     private val loginRepository: LoginRepository
 ): BaseViewModel() {
 
+    private val _email = MutableLiveData<String>()
+    val email: LiveData<String>
+        get() = _email
+
+    private val _nickname = MutableLiveData<String>()
+    val nickname: LiveData<String>
+        get() = _nickname
+
     val TAG = "LoginViewModelLog"
 
     fun requestNaverUserInfo(accessToken: String) {
@@ -36,18 +39,16 @@ class LoginViewModel(
                     if(exception is HttpException) {
                         val errorJson = JSONObject(exception.response()?.errorBody()?.string())
                         _errorCode.value = errorJson.getString("code")
-                        _errorMsg.value = errorJson.getString("message")
+                        _errorMsg.value  = errorJson.getString("message")
                     }
                     Log.i(TAG, "fail-${_errorCode.value} - ${_errorMsg.value}")
                 }
                 .collect { naverUserInfoResponse ->
-                    Log.i(TAG, naverUserInfoResponse.toString())
-                    val response = JSONObject(naverUserInfoResponse).getJSONObject("response")
-                    val nickname = response.getString("nickname")
-                    val email    = response.getString("email")
+                    val response    = JSONObject(naverUserInfoResponse).getJSONObject("response")
+                    _email.value    = response.getString("email")
+                    _nickname.value = response.getString("nickname")
 
-                    Log.i(TAG, "nickname : $nickname, email : $email")
-
+                    Log.i(TAG, "result : ${email.value}, ${nickname.value}")
                 }
         }
 
