@@ -5,7 +5,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
+import com.the.war.of.thewarofstars.model.User
 import com.the.war.of.thewarofstars.repository.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -26,6 +28,10 @@ class LoginViewModel(
     private val _nickname = MutableLiveData<String>()
     val nickname: LiveData<String>
         get() = _nickname
+
+    private val _isRegister = MutableLiveData<Boolean>()
+    val isRegister: LiveData<Boolean>
+        get() = _isRegister
 
     val TAG = "LoginViewModelLog"
 
@@ -55,5 +61,36 @@ class LoginViewModel(
     }
     fun isRegister(email: String?) {
 
+        _isRegister.value = false
+
+        Application?.instance?.firebaseDB
+            ?.collection("UserList")
+                ?.whereEqualTo("email", email)
+                    ?.get()
+                    ?.addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            _isRegister.value = true
+                        }
+                    }
+    }
+
+    fun registerUser() {
+
+        Log.i(TAG, "registerUser : ${email.value}, ${nickname.value}")
+
+        Application?.instance?.firebaseDB
+            ?.collection("UserInfo")
+            ?.document(email.value.toString())
+            ?.set(
+                User(
+                    _email.value as String,
+//                    _nickname.value as String
+                "하드코딩 닉네임"
+                )
+            )
+            ?.addOnSuccessListener {
+                Log.i(TAG, "회원정보 등록 완료! email : ${_email.value}, nickname : ${_nickname.value}")
+                _isRegister.value = true
+            }
     }
 }

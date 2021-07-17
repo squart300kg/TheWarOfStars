@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import com.the.war.of.thewarofstars.BaseActivity
+import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityLoginBinding
 import com.the.war.of.thewarofstars.util.NaverLogin
@@ -18,6 +19,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     val TAG = "LoginActivityLog"
 
+    /**
+     * 로그인 프로세스
+     *1. 네이버 서버로부터 사용자 정보를 가져온다.
+     *2. 사용자 정보를 사용해 회원가입 여부를 검사한다.
+     *2.1. 회원가입을 했다면 메인페이지로 넘겨준다.
+     *2.2. 회원가입을 안했다면 서버에 회원정보를 저장하고 메인페이지로 넘겨준다.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,14 +42,31 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 Log.i(TAG, "observe email : $email")
                 loginViewModel.isRegister(email)
             })
+
+            nickname.observe(this@LoginActivity, { nickname ->
+                Log.i(TAG, "observe nickname : $nickname")
+
+            })
+
+            isRegister.observe(this@LoginActivity, { isRegister ->
+                when (isRegister) {
+                    true -> {
+                        /**
+                         * 회원이므로 메인페이지로 이동한다.
+                         */
+                        goNext(MainActivity::class.java)
+                    }
+                    false -> {
+                        /**
+                         * 회원이 아니므로, 회원가입 후, 메인페이지로 이동한다.
+                         */
+                        loginViewModel.registerUser()
+                    }
+                }
+            })
         }
 
     }
-    // 로그인 프로세스
-    // 1. ㄴㅔ이버 서버로부터 사용자 정보를 가져온다.
-    // 2. 사용자 정보를 사용해 회원가입 여부를 검사한다.
-    //   2.1. 회원가입을 했다면 메인페이지로 넘겨준다.
-    //   2.2. 회원가입을 안했다면 서버에 회원정보를 저장하고 메인페이지로 넘겨준다.
 
     private fun observing(action: LoginViewModel.() -> Unit) {
         loginViewModel.run(action)
