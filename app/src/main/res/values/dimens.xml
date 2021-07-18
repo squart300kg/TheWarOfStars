@@ -16,4 +16,7 @@
 
     <dimen name="item_main_gamer_list_height">150sp</dimen>
     <dimen name="item_main_gamer_list_all_padding">15sp</dimen>
+
+    <dimen name="email_login_common_margin">20dp</dimen>
+    <dimen name="email_login_button_height">75dp</dimen>
 </resources>

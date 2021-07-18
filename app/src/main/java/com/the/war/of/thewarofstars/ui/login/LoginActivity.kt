@@ -1,4 +1,4 @@
-package com.the.war.of.thewarofstars.ui
+package com.the.war.of.thewarofstars.ui.login
 
 import android.content.Intent
 import android.net.Uri
@@ -34,6 +34,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             videoView.start()
 
             naverLoginButton.setOnClickListener { NaverLogin.startNaverLogin(this@LoginActivity, loginViewModel) }
+            emailLoginButton.setOnClickListener { startActivity(Intent(this@LoginActivity, EmailLoginActivity::class.java)) }
             videoView.setOnClickListener{ NaverLogin.startNaverLogout(this@LoginActivity) }
         }
 
@@ -54,6 +55,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         /**
                          * 회원이므로 메인페이지로 이동한다.
                          */
+                        showToast("${loginViewModel.nickname}님, 안녕하세요!")
                         goNext(MainActivity::class.java)
                     }
                     false -> {
@@ -71,6 +73,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private fun observing(action: LoginViewModel.() -> Unit) {
         loginViewModel.run(action)
     }
+
     private fun goNext(activity: Class<*>) {
         val intent = Intent(this, activity)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

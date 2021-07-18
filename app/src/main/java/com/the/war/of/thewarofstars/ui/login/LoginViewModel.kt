@@ -1,4 +1,4 @@
-package com.the.war.of.thewarofstars.ui
+package com.the.war.of.thewarofstars.ui.login
 
 
 import android.util.Log
@@ -59,33 +59,32 @@ class LoginViewModel(
         }
 
     }
+
     fun isRegister(email: String?) {
 
-        _isRegister.value = false
-
-        Application?.instance?.firebaseDB
-            ?.collection("UserList")
+        Log.i(TAG, "inputEmail : $email")
+        Application.instance?.firebaseDB?.collection("UserList")
                 ?.whereEqualTo("email", email)
                     ?.get()
                     ?.addOnSuccessListener { documents ->
                         for (document in documents) {
                             _isRegister.value = true
+                            return@addOnSuccessListener
                         }
+                        _isRegister.value = false
                     }
     }
 
     fun registerUser() {
 
-        Log.i(TAG, "registerUser : ${email.value}, ${nickname.value}")
-
-        Application?.instance?.firebaseDB
-            ?.collection("UserInfo")
+        Application.instance?.firebaseDB
+            ?.collection("UserList")
             ?.document(email.value.toString())
             ?.set(
                 User(
                     _email.value as String,
-//                    _nickname.value as String
-                "하드코딩 닉네임"
+                    _nickname.value as String
+//                "하드코딩 닉네임"
                 )
             )
             ?.addOnSuccessListener {

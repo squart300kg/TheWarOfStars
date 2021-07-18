@@ -5,7 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.the.war.of.thewarofstars.Application
-import com.the.war.of.thewarofstars.ui.LoginViewModel
+import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 
 object NaverLogin {
     fun startNaverLogout(activity: Activity) =
