@@ -18,27 +18,35 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/email_login_common_margin"
+        android:hint="이메일 입력"
+        app:hintEnabled="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etv_email"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/email_login_button_height"
-            android:hint="이메일 입력"/>
+            android:layout_height="70dp"
+            android:inputType="textEmailAddress"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_password_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/email_login_common_margin"
+        android:hint="비밀번호 입력"
+        app:hintEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/layout_email_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etv_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/email_login_button_height"
-            android:hint="비밀번호 입력"/>
+            android:layout_height="70dp"
+            android:inputType="textPassword"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout

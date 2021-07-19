@@ -1,7 +1,9 @@
 package com.the.war.of.thewarofstars.ui.home
 
 import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import androidx.viewpager.widget.ViewPager
+import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils.dpToPx
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseFragment
 import com.the.war.of.thewarofstars.databinding.FragmentHomeBinding
@@ -21,6 +24,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
     private val TAG = "HomeFragment"
+
+    private val countDownTimer: CountDownTimer = object : CountDownTimer(Long.MAX_VALUE, 3000) {
+        override fun onTick(millisUntilFinished: Long) {
+        }
+        override fun onFinish() { }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -59,13 +68,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                 val snapHelper = PagerSnapHelper()
                 snapHelper.attachToRecyclerView(this)
+
+
             }
+
 
 
             gamerListRecyclerView.apply {
                 setHasFixedSize(true)
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                 layoutManager = linearLayoutManager
+                addItemDecoration(object: RecyclerView.ItemDecoration() {
+                    override fun getItemOffsets(
+                        outRect: Rect,
+                        view: View,
+                        parent: RecyclerView,
+                        state: RecyclerView.State
+                    ) {
+                        super.getItemOffsets(outRect, view, parent, state)
+//                        outRect.right = dpToPx(6)
+//                        outRect.left = dpToPx(6)
+                        outRect.bottom = dpToPx(10)
+                        outRect.top = dpToPx(10)
+
+                    }
+                })
                 adapter = GamerListAdapter()
 
             }
@@ -73,6 +100,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        countDownTimer.start()
+    }
     override fun onPause() {
         super.onPause()
         Log.i(TAG, "onPause")

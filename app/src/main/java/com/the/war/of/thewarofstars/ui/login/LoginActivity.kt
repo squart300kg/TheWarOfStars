@@ -1,9 +1,14 @@
 package com.the.war.of.thewarofstars.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
@@ -18,6 +23,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private val loginViewModel: LoginViewModel by viewModel()
 
     val TAG = "LoginActivityLog"
+
+    private val startActivityResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result?.resultCode == Activity.RESULT_OK) {
+            goNext(MainActivity::class.java)
+        }
+    }
 
     /**
      * 로그인 프로세스
@@ -34,7 +47,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             videoView.start()
 
             naverLoginButton.setOnClickListener { NaverLogin.startNaverLogin(this@LoginActivity, loginViewModel) }
-            emailLoginButton.setOnClickListener { startActivity(Intent(this@LoginActivity, EmailLoginActivity::class.java)) }
+            emailLoginButton.setOnClickListener {
+                startActivityResult.launch(Intent(this@LoginActivity, EmailLoginActivity::class.java))
+            }
             videoView.setOnClickListener{ NaverLogin.startNaverLogout(this@LoginActivity) }
         }
 
@@ -55,7 +70,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         /**
                          * 회원이므로 메인페이지로 이동한다.
                          */
-                        showToast("${loginViewModel.nickname}님, 안녕하세요!")
                         goNext(MainActivity::class.java)
                     }
                     false -> {

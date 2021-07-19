@@ -32,8 +32,12 @@ class BannerAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as BannerViewHolder).bindItem(items[position])
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+
+        val holder = viewHolder as BannerViewHolder
+        holder.bindItem(items[position])
+
+
     }
 
     override fun getItemCount(): Int = items.size
@@ -53,7 +57,9 @@ class BannerAdapter(
         itemId: Int,
         parent: ViewGroup,
         layoutRes: Int
-    ): BaseViewHolder<Banner, ItemBannerBinding>(itemId, parent, layoutRes)
+    ): BaseViewHolder<Banner, ItemBannerBinding>(itemId, parent, layoutRes) {
+
+    }
 
 
 

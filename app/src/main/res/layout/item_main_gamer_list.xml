@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:padding="@dimen/main_gamer_list_all_padding"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="100"
-            android:padding="@dimen/item_main_gamer_list_all_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -27,7 +26,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="40"
-                android:layout_height="@dimen/item_main_gamer_list_height"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8sp"
                 android:orientation="vertical">
                 <ImageView
@@ -36,16 +35,16 @@
                     android:layout_height="@dimen/item_main_gamer_list_height"
                     theWarsOfStar:setThumbnail="@{gamerModel.thumbnailURL}"
                     android:src="@mipmap/ic_launcher_round"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:text="김택용 선수"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content"
-                    theWarsOfStar:setTitle="@{gamerModel.name}"/>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:text="김택용 선수"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    theWarsOfStar:setTitle="@{gamerModel.name}"/>-->
             </LinearLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_weight="60"
                 android:layout_height="@dimen/item_main_gamer_list_height"
@@ -54,6 +53,7 @@
                 android:weightSum="100">
 
                 <TextView
+                    android:id="@+id/tv_main_title"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="40"
@@ -61,21 +61,39 @@
                     android:textStyle="bold"
                     android:maxLines="2"
                     android:ellipsize="end"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/global_font_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     theWarsOfStar:setName="@{gamerModel.title}"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_certification"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="20"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_title"
+                    >
+                    <ImageView
+                        android:id="@+id/iv_star"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/ic_yellow_star"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:textSize="@dimen/global_font_size"
+                        android:textSize="12sp"
                         android:text="8 / 10점"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="5dp"
+                        app:layout_constraintStart_toEndOf="@+id/iv_star"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -91,15 +109,32 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
+                    android:id="@+id/tv_price"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="40"
                     android:textStyle="bold"
-                    android:gravity="left|center_vertical"
                     android:text="100,000원 / 1판"
                     android:textSize="@dimen/global_font_size"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_certification"
                     theWarsOfStar:setPrice="@{gamerModel.price}"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="김택용 선수"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content"
+                    theWarsOfStar:setTitle="@{gamerModel.name}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_price"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
