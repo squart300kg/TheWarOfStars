@@ -71,8 +71,8 @@ class HomeViewModel : ViewModel() {
                                     )
                                 )
 
-                                _bannerList.value = bannerList
                             }
+                            _bannerList.value = bannerList
                         }
                     }
                     ?.addOnFailureListener { exception ->

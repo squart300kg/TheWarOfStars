@@ -50,7 +50,6 @@ class BannerAdapter(
         Log.i(TAG, list.toString())
         Log.i(TAG, list.size.toString())
         Log.i(TAG, items.size.toString())
-
     }
 
     class BannerViewHolder(

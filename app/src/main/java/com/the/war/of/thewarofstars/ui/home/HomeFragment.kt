@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,12 +25,32 @@ import com.the.war.of.thewarofstars.databinding.FragmentHomeBinding
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private val TAG = "HomeFragment"
+    private val TAG = "HomeFragmentLog"
 
-    private val countDownTimer: CountDownTimer = object : CountDownTimer(Long.MAX_VALUE, 3000) {
+    private lateinit var bannerAdapter: BannerAdapter
+
+    // 메인 배너 auto scroll
+    private val countDownTimer = object : CountDownTimer(Long.MAX_VALUE, 5000) {
+        var bannerCount: Int? = null
+        var currentBannerIndex = 0
+
         override fun onTick(millisUntilFinished: Long) {
+
+            binding {
+                bannerRecyclerView.apply {
+                    bannerCount = bannerAdapter.itemCount
+                    smoothScrollToPosition(currentBannerIndex)
+                    currentBannerIndex++
+
+                    if (currentBannerIndex == bannerCount)
+                        currentBannerIndex = 0
+
+                }
+            }
         }
-        override fun onFinish() { }
+        override fun onFinish() {
+            start()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -63,11 +85,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             bannerRecyclerView.apply {
                 setHasFixedSize(true)
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                bannerAdapter = BannerAdapter()
                 layoutManager = linearLayoutManager
-                adapter = BannerAdapter()
+                adapter = bannerAdapter
 
                 val snapHelper = PagerSnapHelper()
                 snapHelper.attachToRecyclerView(this)
+
+
+
 
 
             }
@@ -98,11 +124,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         }
 
+        observing {
+            bannerList.observe(requireActivity(), {
+                countDownTimer.start()
+
+
+            })
+        }
+
     }
 
     override fun onResume() {
         super.onResume()
-        countDownTimer.start()
     }
     override fun onPause() {
         super.onPause()
@@ -128,6 +161,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onDetach() {
         super.onDetach()
         Log.i(TAG, "onDetach")
+    }
+
+    private fun observing(action: HomeViewModel.() -> Unit) {
+        homeViewModel.run(action)
     }
 
 }
