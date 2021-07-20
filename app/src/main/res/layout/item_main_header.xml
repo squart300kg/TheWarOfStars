@@ -48,12 +48,13 @@
                         android:layout_width="@dimen/main_categoty_image_size"
                         android:layout_height="@dimen/main_categoty_image_size"
                         android:layout_gravity="center"
-                        android:src="@mipmap/ic_launcher_round"/>
+                        android:src="@mipmap/ic_terran_logo"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textStyle="bold"
+                        android:textColor="#1f274d"
                         android:textSize="@dimen/global_font_size"
                         android:text="테란"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -68,12 +69,13 @@
                         android:layout_width="@dimen/main_categoty_image_size"
                         android:layout_height="@dimen/main_categoty_image_size"
                         android:layout_gravity="center"
-                        android:src="@mipmap/ic_launcher_round"/>
+                        android:src="@mipmap/ic_zerg_logo"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textStyle="bold"
+                        android:textColor="#822525"
                         android:textSize="@dimen/global_font_size"
                         android:text="저그"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -88,12 +90,13 @@
                         android:layout_width="@dimen/main_categoty_image_size"
                         android:layout_height="@dimen/main_categoty_image_size"
                         android:layout_gravity="center"
-                        android:src="@mipmap/ic_launcher_round"/>
+                        android:src="@mipmap/ic_protoss_logo"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textStyle="bold"
+                        android:textColor="#cc9933"
                         android:textSize="@dimen/global_font_size"
                         android:text="프로토스"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
