@@ -1,5 +1,7 @@
 package com.the.war.of.thewarofstars.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +14,10 @@ import com.the.war.of.thewarofstars.base.BaseViewHolder
 import com.the.war.of.thewarofstars.databinding.ItemMainGamerListBinding
 import com.the.war.of.thewarofstars.databinding.ItemMainHeaderBinding
 import com.the.war.of.thewarofstars.model.Gamer
+import com.the.war.of.thewarofstars.ui.home.sub.GamerDetailActivity
 
 class GamerListAdapter(
-
+    val context: Context
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items: MutableList<Gamer> = mutableListOf()
@@ -50,7 +53,13 @@ class GamerListAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)) {
             HEADER_TYPE -> (holder as HeaderViewHolder).bind()
-            GAMER_TYPE -> (holder as GamerListViewHolder).bindItem(items[position - THE_NUBER_OF_HEADER])
+            GAMER_TYPE -> {
+                val viewHolder = holder as GamerListViewHolder
+                viewHolder.bindItem(items[position - THE_NUBER_OF_HEADER])
+                viewHolder.itemView.setOnClickListener {
+                    context.startActivity(Intent(context, GamerDetailActivity::class.java))
+                }
+            }
         }
     }
 

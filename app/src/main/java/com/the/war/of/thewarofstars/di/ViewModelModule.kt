@@ -3,6 +3,7 @@ package com.the.war.of.thewarofstars.di
 import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import com.the.war.of.thewarofstars.ui.message.MessageViewModel
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
+import com.the.war.of.thewarofstars.ui.home.sub.GamerDetailViewModel
 import com.the.war.of.thewarofstars.ui.login.EmailLoginViewModel
 import com.the.war.of.thewarofstars.ui.mypage.MyPageViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,4 +15,5 @@ val viewModelModule = module {
     viewModel { MyPageViewModel() }
     viewModel { LoginViewModel(get()) }
     viewModel { EmailLoginViewModel() }
+    viewModel { GamerDetailViewModel() }
 }

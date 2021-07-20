@@ -119,7 +119,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                     }
                 })
-                adapter = GamerListAdapter()
+                adapter = GamerListAdapter(requireActivity())
 
             }
         }
