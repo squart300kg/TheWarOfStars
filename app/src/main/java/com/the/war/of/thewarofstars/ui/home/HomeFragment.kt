@@ -84,9 +84,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 layoutManager = linearLayoutManager
                 adapter = bannerListAdapter
 
-                val snapHelper = PagerSnapHelper()
-                snapHelper.attachToRecyclerView(this)
-
                 bannerSkeletonScreen = Skeleton.bind(bannerRecyclerView)
                     .adapter(bannerListAdapter)
                     .shimmer(true)
@@ -98,9 +95,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     .load(R.layout.skeleton_banner)
                     .show()
 
+                val snapHelper = PagerSnapHelper()
+                snapHelper.attachToRecyclerView(this)
             }
-
-
 
             gamerListRecyclerView.apply {
                 setHasFixedSize(true)
@@ -108,6 +105,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 gamerListAdapter = GamerListAdapter(requireActivity())
                 layoutManager = linearLayoutManager
                 adapter = GamerListAdapter(requireActivity())
+
+                gamerListSkeletonScreen = Skeleton.bind(gamerListRecyclerView)
+                    .adapter(gamerListAdapter)
+                    .shimmer(true)
+                    .angle(20)
+                    .frozen(false)
+                    .duration(1200)
+                    .count(10)
+                    .color(R.color.shimmer_color)
+                    .load(R.layout.skeleton_gamer_list)
+                    .show()
+
                 addItemDecoration(object: RecyclerView.ItemDecoration() {
                     override fun getItemOffsets(
                         outRect: Rect,
@@ -121,16 +130,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                     }
                 })
-                gamerListSkeletonScreen = Skeleton.bind(gamerListRecyclerView)
-                    .adapter(gamerListAdapter)
-                    .shimmer(true)
-                    .angle(20)
-                    .frozen(false)
-                    .duration(1200)
-                    .count(10)
-                    .color(R.color.shimmer_color)
-                    .load(R.layout.skeleton_gamer_list)
-                    .show()
 
             }
         }

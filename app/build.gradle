@@ -43,6 +43,9 @@ android {
 
 dependencies {
 
+    // 텍스트뷰 더보기
+    implementation 'kr.co.prnd:readmore-textview:1.0.0'
+
     // skeleton
     implementation 'com.ethanhua:skeleton:1.1.2'
     implementation 'io.supercharge:shimmerlayout:2.1.0'

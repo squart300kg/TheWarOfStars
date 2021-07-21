@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="reviewModel"
+            type="com.the.war.of.thewarofstars.model.Review" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="닉네임"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <ImageView
+            android:id="@+id/tv_start1"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/ic_yellow_star"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <ImageView
+            android:id="@+id/iv_start2"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/ic_yellow_star"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/tv_start1"/>
+        <ImageView
+            android:id="@+id/iv_start3"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/ic_yellow_star"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/iv_start2"/>
+        <ImageView
+            android:id="@+id/iv_start4"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/ic_yellow_star"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/iv_start3"/>
+
+        <ImageView
+            android:id="@+id/iv_start5"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@mipmap/ic_yellow_star"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/iv_start4"/>
+        <TextView
+            android:id="@+id/tv_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="|"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@id/iv_start5"/>
+        <TextView
+            android:id="@+id/tv_review_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21.10.09"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@id/tv_divider"/>
+        <kr.co.prnd.readmore.ReadMoreTextView
+            android:id="@+id/tv_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:readMoreMaxLine="4"
+            app:readMoreText="... 더보기"
+            app:readMoreColor="#b5b5b5"
+            android:textColor="#b5b5b5"
+            android:layout_marginTop="10dp"
+            android:text="정말 꼼꼼히 가르쳐 주셨습니다. 스타 한 판이 얼마나 큰 영향을 줄지 몰랐습니다. 하지만 해보니 다릅니다. 프로는 엮시 프로더군요. 제가 부족한 점들, 인지하지 못했던 점들을 꼼꼼히 짚어 주셨습니다. 20만원이 전혀 아깝지 않은 강의였습니다. 스타실력이 정체되신분들, 들으시면 큰 영향이 갈거라 생각합니다!. 강의 강추합니다!"
+            app:layout_constraintTop_toBottomOf="@id/tv_start1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
