@@ -33,8 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_weight="40"
                     android:layout_height="@dimen/item_main_gamer_list_height"
-                    theWarsOfStar:setThumbnail="@{gamerModel.thumbnailURL}"
-                    android:src="@mipmap/ic_launcher_round"/>
+                    theWarsOfStar:setThumbnail="@{gamerModel.thumbnailURL}" />
 <!--                <TextView-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:text="김택용 선수"-->

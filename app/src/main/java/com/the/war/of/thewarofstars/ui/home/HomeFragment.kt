@@ -4,19 +4,14 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
-import androidx.viewpager.widget.ViewPager
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.SkeletonScreen
 import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils.dpToPx
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseFragment
@@ -27,7 +22,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val homeViewModel: HomeViewModel by viewModels()
     private val TAG = "HomeFragmentLog"
 
-    private lateinit var bannerAdapter: BannerAdapter
+    private lateinit var bannerListAdapter: BannerAdapter
+    private lateinit var gamerListAdapter: GamerListAdapter
+
+    private var bannerSkeletonScreen: SkeletonScreen? = null
+    private var gamerListSkeletonScreen: SkeletonScreen? = null
 
     // 메인 배너 auto scroll
     private val countDownTimer = object : CountDownTimer(Long.MAX_VALUE, 5000) {
@@ -38,13 +37,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             binding {
                 bannerRecyclerView.apply {
-                    bannerCount = bannerAdapter.itemCount
+                    bannerCount = bannerListAdapter.itemCount
                     smoothScrollToPosition(currentBannerIndex)
                     currentBannerIndex++
 
                     if (currentBannerIndex == bannerCount)
                         currentBannerIndex = 0
-
                 }
             }
         }
@@ -61,17 +59,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
-        homeViewModel.getGamers()
-        homeViewModel.getBanners()
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        Log.i(TAG, "onCreateView")
-        return super.onCreateView(inflater, container, savedInstanceState)
+//        if (homeViewModel.bannerList.value == null) {
+//            homeViewModel.getBanners()
+//        }
+//
+//        if (homeViewModel.gamerList.value == null) {
+//            homeViewModel.getGamers()
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,16 +80,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             bannerRecyclerView.apply {
                 setHasFixedSize(true)
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                bannerAdapter = BannerAdapter()
+                bannerListAdapter = BannerAdapter(requireActivity())
                 layoutManager = linearLayoutManager
-                adapter = bannerAdapter
+                adapter = bannerListAdapter
 
                 val snapHelper = PagerSnapHelper()
                 snapHelper.attachToRecyclerView(this)
 
-
-
-
+                bannerSkeletonScreen = Skeleton.bind(bannerRecyclerView)
+                    .adapter(bannerListAdapter)
+                    .shimmer(true)
+                    .angle(20)
+                    .frozen(false)
+                    .duration(1200)
+                    .count(10)
+                    .color(R.color.shimmer_color)
+                    .load(R.layout.skeleton_banner)
+                    .show()
 
             }
 
@@ -103,7 +105,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             gamerListRecyclerView.apply {
                 setHasFixedSize(true)
                 val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                gamerListAdapter = GamerListAdapter(requireActivity())
                 layoutManager = linearLayoutManager
+                adapter = GamerListAdapter(requireActivity())
                 addItemDecoration(object: RecyclerView.ItemDecoration() {
                     override fun getItemOffsets(
                         outRect: Rect,
@@ -112,14 +116,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         state: RecyclerView.State
                     ) {
                         super.getItemOffsets(outRect, view, parent, state)
-//                        outRect.right = dpToPx(6)
-//                        outRect.left = dpToPx(6)
                         outRect.bottom = dpToPx(10)
                         outRect.top = dpToPx(10)
 
                     }
                 })
-                adapter = GamerListAdapter(requireActivity())
+                gamerListSkeletonScreen = Skeleton.bind(gamerListRecyclerView)
+                    .adapter(gamerListAdapter)
+                    .shimmer(true)
+                    .angle(20)
+                    .frozen(false)
+                    .duration(1200)
+                    .count(10)
+                    .color(R.color.shimmer_color)
+                    .load(R.layout.skeleton_gamer_list)
+                    .show()
 
             }
         }
@@ -127,8 +138,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         observing {
             bannerList.observe(requireActivity(), {
                 countDownTimer.start()
+            })
 
-
+            gamerList.observe(requireActivity(), {
+                gamerListSkeletonScreen?.hide()
+                bannerSkeletonScreen?.hide()
             })
         }
 
@@ -136,6 +150,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun onResume() {
         super.onResume()
+
+        if (homeViewModel.bannerList.value == null) {
+            homeViewModel.getBanners()
+        }
+
+        if (homeViewModel.gamerList.value == null) {
+            homeViewModel.getGamers()
+        }
     }
     override fun onPause() {
         super.onPause()

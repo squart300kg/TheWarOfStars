@@ -22,7 +22,7 @@ fun ImageView.setBanner(imageURL: String) {
                 )
             )
         )
-        .placeholder(R.mipmap.ic_launcher)
+        .placeholder(R.color.black)
         .error(R.color.black)
         .into(this)
 }

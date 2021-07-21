@@ -1,5 +1,6 @@
 package com.the.war.of.thewarofstars.ui.home
 
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,7 +20,7 @@ import com.the.war.of.thewarofstars.model.Banner
 import com.the.war.of.thewarofstars.model.Gamer
 
 class BannerAdapter(
-
+    val activity: Activity
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items: MutableList<Banner> = mutableListOf()
