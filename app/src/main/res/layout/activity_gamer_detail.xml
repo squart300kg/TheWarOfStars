@@ -59,7 +59,7 @@
                 android:layout_marginTop="20dp"
                 app:readMoreMaxLine="8"
                 app:readMoreText="... 더보기"
-                app:readMoreColor="#b5b5b5"
+                app:readMoreColor="@color/white"
                 android:textColor="#b5b5b5"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
