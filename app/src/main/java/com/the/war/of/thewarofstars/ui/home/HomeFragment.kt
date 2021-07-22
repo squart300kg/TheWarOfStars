@@ -60,13 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "onCreate")
 
-//        if (homeViewModel.bannerList.value == null) {
-//            homeViewModel.getBanners()
-//        }
-//
-//        if (homeViewModel.gamerList.value == null) {
-//            homeViewModel.getGamers()
-//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

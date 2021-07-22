@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
                         android:textSize="12sp"
-                        android:text="8 / 10점"
+                        android:text="5 / 5점"
                         android:layout_marginStart="5dp"
                         app:layout_constraintStart_toEndOf="@+id/iv_star"
                         app:layout_constraintTop_toTopOf="parent"

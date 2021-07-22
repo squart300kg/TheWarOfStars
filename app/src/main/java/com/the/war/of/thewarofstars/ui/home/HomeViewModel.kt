@@ -36,6 +36,7 @@ class HomeViewModel : ViewModel() {
                                         document.data?.get("price") as Long,
                                         document.data?.get("title") as String,
                                         document.data?.get("thumbnailURL") as String,
+                                        document.data?.get("description") as String,
                                         null
                                     )
                                 )

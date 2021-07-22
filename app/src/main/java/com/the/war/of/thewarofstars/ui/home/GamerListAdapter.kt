@@ -57,7 +57,15 @@ class GamerListAdapter(
                 val viewHolder = holder as GamerListViewHolder
                 viewHolder.bindItem(items[position - THE_NUBER_OF_HEADER])
                 viewHolder.itemView.setOnClickListener {
-                    context.startActivity(Intent(context, GamerDetailActivity::class.java))
+                    val intent = Intent(context, GamerDetailActivity::class.java)
+                    intent.putExtra("name", items[position-1].name)
+                    intent.putExtra("price", items[position-1].price)
+                    intent.putExtra("thumbnailURL", items[position-1].thumbnailURL)
+                    intent.putExtra("title", items[position-1].title)
+                    intent.putExtra("description", items[position-1].description)
+
+                    Log.i(TAG, "price : ${items[position-1].price}")
+                    context.startActivity(intent)
                 }
             }
         }
