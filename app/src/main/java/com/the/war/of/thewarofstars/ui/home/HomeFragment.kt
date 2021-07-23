@@ -128,11 +128,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
 
         observing {
-            bannerList.observe(requireActivity(), {
+            bannerItemList.observe(requireActivity(), {
                 countDownTimer.start()
             })
 
-            gamerList.observe(requireActivity(), {
+            gamerItemList.observe(requireActivity(), {
                 gamerListSkeletonScreen?.hide()
                 bannerSkeletonScreen?.hide()
             })
@@ -143,11 +143,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onResume() {
         super.onResume()
 
-        if (homeViewModel.bannerList.value == null) {
+        if (homeViewModel.bannerItemList.value == null) {
             homeViewModel.getBanners()
         }
 
-        if (homeViewModel.gamerList.value == null) {
+        if (homeViewModel.gamerItemList.value == null) {
             homeViewModel.getGamers()
         }
     }

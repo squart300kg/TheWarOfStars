@@ -5,17 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.the.war.of.thewarofstars.Application
-import com.the.war.of.thewarofstars.model.Banner
-import com.the.war.of.thewarofstars.model.Gamer
+import com.the.war.of.thewarofstars.model.BannerItem
+import com.the.war.of.thewarofstars.model.GamerItem
 
 class HomeViewModel : ViewModel() {
 
-    private val _gamerList = MutableLiveData<MutableList<Gamer>>()
-    val gamerList: LiveData<MutableList<Gamer>>
+    private val _gamerList = MutableLiveData<MutableList<GamerItem>>()
+    val gamerItemList: LiveData<MutableList<GamerItem>>
         get() = _gamerList
 
-    private val _bannerList = MutableLiveData<MutableList<Banner>>()
-    val bannerList: LiveData<MutableList<Banner>>
+    private val _bannerList = MutableLiveData<MutableList<BannerItem>>()
+    val bannerItemList: LiveData<MutableList<BannerItem>>
         get() = _bannerList
 
     private val TAG = "HomeViewModelLog"
@@ -27,22 +27,21 @@ class HomeViewModel : ViewModel() {
                 gamerList?.get()
                     ?.addOnSuccessListener { collection ->
                         if (collection != null) {
-                            val gamerList = mutableListOf<Gamer>()
+                            val gamerList = mutableListOf<GamerItem>()
                             for (document in collection.documents ) {
 
                                 gamerList.add(
-                                    Gamer(
+                                    GamerItem(
                                         document.data?.get("name") as String,
                                         document.data?.get("price") as Long,
                                         document.data?.get("title") as String,
                                         document.data?.get("thumbnailURL") as String,
-                                        document.data?.get("description") as String,
-                                        null
+                                        document.data?.get("description") as String
                                     )
                                 )
 
-                                _gamerList.value = gamerList
                             }
+                            _gamerList.value = gamerList
                         } else {
                             Log.d(TAG, "No such document")
                         }
@@ -62,11 +61,11 @@ class HomeViewModel : ViewModel() {
                 banner?.get()
                     ?.addOnSuccessListener { collection ->
                         if (collection != null) {
-                            val bannerList = mutableListOf<Banner>()
+                            val bannerList = mutableListOf<BannerItem>()
                             for (document in collection.documents ) {
                                 Log.i(TAG, "${document.data}")
                                 bannerList.add(
-                                    Banner(
+                                    BannerItem(
                                         document.data?.get("imageURL") as String,
                                         document.data?.get("gamer") as String
                                     )

@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:theWarsOfStar="http://schemas.android.com/tools">
     <data>
-<!--        <variable-->
-<!--            name=""-->
-<!--            type="" />-->
+        <variable
+            name="gamerDetailModel"
+            type="com.the.war.of.thewarofstars.ui.home.sub.GamerDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,6 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
+                        theWarsOfStar:setReviewCount="@{gamerDetailModel.reviewCount}"
                         android:text="후기 14개"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -178,6 +179,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="66dp"
+                    theWarsOfStar:setItems="@{gamerDetailModel.reviewList}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_review_title"

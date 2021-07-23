@@ -4,7 +4,7 @@
     <data>
         <variable
             name="bannerModel"
-            type="com.the.war.of.thewarofstars.model.Banner" />
+            type="com.the.war.of.thewarofstars.model.BannerItem" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"

@@ -6,21 +6,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.BR
 import com.the.war.of.thewarofstars.base.BaseViewHolder
 import com.the.war.of.thewarofstars.databinding.ItemMainGamerListBinding
-import com.the.war.of.thewarofstars.databinding.ItemMainHeaderBinding
-import com.the.war.of.thewarofstars.model.Gamer
+import com.the.war.of.thewarofstars.model.GamerItem
 import com.the.war.of.thewarofstars.ui.home.sub.GamerDetailActivity
 
 class GamerListAdapter(
     val context: Context
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val items: MutableList<Gamer> = mutableListOf()
+    private val items: MutableList<GamerItem> = mutableListOf()
 
     private val THE_NUBER_OF_HEADER = 1
     private val TAG = "GamerListAdapterLog"
@@ -75,7 +73,7 @@ class GamerListAdapter(
         return items.size + THE_NUBER_OF_HEADER
     }
 
-    fun loadGamerList(list: List<Gamer>) {
+    fun loadGamerList(list: List<GamerItem>) {
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
@@ -100,7 +98,7 @@ class GamerListAdapter(
         itemId: Int,
         parent: ViewGroup,
         layoutRes: Int
-    ): BaseViewHolder<Gamer, ItemMainGamerListBinding>(itemId, parent, layoutRes)
+    ): BaseViewHolder<GamerItem, ItemMainGamerListBinding>(itemId, parent, layoutRes)
 
     companion object {
         const val HEADER_TYPE = 0

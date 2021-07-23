@@ -20,6 +20,7 @@ import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
 import com.the.war.of.thewarofstars.ext.setThumbnail
+import com.the.war.of.thewarofstars.util.DataInput
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
@@ -29,26 +30,37 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
 
     private var reviewListSkeletonScreen: SkeletonScreen? = null
 
+    private var name: String?         = null
+    private var price: Long?          = null
+    private var thumbnailURL: String? = null
+    private var title: String?        = null
+    private var description: String?  = null
+
     val TAG = "GamerDetailActivityLog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val name = intent.getStringExtra("name")
-        val price = intent.getLongExtra("price", 0)
-        val thumbnailURL = intent.getStringExtra("thumbnailURL")
-        val title = intent.getStringExtra("title")
-        val description = intent.getStringExtra("description")
+        name         = intent.getStringExtra("name")
+        price        = intent.getLongExtra("price", 0)
+        thumbnailURL = intent.getStringExtra("thumbnailURL")
+        title        = intent.getStringExtra("title")
+        description  = intent.getStringExtra("description")
 
         loadGamerInfo(name, price, thumbnailURL, title, description)
 
 
         binding {
 
-//            gamerDetailModel = gamerDetailViewModel
+            gamerDetailModel = gamerDetailViewModel
+
             tvGamerTitle.text = title
 
             ivBack.setOnClickListener { onBackPressed() }
+
+            ivGamerThumbnail.setOnClickListener {
+//                DataInput.reviewListInsert()
+            }
             rvReview.apply {
                 setHasFixedSize(true)
                 val linearLayoutManager = LinearLayoutManager(this@GamerDetailActivity, RecyclerView.VERTICAL, false)
@@ -115,6 +127,10 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
 
     override fun onResume() {
         super.onResume()
+
+        if (gamerDetailViewModel.reviewList.value == null) {
+            gamerDetailViewModel.getReviews(name)
+        }
 
     }
 

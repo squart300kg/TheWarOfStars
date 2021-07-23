@@ -1,29 +1,20 @@
 package com.the.war.of.thewarofstars.ui.home
 
 import android.app.Activity
-import android.content.Context
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.the.war.of.thewarofstars.BR
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseViewHolder
 import com.the.war.of.thewarofstars.databinding.ItemBannerBinding
-import com.the.war.of.thewarofstars.databinding.ItemMainGamerListBinding
-import com.the.war.of.thewarofstars.model.Banner
-import com.the.war.of.thewarofstars.model.Gamer
+import com.the.war.of.thewarofstars.model.BannerItem
 
 class BannerAdapter(
     val activity: Activity
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val items: MutableList<Banner> = mutableListOf()
+    private val items: MutableList<BannerItem> = mutableListOf()
     private val TAG = "BannerAdapterLog"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BannerViewHolder(
@@ -43,7 +34,7 @@ class BannerAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    fun loadBannerList(list: List<Banner>) {
+    fun loadBannerList(list: List<BannerItem>) {
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
@@ -57,7 +48,7 @@ class BannerAdapter(
         itemId: Int,
         parent: ViewGroup,
         layoutRes: Int
-    ): BaseViewHolder<Banner, ItemBannerBinding>(itemId, parent, layoutRes) {
+    ): BaseViewHolder<BannerItem, ItemBannerBinding>(itemId, parent, layoutRes) {
 
     }
 
