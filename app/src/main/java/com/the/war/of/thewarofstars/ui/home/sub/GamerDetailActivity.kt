@@ -1,5 +1,6 @@
 package com.the.war.of.thewarofstars.ui.home.sub
 
+import android.content.Intent
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,7 @@ import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
 import com.the.war.of.thewarofstars.ext.setThumbnail
+import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
 import com.the.war.of.thewarofstars.util.DataInput
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -55,12 +57,10 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
 
             gamerDetailModel = gamerDetailViewModel
 
-            tvGamerTitle.text = title
-
             ivBack.setOnClickListener { onBackPressed() }
 
-            ivGamerThumbnail.setOnClickListener {
-//                DataInput.reviewListInsert()
+            tvGamerTitle.apply {
+                text = title
             }
 
             layoutGamerDetail.apply {
@@ -104,6 +104,14 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                     .color(R.color.shimmer_color)
                     .load(R.layout.skeleton_review_list)
                     .show()
+            }
+
+            tvQuestion.apply {
+                setOnClickListener {
+                    val intent = Intent(this@GamerDetailActivity, QuestionActivity::class.java)
+                    intent.putExtra("name", name)
+                    startActivity(intent)
+                }
             }
 
         }
