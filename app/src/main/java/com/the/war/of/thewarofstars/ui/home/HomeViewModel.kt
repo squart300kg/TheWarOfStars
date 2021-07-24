@@ -41,6 +41,7 @@ class HomeViewModel : ViewModel() {
                                 )
 
                             }
+                            Log.i(TAG, "gamerList - $gamerList")
                             _gamerList.value = gamerList
                         } else {
                             Log.d(TAG, "No such document")
@@ -72,6 +73,7 @@ class HomeViewModel : ViewModel() {
                                 )
 
                             }
+                            Log.i(TAG, "bannerList - $bannerList")
                             _bannerList.value = bannerList
                         }
                     }

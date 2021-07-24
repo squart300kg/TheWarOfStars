@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_gamer_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    app:layout_constraintTop_toBottomOf="@id/iv_back"
+    >
+
+    <ImageView
+        android:id="@+id/iv_gamer_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/shimmer_color"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintDimensionRatio="H, 2:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_gamer_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:background="@color/shimmer_color"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_gamer_thumbnail"/>
+    <LinearLayout
+        android:id="@+id/layout_gamer_review_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_gamer_title"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="16sp"
+            android:textColor="@color/white"
+            android:background="@color/shimmer_color"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/shimmer_color"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:text=" | "/>
+        <ImageView
+            android:layout_width="16sp"
+            android:layout_height="16sp"
+            android:layout_gravity="center"
+            android:background="@color/shimmer_color"
+            />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="16sp"
+            android:background="@color/shimmer_color"
+            android:layout_gravity="center"
+            android:layout_marginStart="4sp"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_gamer_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/shimmer_color"
+        android:textColor="@color/white"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_gamer_review_info"/>
+
+    <kr.co.prnd.readmore.ReadMoreTextView
+        android:id="@+id/tv_gamer_description"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        app:readMoreMaxLine="8"
+        app:readMoreText="... 더보기"
+        app:readMoreColor="@color/white"
+        android:textColor="#b5b5b5"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/border_gamer_description_skeleton"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintDimensionRatio="H, 2:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_review_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_gamer_price"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_review_title"
+        android:layout_width="50dp"
+        android:layout_height="16sp"
+        android:background="@color/shimmer_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

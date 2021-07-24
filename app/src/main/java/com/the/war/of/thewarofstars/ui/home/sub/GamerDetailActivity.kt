@@ -29,6 +29,7 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
     private val gamerDetailViewModel: GamerDetailViewModel by viewModel()
 
     private var reviewListSkeletonScreen: SkeletonScreen? = null
+    private var gamerDetailSkeletonScreen: SkeletonScreen? = null
 
     private var name: String?         = null
     private var price: Long?          = null
@@ -61,6 +62,17 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
             ivGamerThumbnail.setOnClickListener {
 //                DataInput.reviewListInsert()
             }
+
+            layoutGamerDetail.apply {
+                gamerDetailSkeletonScreen = Skeleton.bind(this)
+                    .shimmer(true)
+                    .angle(20)
+                    .duration(1200)
+                    .color(R.color.shimmer_color)
+                    .load(R.layout.skeleton_gamer_detail)
+                    .show()
+            }
+
             rvReview.apply {
                 setHasFixedSize(true)
                 val linearLayoutManager = LinearLayoutManager(this@GamerDetailActivity, RecyclerView.VERTICAL, false)
@@ -82,22 +94,25 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                     }
                 })
 
-//                reviewListSkeletonScreen = Skeleton.bind(this)
-//                    .adapter(reviewAdapter)
-//                    .shimmer(true)
-//                    .angle(20)
-//                    .frozen(false)
-//                    .duration(1200)
-//                    .count(10)
-//                    .color(R.color.shimmer_color)
-//                    .load(R.layout.item_review)
-//                    .show()
+                reviewListSkeletonScreen = Skeleton.bind(this)
+                    .adapter(reviewAdapter)
+                    .shimmer(true)
+                    .angle(20)
+                    .frozen(false)
+                    .duration(1200)
+                    .count(10)
+                    .color(R.color.shimmer_color)
+                    .load(R.layout.skeleton_review_list)
+                    .show()
             }
 
         }
 
         observing {
-
+            reviewList.observe(this@GamerDetailActivity, {
+                reviewListSkeletonScreen?.hide()
+                gamerDetailSkeletonScreen?.hide()
+            })
 
         }
 

@@ -99,9 +99,5 @@
             app:layout_constraintTop_toBottomOf="@id/tv_start1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

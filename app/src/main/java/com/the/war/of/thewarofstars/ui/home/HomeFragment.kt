@@ -16,6 +16,7 @@ import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils.dpToPx
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseFragment
 import com.the.war.of.thewarofstars.databinding.FragmentHomeBinding
+import com.the.war.of.thewarofstars.util.CirclePagerIndicatorDecoration
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
@@ -27,6 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private var bannerSkeletonScreen: SkeletonScreen? = null
     private var gamerListSkeletonScreen: SkeletonScreen? = null
+    private var tribeTypeSkeletonScreen: SkeletonScreen? = null
 
     // 메인 배너 auto scroll
     private val countDownTimer = object : CountDownTimer(Long.MAX_VALUE, 5000) {
@@ -51,17 +53,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.i(TAG, "onAttack")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreate")
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "onViewCreated")
@@ -69,6 +60,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         binding {
 
             homeVm = homeViewModel
+
+            layoutCategory.apply {
+                tribeTypeSkeletonScreen = Skeleton.bind(this)
+                    .shimmer(true)
+                    .angle(20)
+                    .duration(1200)
+                    .color(R.color.shimmer_color)
+                    .load(R.layout.skeleton_main_type)
+                    .show()
+            }
 
             bannerRecyclerView.apply {
                 setHasFixedSize(true)
@@ -90,6 +91,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                 val snapHelper = PagerSnapHelper()
                 snapHelper.attachToRecyclerView(this)
+
+                addItemDecoration(CirclePagerIndicatorDecoration())
             }
 
             gamerListRecyclerView.apply {
@@ -135,6 +138,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             gamerItemList.observe(requireActivity(), {
                 gamerListSkeletonScreen?.hide()
                 bannerSkeletonScreen?.hide()
+                tribeTypeSkeletonScreen?.hide()
             })
         }
 
