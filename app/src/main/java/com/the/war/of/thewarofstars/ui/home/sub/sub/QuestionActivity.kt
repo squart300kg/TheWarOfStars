@@ -74,14 +74,17 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
             }
 
             // 최신 메시지가 보이게 설정
-            keyboardVisibilityUtils = KeyboardVisibilityUtils(window,
-                onShowKeyboard = { keyboardHeight ->
+            keyboardVisibilityUtils = KeyboardVisibilityUtils(
+                window,
+                onShowKeyboard = {
                     rvChatting.apply {
 //                        smoothScrollTo(scrollX, scrollY + keyboardHeight)
                         if (chattingAdapter.itemCount != 0)
                             smoothScrollToPosition(chattingAdapter.itemCount - 1)
                     }
-                })
+                },
+                onHideKeyboard = { }
+            )
 
             // 메시지 전송
             tvChattingSend.apply {
