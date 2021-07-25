@@ -16,6 +16,7 @@ class BannerAdapter(
 
     private val items: MutableList<BannerItem> = mutableListOf()
     private val TAG = "BannerAdapterLog"
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return BannerViewHolder(
             BR.bannerModel,
@@ -28,7 +29,6 @@ class BannerAdapter(
 
         val holder = viewHolder as BannerViewHolder
         holder.bindItem(items[position])
-
 
     }
 
