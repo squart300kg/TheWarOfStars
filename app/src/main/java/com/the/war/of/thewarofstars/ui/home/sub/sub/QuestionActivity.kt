@@ -32,6 +32,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
 
         /**
          * 채팅 프로세스
+         * === 기기 안에서 ===
          * 1. 메시지를 입력
          * 2. '전송' 클릭
          * 3. 메시지가 없으면 이벤트 없도록
@@ -41,6 +42,13 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
          * 7. '채팅창'에 '메시지'표시
          *  7.1. '채팅 어댑터'에 '메시지'를 추가
          * 8. 포커스를 마지막 메시지로 이동한다
+         *
+         *  === 네트워크 통신 ===
+         *  1. FireFunction을 써서 '메시지'를 서버로 보낸다.
+         *   1.1. '메시지'는 다음 정보를 담는다. '유저 정보', '전송 내용', '전송 시각', '보내는 선수'
+         *  2. FireFunction에서 두 가지 처리를 한다.
+         *   2.1.  받은 메시지를 DB에 저장
+         *   2.2. '선수'에게 Noti 보내기
          */
 
         binding {
@@ -73,7 +81,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
 
             }
 
-            // 최신 메시지가 보이게 설정
+            // 키보드가 올라올 때, 최신 메시지가 보이게 설정
             keyboardVisibilityUtils = KeyboardVisibilityUtils(
                 window,
                 onShowKeyboard = {
