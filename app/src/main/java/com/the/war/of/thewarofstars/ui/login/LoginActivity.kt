@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
@@ -36,8 +37,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
      * 로그인 프로세스
      *1. 네이버 서버로부터 사용자 정보를 가져온다.
      *2. 사용자 정보를 사용해 회원가입 여부를 검사한다.
-     *2.1. 회원가입을 했다면 메인페이지로 넘겨준다.
-     *2.2. 회원가입을 안했다면 서버에 회원정보를 저장하고 메인페이지로 넘겨준다.
+     * 2.1. 회원가입을 했다면 메인페이지로 넘겨준다.
+     * 2.2. 회원가입을 안했다면 서버에 회원정보를 저장하고 메인페이지로 넘겨준다.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,22 +47,37 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.daum_star_league))
             videoView.start()
 
-            naverLoginButton.setOnClickListener { NaverLogin.startNaverLogin(this@LoginActivity, loginViewModel) }
-            emailLoginButton.setOnClickListener {
-                startActivityResult.launch(Intent(this@LoginActivity, EmailLoginActivity::class.java))
+            naverLoginButton.apply {
+                setOnClickListener { NaverLogin.startNaverLogin(this@LoginActivity, loginViewModel) }
             }
-            videoView.setOnClickListener{ NaverLogin.startNaverLogout(this@LoginActivity) }
+            emailLoginButton.apply {
+                setOnClickListener {
+                    startActivityResult.launch(Intent(this@LoginActivity, EmailLoginActivity::class.java))
+                }
+            }
+            videoView.apply {
+                setOnClickListener{ NaverLogin.startNaverLogout(this@LoginActivity) }
+            }
         }
 
         observing {
             email.observe(this@LoginActivity, { email ->
                 Log.i(TAG, "observe email : $email")
-                loginViewModel.isRegister(email)
+
             })
 
             nickname.observe(this@LoginActivity, { nickname ->
                 Log.i(TAG, "observe nickname : $nickname")
 
+            })
+
+            naverApiStatus.observe(this@LoginActivity, { status ->
+                when (status) {
+                    true -> {
+                        loginViewModel.isRegister(loginViewModel.email.value)
+                    }
+                    false -> { }
+                }
             })
 
             isRegister.observe(this@LoginActivity, { isRegister ->
@@ -70,6 +86,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         /**
                          * 회원이므로 메인페이지로 이동한다.
                          */
+                        Application.instance?.email = loginViewModel.email.value
+                        Application.instance?.nickname = loginViewModel.nickname.value
                         goNext(MainActivity::class.java)
                     }
                     false -> {

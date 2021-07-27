@@ -3,6 +3,8 @@ package com.the.war.of.thewarofstars
 import android.app.Application
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.nhn.android.naverlogin.OAuthLogin
 import com.the.war.of.thewarofstars.di.networkModule
@@ -16,7 +18,11 @@ import org.koin.core.logger.Level
 open class Application: Application() {
 
     var firebaseDB: FirebaseFirestore? = null
+    var fireFunction: FirebaseFunctions? = null
     var naverLoginModule: OAuthLogin? = null
+
+    var nickname: String? = null
+    var email: String? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -32,6 +38,8 @@ open class Application: Application() {
 
     private fun firebaseInitialize() {
         firebaseDB = Firebase.firestore
+        fireFunction = Firebase.functions
+        fireFunction!!.useEmulator("172.30.1.54", 5001)
     }
 
     private fun contextInitialize() {

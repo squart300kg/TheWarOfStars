@@ -29,6 +29,10 @@ class LoginViewModel(
     val nickname: LiveData<String>
         get() = _nickname
 
+    private val _naverApiStatus = MutableLiveData<Boolean>()
+    val naverApiStatus: LiveData<Boolean>
+        get() = _naverApiStatus
+
     private val _isRegister = MutableLiveData<Boolean>()
     val isRegister: LiveData<Boolean>
         get() = _isRegister
@@ -53,6 +57,7 @@ class LoginViewModel(
                     val response    = JSONObject(naverUserInfoResponse).getJSONObject("response")
                     _email.value    = response.getString("email")
                     _nickname.value = response.getString("nickname")
+                    _naverApiStatus.value = true
 
                     Log.i(TAG, "result : ${email.value}, ${nickname.value}")
                 }
@@ -84,7 +89,6 @@ class LoginViewModel(
                 User(
                     _email.value as String,
                     _nickname.value as String
-//                "하드코딩 닉네임"
                 )
             )
             ?.addOnSuccessListener {
