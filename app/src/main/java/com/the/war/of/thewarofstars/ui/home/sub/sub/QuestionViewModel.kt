@@ -3,6 +3,7 @@ package com.the.war.of.thewarofstars.ui.home.sub.sub
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.tasks.Task
+import com.google.firebase.functions.FirebaseFunctionsException
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
 import com.the.war.of.thewarofstars.model.ChattingItem
@@ -25,45 +26,65 @@ class QuestionViewModel(
 
     private val TAG = "QuestionViewModelLog"
 
-    fun sendMessage(chattingItem: ChattingItem): Task<String> {
+    fun sendMessage(
+        chattingItem: ChattingItem
+    )
+//    : Task<String>
+    {
 
         Log.i(TAG, "chattingItem : $chattingItem")
 
-        val item = hashMapOf(
-            "to" to chattingItem.to,
-            "from" to chattingItem.from,
-            "content" to chattingItem.content,
-            "currentTime" to chattingItem.currentTime
-        )
+//        val item = hashMapOf(
+//            "text" to chattingItem.content
+////            "from" to chattingItem.from,
+////            "content" to chattingItem.content,
+////            "currentTime" to chattingItem.currentTime
+//        )
 
-        return requireNotNull(Application.instance?.fireFunction)
-            .getHttpsCallable("sendMessage")
-            .call(item)
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data as String
-                result
-            }
-
-//        job?.cancel()
-//        job = viewModelScope.launch {
-//            chattingRepository.sendMessage(chattingItem)
-//                .flowOn(Dispatchers.IO)
-//                .catch { exception ->
-//                    if (exception is HttpException) {
-//                        val errorJson = JSONObject(exception.response()?.errorBody()?.string())
-//                        _errorCode.value = errorJson.getString("code")
-//                        _errorMsg.value = errorJson.getString("message")
+//        return requireNotNull(Application.instance?.fireFunction)
+//            .getHttpsCallable("sendMessage")
+//            .call(item)
+//            .continueWith { task ->
+//                // This continuation runs on either success or failure, but if the task
+//                // has failed then result will throw an Exception which will be
+//                // propagated down.
+//                val result = task.result?.data as String
+//                result
+//            }
+//            .addOnCompleteListener { task ->
+//                if (!task.isSuccessful) {
+//                    val e = task.exception
+//                    if (e is FirebaseFunctionsException) {
+//                        val code = e.code
+//                        val details = e.details
+//                        Log.i(TAG, "code : $code, details : $details")
 //                    }
-//                    Log.i(TAG, "failed - code : ${_errorCode.value}, msg : ${_errorMsg.value}")
 //                }
-//                .collect {
-//                    Log.i(TAG, "result : ${it.result}")
-//                }
-//
-//        }
+//            }
+//            .addOnFailureListener {
+//                Log.i(TAG, "failed - $it")
+//            }
+//            .addOnSuccessListener {
+//                Log.i(TAG, "successed - $it")
+//            }
+
+        job?.cancel()
+        job = viewModelScope.launch {
+            chattingRepository.sendMessage(chattingItem)
+                .flowOn(Dispatchers.IO)
+                .catch { exception ->
+                    if (exception is HttpException) {
+                        val errorJson = JSONObject(exception.response()?.errorBody()?.string())
+                        _errorCode.value = errorJson.getString("code")
+                        _errorMsg.value = errorJson.getString("message")
+                    }
+                    Log.i(TAG, "failed - code : ${_errorCode.value}, msg : ${_errorMsg.value}, exception : $exception")
+                }
+                .collect {
+                    Log.i(TAG, "result : ${it.result}")
+                }
+
+        }
     }
 
 }

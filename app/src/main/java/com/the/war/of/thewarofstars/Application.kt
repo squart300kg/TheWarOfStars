@@ -39,7 +39,7 @@ open class Application: Application() {
     private fun firebaseInitialize() {
         firebaseDB = Firebase.firestore
         fireFunction = Firebase.functions
-        fireFunction!!.useEmulator("172.30.1.54", 5001)
+//        fireFunction!!.useEmulator("172.30.1.42", 5001)
     }
 
     private fun contextInitialize() {

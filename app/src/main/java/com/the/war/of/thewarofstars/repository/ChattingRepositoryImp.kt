@@ -14,7 +14,12 @@ class ChattingRepositoryImp(
 ): ChattingRepository {
     override fun sendMessage(chattingItem: ChattingItem): Flow<ChattingResponse> {
         return flow {
-            val data = chattingApi.sendMessage(chattingItem)
+            val data = chattingApi.sendMessage(
+                to          = chattingItem.to,
+                from        = chattingItem.from,
+                content     = chattingItem.content,
+                currentTime = chattingItem.currentTime
+            )
             emit(data)
         }
     }

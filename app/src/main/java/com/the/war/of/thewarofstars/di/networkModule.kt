@@ -50,7 +50,7 @@ val networkModule = module {
 //            .addInterceptor(AuthInterceptor(get()))
             .build()
 
-        val url = "http://172.30.1.54:5001/thewarofstars-8f9a8/us-central1/"
+        val url = "https://us-central1-thewarofstars-8f9a8.cloudfunctions.net/"
 
         Retrofit.Builder()
             .client(okHttpClient)

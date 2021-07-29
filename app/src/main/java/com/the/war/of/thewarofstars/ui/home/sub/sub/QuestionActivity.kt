@@ -55,7 +55,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
          * 8. 포커스를 마지막 메시지로 이동한다
          *
          *  === 네트워크 통신 ===
-         *  1. FireFunction서버로 '메시지'를 메시지를 보낸다.
+         *  1. FireFunction서버로 '메시지'를 보낸다.
          *   1.1. '메시지'는 다음 정보를 담는다. '유저 정보', '전송 내용', '전송 시각', '보내는 선수'
          *  2. FireFunction에서 두 가지 처리를 한다.
          *   2.1.  받은 메시지를 DB에 저장
@@ -143,21 +143,6 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                             currentTime = Timestamp.now()
                         )
                     )
-                        .addOnCompleteListener { task ->
-                            if (!task.isSuccessful) {
-                                val e = task.exception
-                                if (e is FirebaseFunctionsException) {
-                                    val code = e.code
-                                    val details = e.details
-                                    Log.i(TAG, "code : $code, details : $details")
-                                }
-
-
-                                // ...
-                            }
-
-                            // ...
-                        }
                 }
             }
         }
