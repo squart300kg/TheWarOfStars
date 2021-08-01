@@ -32,14 +32,17 @@ class HomeViewModel : ViewModel() {
 
                                 gamerList.add(
                                     GamerItem(
+                                        document.id,
                                         document.data?.get("name") as String,
                                         document.data?.get("price") as Long,
                                         document.data?.get("title") as String,
                                         document.data?.get("thumbnailURL") as String,
-                                        document.data?.get("description") as String
+                                        document.data?.get("description") as String,
+                                        document.data?.get("email") as String
                                     )
                                 )
 
+                                Log.i(TAG, "uID - ${document.id}")
                             }
                             Log.i(TAG, "gamerList - $gamerList")
                             _gamerList.value = gamerList

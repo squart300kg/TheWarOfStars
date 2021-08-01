@@ -3,8 +3,6 @@ package com.the.war.of.thewarofstars.ui.home
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.R
@@ -35,11 +33,13 @@ class GamerListAdapter(
         viewHolder.bindItem(items[position])
         viewHolder.itemView.setOnClickListener {
             val intent = Intent(context, GamerDetailActivity::class.java)
+            intent.putExtra("uID", items[position].uID)
             intent.putExtra("name", items[position].name)
             intent.putExtra("price", items[position].price)
             intent.putExtra("thumbnailURL", items[position].thumbnailURL)
             intent.putExtra("title", items[position].title)
             intent.putExtra("description", items[position].description)
+            intent.putExtra("email", items[position].email)
 
             Log.i(TAG, "price : ${items[position].price}")
             context.startActivity(intent)

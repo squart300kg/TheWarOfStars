@@ -2,13 +2,9 @@ package com.the.war.of.thewarofstars.ui.home.sub.sub
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.tasks.Task
-import com.google.firebase.functions.FirebaseFunctionsException
-import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
 import com.the.war.of.thewarofstars.model.ChattingItem
 import com.the.war.of.thewarofstars.repository.ChattingRepository
-import com.the.war.of.thewarofstars.repository.LoginRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect

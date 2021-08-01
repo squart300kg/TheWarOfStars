@@ -5,9 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
@@ -86,8 +83,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         /**
                          * 회원이므로 메인페이지로 이동한다.
                          */
-                        Application.instance?.email = loginViewModel.email.value
-                        Application.instance?.nickname = loginViewModel.nickname.value
+                        Application.instance?.userEmail    = loginViewModel.email.value
+                        Application.instance?.userNickname = loginViewModel.nickname.value
                         goNext(MainActivity::class.java)
                     }
                     false -> {

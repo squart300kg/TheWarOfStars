@@ -1,11 +1,12 @@
 package com.the.war.of.thewarofstars
 
 import android.app.Application
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.naverlogin.OAuthLogin
 import com.the.war.of.thewarofstars.di.networkModule
 import com.the.war.of.thewarofstars.di.repositoryModule
@@ -18,11 +19,13 @@ import org.koin.core.logger.Level
 open class Application: Application() {
 
     var firebaseDB: FirebaseFirestore? = null
-    var fireFunction: FirebaseFunctions? = null
     var naverLoginModule: OAuthLogin? = null
 
-    var nickname: String? = null
-    var email: String? = null
+    var userUID: String? = null
+    var userEmail: String? = null
+    var userNickname: String? = null
+
+    val TAG = "ApplicationLog"
 
     override fun onCreate() {
         super.onCreate()
@@ -37,9 +40,22 @@ open class Application: Application() {
     }
 
     private fun firebaseInitialize() {
+
+        // Firestore 초기화
         firebaseDB = Firebase.firestore
-        fireFunction = Firebase.functions
-//        fireFunction!!.useEmulator("172.30.1.42", 5001)
+
+        // FCM토큰 초기화
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            Log.d(TAG, "FCM Token : $token")
+        })
     }
 
     private fun contextInitialize() {

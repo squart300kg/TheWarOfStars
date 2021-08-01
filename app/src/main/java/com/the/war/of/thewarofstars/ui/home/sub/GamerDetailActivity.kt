@@ -2,27 +2,21 @@ package com.the.war.of.thewarofstars.ui.home.sub
 
 import android.content.Intent
 import android.graphics.Rect
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.SkeletonScreen
 import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
-import com.the.war.of.thewarofstars.ext.setThumbnail
 import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
-import com.the.war.of.thewarofstars.util.DataInput
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
@@ -33,22 +27,26 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
     private var reviewListSkeletonScreen: SkeletonScreen? = null
     private var gamerDetailSkeletonScreen: SkeletonScreen? = null
 
+    private var uID: String?          = null
     private var name: String?         = null
     private var price: Long?          = null
     private var thumbnailURL: String? = null
     private var title: String?        = null
     private var description: String?  = null
+    private var email: String?          = null
 
     val TAG = "GamerDetailActivityLog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        uID          = intent.getStringExtra("uID")
         name         = intent.getStringExtra("name")
         price        = intent.getLongExtra("price", 0)
         thumbnailURL = intent.getStringExtra("thumbnailURL")
         title        = intent.getStringExtra("title")
         description  = intent.getStringExtra("description")
+        email        = intent.getStringExtra("email")
 
         loadGamerInfo(name, price, thumbnailURL, title, description)
 
@@ -110,6 +108,8 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                 setOnClickListener {
                     val intent = Intent(this@GamerDetailActivity, QuestionActivity::class.java)
                     intent.putExtra("name", name)
+                    intent.putExtra("uID", uID)
+                    intent.putExtra("email", email)
                     startActivity(intent)
                 }
             }

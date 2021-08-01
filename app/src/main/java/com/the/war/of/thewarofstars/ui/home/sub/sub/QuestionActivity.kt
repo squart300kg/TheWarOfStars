@@ -2,19 +2,12 @@ package com.the.war.of.thewarofstars.ui.home.sub.sub
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Timestamp
-import com.google.firebase.functions.FirebaseFunctionsException
-import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils
 import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils.dpToPx
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
@@ -23,14 +16,16 @@ import com.the.war.of.thewarofstars.databinding.ActivityQuestionBinding
 import com.the.war.of.thewarofstars.model.ChattingItem
 import com.the.war.of.thewarofstars.util.KeyboardVisibilityUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.time.LocalDateTime
 
 class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_question) {
 
     private val questionviewModel: QuestionViewModel by viewModel()
 
     lateinit var chattingAdapter: ChattingAdapter
+    lateinit var gamerUID: String
     lateinit var gamerName: String
+    lateinit var gamerEmail : String
+
     lateinit var userName: String
 
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
@@ -60,14 +55,29 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
          *  2. FireFunction에서 두 가지 처리를 한다.
          *   2.1.  받은 메시지를 DB에 저장
          *   2.2. '선수'에게 Noti 보내기
+         *
          */
 
+        /**
+         * 선수에게 노티를 보내기 위해선? 선수의 FCM토큰을 알아야 한다.
+         * 선수의 FCM토큰 저장을 위해선? 선수가 로그인 해야 한다.
+         * 선수의 로그인, 유저의 로그인을 분리해야한다.
+         *
+         * 우선, 선수의 계정은 내가 따로 공급해준다.
+         * 1. 아이디와 비밀번호를 공급해준다.
+         * 2. 스스로 변경할 수 있게한다.
+         * 3. 공급한 아이디로 선수가 로그인할 때, FCM토큰을 FireStore에 저장한다.
+         */
         binding {
             tvChattingDescription.apply {
-                gamerName = intent.getStringExtra("name") + "선수님께 보내는 메시지"
-                userName = Application.instance?.nickname.toString()
+                gamerUID   = intent.getStringExtra("uID").toString()
+                gamerName  = intent.getStringExtra("name").toString()
+                gamerEmail = intent.getStringExtra("email").toString()
 
-                this.text = gamerName
+                userName   = Application.instance?.userNickname.toString()
+
+                val roomTitle = gamerName + "선수님께 보내는 메시지"
+                this.text = roomTitle
             }
 
             rvChatting.apply {
@@ -125,7 +135,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     // 6. '채팅 어댑터'에 '메시지'를 추가
                     chattingAdapter.addOneBalloon(
                         ChattingItem(
-                            to          = gamerName,
+                            to          = gamerUID,
                             from        = userName,
                             content     = message,
                             currentTime = Timestamp.now()
@@ -137,7 +147,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     // 8. 네트워크 통신을 시작한다
                     questionviewModel.sendMessage(
                         ChattingItem(
-                            to          = gamerName,
+                            to          = gamerUID,
                             from        = userName,
                             content     = message,
                             currentTime = Timestamp.now()
