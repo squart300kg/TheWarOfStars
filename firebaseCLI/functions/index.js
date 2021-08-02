@@ -1,14 +1,10 @@
-// const functions = require("firebase-functions");
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+// test fcm token : dgXtuODLSFWaQup13XbX1V:APA91bHabPFzjqT8ybDybCaSwSqfIeszNVBCFcqKAuPJOMLaxsc7PYkH7-H7o7bLLkLyNdoQLJ1pAHPgFDddPxaBgckbXDnN-LR2X-CzfsxGxhsMeM__d655q-oQkPgIS5_XAqttXGnD
 
-// The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
+// ErrorCode
+// 20000 - fcmToken is null
+// 20001 - fcmToken is invalid
+
 const functions      = require('firebase-functions');
 const admin          = require('firebase-admin');
 const serviceAccount = require('./keyfile.json');
@@ -60,7 +56,7 @@ exports.sendMessage = functions.https.onRequest(async (req, res) => {
     .push();
     commentRef.set({
       content: content,
-      timeStamp: 'helloTimeStamp',
+      timeStamp: new Date().getTime(),
     });
     const commentUID = commentRef.key
 
@@ -99,10 +95,31 @@ exports.sendMessage = functions.https.onRequest(async (req, res) => {
       const error = result.error;
       if (error) {
 
-        // 등록이 안된 토큰은 지워준다.
+        // 유효하지 않은 토큰을 가진 사람에게 보낸 말은 지운다.
         if (error.code === 'messaging/invalid-registration-token' ||
             error.code === 'messaging/registration-token-not-registered') {
-          console.log('noti error', '=>' , error.code);
+            
+              console.log('noti error', '=>' , error.code);
+
+
+              //  3.1. 말풍선 데이터를 삭제
+               admin.database()
+              .ref(`comments/${commentUID}`)
+              .remove();
+              
+
+              //  3.2. 수신자가 데이터 삭제
+              const receiverRef = admin.database()
+              .ref(`user/${receiverUID}/${commentUID}`)
+              .remove();
+
+              //  3.3. 발신자가 데이터 삭제
+              const senderRef = admin.database()
+              .ref(`user/${senderUID}/${commentUID}`)
+              .remove();
+
+          throw new functions.https.HttpsError(20001, 'message : fcmToken is invalid');
+
         }
         
       }
