@@ -170,4 +170,8 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
         imm.hideSoftInputFromWindow(input.windowToken, 0)
         input.clearFocus()
     }
+
+    companion object {
+
+    }
 }

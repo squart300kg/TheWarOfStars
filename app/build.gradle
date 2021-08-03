@@ -28,6 +28,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+//        dev {
+//            applicationIdSuffix ".dev"
+//            versionNameSuffix "-dev"
+//
+//            buildConfigField 'String', 'PLAVOR_TYPE', "\"dev\""
+//        }
+//
+//        qa {
+//            applicationIdSuffix ".qa"
+//
+//            buildConfigField 'String', 'PLAVOR_TYPE', "\"qa\""
+//        }
+//
+//        open {
+//            applicationIdSuffix ".open"
+//
+//            buildConfigField 'String', 'PLAVOR_TYPE', "\"open\""
+//        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
