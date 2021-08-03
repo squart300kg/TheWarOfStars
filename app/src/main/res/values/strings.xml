@@ -9,5 +9,6 @@
 
     <string name="back_button_close_guide">\'이전\' 버튼을 한번 더 누르시면 종료됩니다.</string>
     <string name="notification_channel_name">채팅</string>
+    <string name="notification_channel_id">CHATTING</string>
 
 </resources>
