@@ -3,6 +3,7 @@ package com.the.war.of.thewarofstars.fcm
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
@@ -28,10 +29,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
             when (remoteMessage.data["type"]) {
                 MessageType.CHATTING.type -> {
+                    Log.i(TAG, "noti start")
                     val intent = Intent(this, QuestionActivity::class.java)
                     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
-                    val notificationBuilder = NotificationCompat.Builder(this, "채널아이디")
+                    val notificationBuilder = NotificationCompat.Builder(this, "CHATTING")
                         .setTicker("setTicker")
                         .setContentTitle("helloContentTitle")
                         .setSmallIcon(android.R.mipmap.sym_def_app_icon)

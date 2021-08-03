@@ -1,6 +1,9 @@
 package com.the.war.of.thewarofstars
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,6 +40,18 @@ open class Application: Application() {
         contextInitialize()
 
         firebaseInitialize()
+
+        notificationInitialize()
+    }
+
+    private fun notificationInitialize() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notification_channel_name)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("CHATTING", name, importance)
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
     private fun firebaseInitialize() {
