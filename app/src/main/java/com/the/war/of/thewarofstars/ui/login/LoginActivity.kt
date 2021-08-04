@@ -11,6 +11,7 @@ import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityLoginBinding
+import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
 import com.the.war.of.thewarofstars.util.NaverLogin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,13 +41,39 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (intent?.extras != null) {
+
+            val type       = intent.getStringExtra("notiType")
+            val senderUID  = intent.getStringExtra("senderUID")
+            val senderName = intent.getStringExtra("senderName")
+            val senderType = intent.getStringExtra("senderType")
+            val intent = QuestionActivity.newIntent(this)
+            intent.putExtra("name", senderName)
+            intent.putExtra("uID", senderUID)
+            intent.putExtra("type", senderType)
+            startActivity(intent)
+            Log.i(TAG, "senderName: $senderName, senderUID: $senderUID")
+
+//            for (key: String in intent.extras!!.keySet()) {
+//                val value = intent.extras!!.get(key)
+//                Log.i(TAG, "[$key] : $value")
+//                if (key == "type" && value == getString(R.string.notification_channel_id)) {
+//                    val intent = QuestionActivity.newIntent(this)
+//                    intent.putExtra("senderName", )
+//                }
+//            }
+        }
+
         binding {
-            videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.daum_star_league))
-            videoView.start()
+            videoView.apply{
+                setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.daum_star_league))
+                start()
+            }
 
             naverLoginButton.apply {
                 setOnClickListener { NaverLogin.startNaverLogin(this@LoginActivity, loginViewModel) }
             }
+
             emailLoginButton.apply {
                 setOnClickListener {
                     startActivityResult.launch(Intent(this@LoginActivity, EmailLoginActivity::class.java))

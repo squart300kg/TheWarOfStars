@@ -1,5 +1,7 @@
 package com.the.war.of.thewarofstars.ui.home.sub.sub
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
@@ -24,7 +26,6 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
     lateinit var chattingAdapter: ChattingAdapter
     lateinit var gamerUID: String
     lateinit var gamerName: String
-    lateinit var gamerEmail : String
 
     lateinit var userName: String
 
@@ -72,11 +73,10 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
             tvChattingDescription.apply {
                 gamerUID   = intent.getStringExtra("uID").toString()
                 gamerName  = intent.getStringExtra("name").toString()
-                gamerEmail = intent.getStringExtra("email").toString()
 
                 userName   = Application.instance?.userNickname.toString()
 
-                val roomTitle = gamerName + "선수님께 보내는 메시지"
+                val roomTitle = gamerName + "님께 보내는 메시지"
                 this.text = roomTitle
             }
 
@@ -172,6 +172,6 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
     }
 
     companion object {
-
+        fun newIntent(context: Context) = Intent(context, QuestionActivity::class.java)
     }
 }
