@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -27,7 +28,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
     lateinit var gamerUID: String
     lateinit var gamerName: String
 
-    lateinit var userName: String
+    lateinit var userUID: String
 
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
@@ -59,22 +60,12 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
          *
          */
 
-        /**
-         * 선수에게 노티를 보내기 위해선? 선수의 FCM토큰을 알아야 한다.
-         * 선수의 FCM토큰 저장을 위해선? 선수가 로그인 해야 한다.
-         * 선수의 로그인, 유저의 로그인을 분리해야한다.
-         *
-         * 우선, 선수의 계정은 내가 따로 공급해준다.
-         * 1. 아이디와 비밀번호를 공급해준다.
-         * 2. 스스로 변경할 수 있게한다.
-         * 3. 공급한 아이디로 선수가 로그인할 때, FCM토큰을 FireStore에 저장한다.
-         */
         binding {
             tvChattingDescription.apply {
                 gamerUID   = intent.getStringExtra("uID").toString()
                 gamerName  = intent.getStringExtra("name").toString()
 
-                userName   = Application.instance?.userNickname.toString()
+                userUID    = Application.instance?.userUID.toString()
 
                 val roomTitle = gamerName + "님께 보내는 메시지"
                 this.text = roomTitle
@@ -136,7 +127,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     chattingAdapter.addOneBalloon(
                         ChattingItem(
                             to          = gamerUID,
-                            from        = userName,
+                            from        = userUID,
                             content     = message,
                             currentTime = Timestamp.now()
                         )
@@ -148,7 +139,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     questionviewModel.sendMessage(
                         ChattingItem(
                             to          = gamerUID,
-                            from        = userName,
+                            from        = userUID,
                             content     = message,
                             currentTime = Timestamp.now()
                         )
@@ -157,6 +148,19 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
             }
         }
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (questionviewModel.chattingHistory.value == null) {
+            Log.i(TAG, "sender : $userUID, receiver : $gamerUID")
+            questionviewModel.loadChattingHistory(
+                sender   = userUID,
+                receiver = gamerUID
+            )
+        }
 
     }
 

@@ -1,7 +1,15 @@
 package com.the.war.of.thewarofstars.ui.home.sub.sub
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
+import com.securepreferences.SecurePreferences
+import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
 import com.the.war.of.thewarofstars.model.ChattingItem
 import com.the.war.of.thewarofstars.repository.ChattingRepository
@@ -17,8 +25,13 @@ import retrofit2.HttpException
  * Created by sangyoon on 2021/07/26
  */
 class QuestionViewModel(
+    private val securePreferences: SecurePreferences,
     private val chattingRepository: ChattingRepository
-): BaseViewModel() {
+): BaseViewModel(securePreferences) {
+
+    private val _chattingHistory = MutableLiveData<MutableList<ChattingItem>>()
+    val chattingHistory: LiveData<MutableList<ChattingItem>>
+        get() = _chattingHistory
 
     private val TAG = "QuestionViewModelLog"
 
@@ -81,6 +94,35 @@ class QuestionViewModel(
                 }
 
         }
+    }
+
+    /**
+     * 채팅내역 가져오기 프로세스
+     * 1. 나의 uID와 상대방 uID를 이용해 채팅리스트를 조회한다.
+     */
+    fun loadChattingHistory(sender: String, receiver: String) {
+        Log.i(TAG, "sender : $sender, receiver : $receiver")
+        Application.instance?.firebaseDatabase
+            ?.getReference("user")
+            ?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                val value = dataSnapshot.value
+                Log.d(TAG, "Value is: $value")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException())
+            }
+        })
+
+
+
+
+
+
     }
 
 }

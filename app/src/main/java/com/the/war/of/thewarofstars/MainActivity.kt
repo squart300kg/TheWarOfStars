@@ -1,5 +1,7 @@
 package com.the.war.of.thewarofstars
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 //import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.the.war.of.thewarofstars.databinding.ActivityMainBinding
+import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
 import com.the.war.of.thewarofstars.ui.navigation.setupWithNavController
 import com.the.war.of.thewarofstars.util.BackButtonCloseHandler
 
@@ -31,6 +34,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        /**
+         * 알림을 통해 들어왔는지 체크
+         */
+        if (intent?.extras != null) {
+            val notiType   = intent.getStringExtra("notiType")
+            val senderUID  = intent.getStringExtra("senderUID")
+            val senderName = intent.getStringExtra("senderName")
+            val senderType = intent.getStringExtra("senderType")
+            val intent = QuestionActivity.newIntent(this).apply {
+                putExtra("notiType", senderName)
+                putExtra("senderUID", senderUID)
+                putExtra("senderName", notiType)
+                putExtra("senderType", senderType)
+            }
+            startActivity(intent)
+        }
+
 
         if (savedInstanceState == null) {
             setUpBottomNavigationBar()
@@ -63,6 +84,10 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    companion object {
+        fun newIntent(context: Context) = Intent(context, MainActivity::class.java)
     }
 
 }

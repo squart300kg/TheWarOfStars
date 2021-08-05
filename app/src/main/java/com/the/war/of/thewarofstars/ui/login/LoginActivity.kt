@@ -11,13 +11,11 @@ import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityLoginBinding
-import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
 import com.the.war.of.thewarofstars.util.NaverLogin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
-
 
     private val loginViewModel: LoginViewModel by viewModel()
 
@@ -27,7 +25,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result?.resultCode == Activity.RESULT_OK) {
-            goNext(MainActivity::class.java)
+                goNext(MainActivity::class.java)
         }
     }
 
@@ -41,27 +39,35 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        /**
+         * 알림을 통해 들어왔는지 체크
+         */
         if (intent?.extras != null) {
 
-            val type       = intent.getStringExtra("notiType")
+            val notiType   = intent.getStringExtra("notiType")
             val senderUID  = intent.getStringExtra("senderUID")
             val senderName = intent.getStringExtra("senderName")
             val senderType = intent.getStringExtra("senderType")
-            val intent = QuestionActivity.newIntent(this)
-            intent.putExtra("name", senderName)
-            intent.putExtra("uID", senderUID)
-            intent.putExtra("type", senderType)
+            val intent = MainActivity.newIntent(this).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra("notiType", senderName)
+                putExtra("senderUID", senderUID)
+                putExtra("senderName", notiType)
+                putExtra("senderType", senderType)
+            }
             startActivity(intent)
+
+
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            intent.putExtra("notiType", senderName)
+//            intent.putExtra("senderUID", senderUID)
+//            intent.putExtra("senderName", notiType)
+//            intent.putExtra("senderType", senderType)
+//            startActivity(intent)
             Log.i(TAG, "senderName: $senderName, senderUID: $senderUID")
 
-//            for (key: String in intent.extras!!.keySet()) {
-//                val value = intent.extras!!.get(key)
-//                Log.i(TAG, "[$key] : $value")
-//                if (key == "type" && value == getString(R.string.notification_channel_id)) {
-//                    val intent = QuestionActivity.newIntent(this)
-//                    intent.putExtra("senderName", )
-//                }
-//            }
         }
 
         binding {
@@ -112,6 +118,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                          */
                         Application.instance?.userEmail    = loginViewModel.email.value
                         Application.instance?.userNickname = loginViewModel.nickname.value
+                        Application.instance?.userUID      = loginViewModel.uID.value
                         goNext(MainActivity::class.java)
                     }
                     false -> {

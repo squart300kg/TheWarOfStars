@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
 import com.the.war.of.thewarofstars.model.User
@@ -18,8 +19,9 @@ import org.json.JSONObject
 import retrofit2.HttpException
 
 class LoginViewModel(
+    private val securePreferences: SecurePreferences,
     private val loginRepository: LoginRepository
-): BaseViewModel() {
+): BaseViewModel(securePreferences) {
 
     private val _email = MutableLiveData<String>()
     val email: LiveData<String>
@@ -28,6 +30,10 @@ class LoginViewModel(
     private val _nickname = MutableLiveData<String>()
     val nickname: LiveData<String>
         get() = _nickname
+
+    private val _uID = MutableLiveData<String>()
+    val uID: LiveData<String>
+        get() = _uID
 
     private val _naverApiStatus = MutableLiveData<Boolean>()
     val naverApiStatus: LiveData<Boolean>
@@ -68,12 +74,15 @@ class LoginViewModel(
     fun isRegister(email: String?) {
 
         Log.i(TAG, "inputEmail : $email")
-        Application.instance?.firebaseDB?.collection("UserList")
+        Application.instance?.firebaseStore?.collection("UserList")
                 ?.whereEqualTo("email", email)
                     ?.get()
                     ?.addOnSuccessListener { documents ->
                         for (document in documents) {
+
+                            _uID.value        = document.id
                             _isRegister.value = true
+
                             return@addOnSuccessListener
                         }
                         _isRegister.value = false
@@ -82,7 +91,7 @@ class LoginViewModel(
 
     fun registerUser() {
 
-        Application.instance?.firebaseDB
+        Application.instance?.firebaseStore
             ?.collection("UserList")
             ?.document(email.value.toString())
             ?.set(

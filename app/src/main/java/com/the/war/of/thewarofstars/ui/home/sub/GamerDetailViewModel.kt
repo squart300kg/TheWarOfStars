@@ -4,11 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Timestamp
+import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
 import com.the.war.of.thewarofstars.model.ReviewItem
 
-class GamerDetailViewModel: BaseViewModel() {
+class GamerDetailViewModel(
+    private val securePreferences: SecurePreferences
+): BaseViewModel(securePreferences) {
 
     private val _reviewList = MutableLiveData<MutableList<ReviewItem>>()
     val reviewList: LiveData<MutableList<ReviewItem>>
@@ -21,7 +24,7 @@ class GamerDetailViewModel: BaseViewModel() {
     val TAG = "GamerDetailViewModelLog"
 
     fun getReviews(gamer: String?) {
-        Application?.instance?.firebaseDB.let { firebaseDB ->
+        Application?.instance?.firebaseStore.let { firebaseDB ->
             firebaseDB?.collection("ReviewList")
                 ?.whereEqualTo("gamer", gamer)
                 ?.get()

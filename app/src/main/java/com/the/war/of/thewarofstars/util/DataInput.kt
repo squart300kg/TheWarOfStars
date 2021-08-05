@@ -27,7 +27,7 @@ object DataInput {
             )
             // 30 ~ 60개 사이의 랜덤한 리뷰 리스트 생성
             for (j in 0 until ((Math.random() * 20).toInt())) {
-                Application.instance?.firebaseDB
+                Application.instance?.firebaseStore
                     ?.collection("ReviewList")
                     ?.add(review)
                     ?.addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }

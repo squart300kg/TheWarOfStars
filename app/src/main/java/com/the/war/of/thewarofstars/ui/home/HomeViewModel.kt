@@ -22,7 +22,7 @@ class HomeViewModel : ViewModel() {
 
     fun getGamers() {
 
-        Application?.instance?.firebaseDB.let { firebaseDB ->
+        Application?.instance?.firebaseStore.let { firebaseDB ->
             firebaseDB?.collection("GamerList").let { gamerList ->
                 gamerList?.get()
                     ?.addOnSuccessListener { collection ->
@@ -60,7 +60,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getBanners() {
-        Application?.instance?.firebaseDB.let { firebaseDB ->
+        Application?.instance?.firebaseStore.let { firebaseDB ->
             firebaseDB?.collection("Banner").let { banner ->
                 banner?.get()
                     ?.addOnSuccessListener { collection ->

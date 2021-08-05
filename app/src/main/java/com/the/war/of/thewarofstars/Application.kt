@@ -6,12 +6,16 @@ import android.app.NotificationManager
 import android.os.Build
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.naverlogin.OAuthLogin
 import com.the.war.of.thewarofstars.di.networkModule
+import com.the.war.of.thewarofstars.di.preferencesModule
 import com.the.war.of.thewarofstars.di.repositoryModule
 import com.the.war.of.thewarofstars.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -21,10 +25,11 @@ import org.koin.core.logger.Level
 
 open class Application: Application() {
 
-    var firebaseDB: FirebaseFirestore? = null
+    var firebaseStore: FirebaseFirestore? = null
+    var firebaseDatabase: FirebaseDatabase? = null
     var naverLoginModule: OAuthLogin? = null
 
-    var userUID: String? = null
+    var userUID: String? = "0"
     var userEmail: String? = null
     var userNickname: String? = null
 
@@ -58,7 +63,11 @@ open class Application: Application() {
     private fun firebaseInitialize() {
 
         // Firestore 초기화
-        firebaseDB = Firebase.firestore
+        firebaseStore = Firebase.firestore
+
+        // RDB초기화
+        firebaseDatabase = Firebase.database
+        firebaseDatabase!!.useEmulator("172.32.4.12", 9000)
 
         // FCM토큰 초기화
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -95,7 +104,7 @@ open class Application: Application() {
     open fun configureDi() = startKoin {
         androidLogger(Level.ERROR)
         androidContext(this@Application)
-        modules(listOf(networkModule ,repositoryModule ,viewModelModule))
+        modules(listOf(preferencesModule, networkModule ,repositoryModule ,viewModelModule))
     }
 
     companion object {
