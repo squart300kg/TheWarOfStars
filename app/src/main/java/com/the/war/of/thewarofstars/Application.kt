@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.os.Build
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,9 +28,10 @@ open class Application: Application() {
     var firebaseDatabase: FirebaseDatabase? = null
     var naverLoginModule: OAuthLogin? = null
 
-    var userUID: String? = "0"
+    var userUID: String? = null
     var userEmail: String? = null
-    var userNickname: String? = null
+    var userName: String? = null
+    var userFcmToken: String? = null
 
     val TAG = "ApplicationLog"
 
@@ -67,7 +67,7 @@ open class Application: Application() {
 
         // RDB초기화
         firebaseDatabase = Firebase.database
-        firebaseDatabase!!.useEmulator("172.32.4.12", 9000)
+//        firebaseDatabase!!.useEmulator("172.32.4.12", 9000)
 
         // FCM토큰 초기화
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -77,9 +77,9 @@ open class Application: Application() {
             }
 
             // Get new FCM registration token
-            val token = task.result
+            userFcmToken = task.result
 
-            Log.d(TAG, "FCM Token : $token")
+            Log.d(TAG, "FCM Token : $userFcmToken")
         })
     }
 

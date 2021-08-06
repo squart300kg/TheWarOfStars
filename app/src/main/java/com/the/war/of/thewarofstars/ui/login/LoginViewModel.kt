@@ -96,8 +96,9 @@ class LoginViewModel(
             ?.document(email.value.toString())
             ?.set(
                 User(
-                    _email.value as String,
-                    _nickname.value as String
+                    email    = _email.value as String,
+                    nickname = _nickname.value as String,
+                    fcmToken = Application.instance?.userFcmToken as String
                 )
             )
             ?.addOnSuccessListener {

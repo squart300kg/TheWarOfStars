@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
+import com.the.war.of.thewarofstars.ui.login.EmailLoginActivity.Companion.USER_TYPE
 
 class EmailLoginViewModel(
     private val securePreferences: SecurePreferences
@@ -19,17 +20,25 @@ class EmailLoginViewModel(
     val email: LiveData<String>
         get() = _email
 
+    private val _name = MutableLiveData<String>()
+    val name: LiveData<String>
+        get() = _name
+
     private val _password = MutableLiveData<String>()
     val password: LiveData<String>
         get() = _password
 
+    private val _uID = MutableLiveData<String>()
+    val uID: LiveData<String>
+        get() = _uID
+
     val TAG = "EmailLoginViewModelLog"
 
-    fun confirmEmailLogin(email: String, password: String) {
+    fun confirmEmailLogin(email: String, password: String, loginType: String) {
 
         Log.i(TAG, "email: $email, password : $password")
 
-        Application?.instance?.firebaseStore?.collection("UserList")
+        Application?.instance?.firebaseStore?.collection(loginType)
             ?.whereEqualTo("email", email)
             ?.get()
             ?.addOnSuccessListener { documents ->
@@ -39,6 +48,8 @@ class EmailLoginViewModel(
                         // 로그인 성공
                         _email.value    = email
                         _password.value = password
+                        _name.value     = if (loginType == USER_TYPE) document.data["nickname"] as String else document.data["name"] as String
+                        _uID.value      = document.id
 
                         _isConfirmed.value = true
                         return@addOnSuccessListener

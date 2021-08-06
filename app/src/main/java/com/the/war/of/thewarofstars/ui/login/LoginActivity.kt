@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
@@ -42,33 +43,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         /**
          * 알림을 통해 들어왔는지 체크
          */
-        if (intent?.extras != null) {
-
-            val notiType   = intent.getStringExtra("notiType")
-            val senderUID  = intent.getStringExtra("senderUID")
-            val senderName = intent.getStringExtra("senderName")
-            val senderType = intent.getStringExtra("senderType")
-            val intent = MainActivity.newIntent(this).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                putExtra("notiType", senderName)
-                putExtra("senderUID", senderUID)
-                putExtra("senderName", notiType)
-                putExtra("senderType", senderType)
-            }
-            startActivity(intent)
-
-
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            intent.putExtra("notiType", senderName)
-//            intent.putExtra("senderUID", senderUID)
-//            intent.putExtra("senderName", notiType)
-//            intent.putExtra("senderType", senderType)
-//            startActivity(intent)
-            Log.i(TAG, "senderName: $senderName, senderUID: $senderUID")
-
-        }
+        checkForNotification()
 
         binding {
             videoView.apply{
@@ -117,7 +92,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                          * 회원이므로 메인페이지로 이동한다.
                          */
                         Application.instance?.userEmail    = loginViewModel.email.value
-                        Application.instance?.userNickname = loginViewModel.nickname.value
+                        Application.instance?.userName = loginViewModel.nickname.value
                         Application.instance?.userUID      = loginViewModel.uID.value
                         goNext(MainActivity::class.java)
                     }
@@ -131,6 +106,49 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             })
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        /**
+         * 자동로그인이 설정되어 있는지를 체크
+         */
+        isAutoLoginEnabled()
+    }
+
+    private fun checkForNotification() {
+        if (intent?.extras != null) {
+
+            val notiType   = intent.getStringExtra("notiType")
+            val senderUID  = intent.getStringExtra("senderUID")
+            val senderName = intent.getStringExtra("senderName")
+            val senderType = intent.getStringExtra("senderType")
+            val intent = MainActivity.newIntent(this).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra("notiType", senderName)
+                putExtra("senderUID", senderUID)
+                putExtra("senderName", notiType)
+                putExtra("senderType", senderType)
+            }
+            startActivity(intent)
+            finish()
+            Log.i(TAG, "senderName: $senderName, senderUID: $senderUID")
+
+        }
+    }
+
+    private fun isAutoLoginEnabled() {
+        val status = loginViewModel.getAutoLoginStatus().toBoolean()
+        if (status) {
+            val userInfoMap = loginViewModel.getAutoLoginUserInfo()
+            Application.instance?.userEmail = userInfoMap["email"]
+            Application.instance?.userName = userInfoMap["name"]
+            Application.instance?.userUID = userInfoMap["uID"]
+            Toast.makeText(this, "autoLoginIsAvailable\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}", Toast.LENGTH_LONG).show()
+            goNext(MainActivity::class.java)
+        }
     }
 
     private fun observing(action: LoginViewModel.() -> Unit) {

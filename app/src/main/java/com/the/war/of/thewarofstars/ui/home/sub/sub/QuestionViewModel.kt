@@ -103,7 +103,7 @@ class QuestionViewModel(
     fun loadChattingHistory(sender: String, receiver: String) {
         Log.i(TAG, "sender : $sender, receiver : $receiver")
         Application.instance?.firebaseDatabase
-            ?.getReference("user")
+            ?.getReference("user/$sender/$receiver")
             ?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again

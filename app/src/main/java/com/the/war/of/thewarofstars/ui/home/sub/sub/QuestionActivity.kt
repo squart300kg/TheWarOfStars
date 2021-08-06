@@ -25,10 +25,10 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
     private val questionviewModel: QuestionViewModel by viewModel()
 
     lateinit var chattingAdapter: ChattingAdapter
-    lateinit var gamerUID: String
-    lateinit var gamerName: String
+    lateinit var receiverUID: String
+    lateinit var receiverName: String
 
-    lateinit var userUID: String
+    lateinit var senderUID: String
 
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
@@ -62,12 +62,12 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
 
         binding {
             tvChattingDescription.apply {
-                gamerUID   = intent.getStringExtra("uID").toString()
-                gamerName  = intent.getStringExtra("name").toString()
+                receiverUID   = intent.getStringExtra("uID").toString()
+                receiverName  = intent.getStringExtra("name").toString()
 
-                userUID    = Application.instance?.userUID.toString()
+                senderUID     = Application.instance?.userUID.toString()
 
-                val roomTitle = gamerName + "님께 보내는 메시지"
+                val roomTitle = receiverName + "님께 보내는 메시지"
                 this.text = roomTitle
             }
 
@@ -126,8 +126,8 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     // 6. '채팅 어댑터'에 '메시지'를 추가
                     chattingAdapter.addOneBalloon(
                         ChattingItem(
-                            to          = gamerUID,
-                            from        = userUID,
+                            to          = receiverUID,
+                            from        = senderUID,
                             content     = message,
                             currentTime = Timestamp.now()
                         )
@@ -138,8 +138,8 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     // 8. 네트워크 통신을 시작한다
                     questionviewModel.sendMessage(
                         ChattingItem(
-                            to          = gamerUID,
-                            from        = userUID,
+                            to          = receiverUID,
+                            from        = senderUID,
                             content     = message,
                             currentTime = Timestamp.now()
                         )
@@ -155,10 +155,10 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
         super.onResume()
 
         if (questionviewModel.chattingHistory.value == null) {
-            Log.i(TAG, "sender : $userUID, receiver : $gamerUID")
+            Log.i(TAG, "sender : $senderUID, receiver : $receiverUID")
             questionviewModel.loadChattingHistory(
-                sender   = userUID,
-                receiver = gamerUID
+                sender   = senderUID,
+                receiver = receiverUID
             )
         }
 

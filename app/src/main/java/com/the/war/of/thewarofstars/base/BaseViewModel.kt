@@ -34,17 +34,24 @@ open class BaseViewModel(
     fun getAutoLoginUserInfo(): Map<String, String> {
         val email    = securePreferences.getEncryptedString("email", "")
         val password = securePreferences.getEncryptedString("password", "")
+        val name     = securePreferences.getEncryptedString("name", "")
+        val uID      = securePreferences.getEncryptedString("uID", "")
+
 
         val map = HashMap<String, String>()
         map["email"] = email
         map["password"] = password
+        map["name"] = name
+        map["uID"] = uID
 
         return map
     }
 
-    fun saveAutoLogin(autoLogin: Boolean, email: String?, password: String?) {
+    fun saveAutoLogin(autoLogin: Boolean, email: String?, name: String?, uID: String?, password: String?) {
         securePreferences.edit().putUnencryptedString("autoLoginStatus", autoLogin.toString()).commit()
         securePreferences.edit().putUnencryptedString("email", email.toString()).commit()
+        securePreferences.edit().putUnencryptedString("name", name.toString()).commit()
+        securePreferences.edit().putUnencryptedString("uID", uID.toString()).commit()
         securePreferences.edit().putUnencryptedString("password", password.toString()).commit()
     }
 }

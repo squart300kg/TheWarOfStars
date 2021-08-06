@@ -59,15 +59,72 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <RadioGroup
+        android:id="@+id/rg_login_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/email_login_common_margin"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_password_input">
+
+            <RadioButton
+                android:id="@+id/rb_gamer_type"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="선수 로그인"
+                />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            />
+
+            <RadioButton
+                android:id="@+id/rb_user_type"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일반 로그인"
+                />
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/email_login_button_height"
+        android:layout_margin="@dimen/email_login_common_margin"
+        android:text="이메일 로그인"
+        android:background="@drawable/border_login_button"
+        app:layout_constraintTop_toBottomOf="@id/rg_login_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
     <LinearLayout
         android:id="@+id/layout_email_password_search"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/email_login_common_margin"
         android:layout_marginStart="@dimen/email_login_common_margin"
-        app:layout_constraintTop_toBottomOf="@id/layout_password_input"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintStart_toStartOf="parent">
         <TextView
             android:id="@+id/tv_search_email"
@@ -90,55 +147,15 @@
             android:textStyle="bold"
             android:text="비밀번호 찾기" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_auto_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/email_login_common_margin"
-        android:layout_marginEnd="@dimen/email_login_common_margin"
-        app:layout_constraintTop_toBottomOf="@+id/layout_password_input"
-        app:layout_constraintEnd_toEndOf="parent">
-        <CheckBox
-            android:id="@+id/cb_auto_login"
-            android:layout_width="30dp"
-            android:layout_height="50dp"
-            android:gravity="center"
-            />
-
-        <TextView
-            android:id="@+id/tv_auto_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="자동로그인"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-
-
-
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/email_login_button_height"
-        android:layout_margin="@dimen/email_login_common_margin"
-        android:text="이메일 로그인"
-        android:background="@drawable/border_login_button"
-        app:layout_constraintTop_toBottomOf="@id/layout_auto_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원가입"
         android:textStyle="bold"
-        android:layout_marginTop="50dp"
+        android:layout_margin="@dimen/email_login_common_margin"
         app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

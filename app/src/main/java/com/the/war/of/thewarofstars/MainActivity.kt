@@ -38,25 +38,29 @@ class MainActivity : AppCompatActivity() {
         /**
          * 알림을 통해 들어왔는지 체크
          */
+        checkForNotification()
+
+        if (savedInstanceState == null) {
+            setUpBottomNavigationBar()
+        } // Else, need to wait for onRestoreInstanceState
+
+    }
+
+    private fun checkForNotification() {
         if (intent?.extras != null) {
+
             val notiType   = intent.getStringExtra("notiType")
             val senderUID  = intent.getStringExtra("senderUID")
             val senderName = intent.getStringExtra("senderName")
             val senderType = intent.getStringExtra("senderType")
             val intent = QuestionActivity.newIntent(this).apply {
                 putExtra("notiType", senderName)
-                putExtra("senderUID", senderUID)
-                putExtra("senderName", notiType)
+                putExtra("uID", senderUID)
+                putExtra("name", notiType)
                 putExtra("senderType", senderType)
             }
             startActivity(intent)
         }
-
-
-        if (savedInstanceState == null) {
-            setUpBottomNavigationBar()
-        } // Else, need to wait for onRestoreInstanceState
-
     }
 
     private fun setUpBottomNavigationBar() {

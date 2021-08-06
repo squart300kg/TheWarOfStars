@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import android.widget.RadioGroup
+import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityEmailLoginBinding
@@ -15,6 +18,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activity_email_login) {
 
     private val emailLoginViewModel: EmailLoginViewModel by viewModel()
+
+    private var loginType = GAMER_TYPE
+
+    private val TAG = "EmailLoginActivityLog"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +35,28 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                 setOnDeleteButton()
             }
 
+            rgLoginType.apply {
+                setOnCheckedChangeListener { group, resId ->
+                    when (resId) {
+                        R.id.rb_gamer_type -> {
+                            loginType = GAMER_TYPE
+                            Log.i(TAG, "loginType : $loginType")
+                        }
+                        R.id.rb_user_type -> {
+                            loginType = USER_TYPE
+                            Log.i(TAG, "loginType : $loginType")
+                        }
+                    }
+                }
+
+
+            }
+
             btnLogin.setOnClickListener {
                 emailLoginViewModel.confirmEmailLogin(
                     etvEmail.text.toString(),
                     etvPassword.text.toString(),
+                    loginType
                 )
 
             }
@@ -42,9 +67,14 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                     true -> {
 
                         val email    = emailLoginViewModel.email.value
+                        val name     = emailLoginViewModel.name.value
                         val password = emailLoginViewModel.password.value
+                        val uID      = emailLoginViewModel.uID.value
 
-                        saveAutoLogin(true, email, password)
+                        saveAutoLogin(true, email, name ,uID, password)
+
+                        Application.instance?.userUID = uID
+                        Application.instance?.userEmail = email
 
                         setResult(RESULT_OK)
                         finish()
@@ -114,6 +144,9 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
 
     companion object {
         const val DRAWABLE_RIGHT = 2
+
+        const val USER_TYPE  = "UserList"
+        const val GAMER_TYPE = "GamerList"
     }
 
 }
