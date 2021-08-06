@@ -1,13 +1,14 @@
 package com.the.war.of.thewarofstars.ui.home.sub.sub
 
+import android.R.attr.button
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.HttpException
+
 
 /**
  * Created by sangyoon on 2021/07/26
@@ -103,13 +105,40 @@ class QuestionViewModel(
     fun loadChattingHistory(sender: String, receiver: String) {
         Log.i(TAG, "sender : $sender, receiver : $receiver")
         Application.instance?.firebaseDatabase
-            ?.getReference("user/$sender/$receiver")
+            ?.reference
+            ?.child("user")
+            ?.child(sender)
+            ?.child(receiver)
             ?.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = dataSnapshot.value
-                Log.d(TAG, "Value is: $value")
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                /**
+                 * 채팅내역 불러오기 프로세스
+                 * 1. sender가 receiver와 채팅하고 있는 내역을 모두 불러온다.
+                 * 2. commentUid를 통해 comment데이터를 가져온다
+                 */
+                snapshot.children.forEach {
+                    Log.i(TAG, "key : ${it.key}, value : ${it.value}")
+
+                    val commentUID = it.key
+                    val isHost     = it.value
+
+                    getCommentContent(commentUID)
+
+//                    Application.instance?.firebaseDatabase
+//                        ?.getReference("comment/$commentUID")
+//                        ?.addValueEventListener(object: ValueEventListener {
+//                            override fun onDataChange(snapshot: DataSnapshot) {
+//                                snapshot.children.forEach {
+//                                    Log.i(TAG, "key : ${it.key}, value : ${it.value}")
+//                                }
+//                            }
+//
+//                            override fun onCancelled(error: DatabaseError) {
+//
+//                            }
+//                        })
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -121,6 +150,11 @@ class QuestionViewModel(
 
 
 
+
+
+    }
+
+    private fun getCommentContent(commentUID: String?) {
 
 
     }

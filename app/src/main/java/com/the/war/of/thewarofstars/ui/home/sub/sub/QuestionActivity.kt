@@ -129,7 +129,8 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                             to          = receiverUID,
                             from        = senderUID,
                             content     = message,
-                            currentTime = Timestamp.now()
+                            currentTime = Timestamp.now(),
+                            isHost      = true
                         )
                     )
                     // 7. 포커스를 마지막 메시지로 이동한다
@@ -141,7 +142,8 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                             to          = receiverUID,
                             from        = senderUID,
                             content     = message,
-                            currentTime = Timestamp.now()
+                            currentTime = Timestamp.now(),
+                            isHost      = true
                         )
                     )
                 }
