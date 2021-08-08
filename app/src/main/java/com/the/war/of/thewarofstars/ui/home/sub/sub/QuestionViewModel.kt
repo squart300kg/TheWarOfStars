@@ -1,5 +1,6 @@
 package com.the.war.of.thewarofstars.ui.home.sub.sub
 
+import android.R.attr.breakStrategy
 import android.R.attr.button
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -106,38 +107,27 @@ class QuestionViewModel(
         Log.i(TAG, "sender : $sender, receiver : $receiver")
         Application.instance?.firebaseDatabase
             ?.reference
-            ?.child("user")
+            ?.child("users")
             ?.child(sender)
-            ?.child(receiver)
+            ?.child("ChattingRooms")
             ?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 /**
                  * 채팅내역 불러오기 프로세스
-                 * 1. sender가 receiver와 채팅하고 있는 내역을 모두 불러온다.
-                 * 2. commentUid를 통해 comment데이터를 가져온다
+                 * 1. 채팅방 내역을 모두 불러온다.
+                 * 2. 채팅방 리스트에서 대화중인 사용자가 지금 대화하려는 사용자와 같을 때, 채팅방 id를 가져온다.
+                 * 3. 채팅방 id에 해당하는 comments를 모두 불러온다.
                  */
                 snapshot.children.forEach {
-                    Log.i(TAG, "key : ${it.key}, value : ${it.value}")
 
-                    val commentUID = it.key
-                    val isHost     = it.value
+                    val roomId = it.key
+                    val userId = it.value
 
-                    getCommentContent(commentUID)
+                    if (userId == receiver) {
+                        getCommentContent(roomId.toString())
+                    }
 
-//                    Application.instance?.firebaseDatabase
-//                        ?.getReference("comment/$commentUID")
-//                        ?.addValueEventListener(object: ValueEventListener {
-//                            override fun onDataChange(snapshot: DataSnapshot) {
-//                                snapshot.children.forEach {
-//                                    Log.i(TAG, "key : ${it.key}, value : ${it.value}")
-//                                }
-//                            }
-//
-//                            override fun onCancelled(error: DatabaseError) {
-//
-//                            }
-//                        })
                 }
             }
 
@@ -154,8 +144,48 @@ class QuestionViewModel(
 
     }
 
-    private fun getCommentContent(commentUID: String?) {
+    private fun getCommentContent(roomId: String) {
+        Application.instance?.firebaseDatabase
+            ?.reference
+            ?.child("ChattingRooms")
+            ?.child(roomId)
+            ?.child("comments")
+            ?.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
+                    /**
+                     * 채팅내역 불러오기 프로세스
+                     * 1. 채팅방 내역을 모두 불러온다.
+                     * 2. 채팅방 리스트에서 대화중인 사용자가 지금 대화하려는 사용자와 같을 때, 채팅방 id를 가져온다.
+                     * 3. 채팅방 id에 해당하는 comments를 모두 불러온다.
+                     */
+                    val chattingHistory = mutableListOf<ChattingItem>()
+                    snapshot.children.forEach {
+
+                        val commentId      = it.key
+                        val commentContent = it.getValue(ChattingItem().javaClass)
+
+                        val uid       = commentContent?.uid
+                        val timeStamp = commentContent?.timeStamp
+                        val content   = commentContent?.content
+
+                        Log.i(TAG, "timeStamp : $timeStamp, uid : $uid, content : $content")
+
+                        val chattingItem = ChattingItem(
+                            uid = uid,
+                            timeStamp = requireNotNull(timeStamp),
+                            content = content.toString()
+                        )
+                        chattingHistory.add(chattingItem)
+                    }
+                    _chattingHistory.value = chattingHistory
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException())
+                }
+            })
 
     }
 

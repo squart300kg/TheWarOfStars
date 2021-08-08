@@ -24,7 +24,7 @@
             android:textSize="10sp"
             android:layout_gravity="bottom"
             android:textAlignment="textEnd"
-            theWarsOfStar:setCurrentDate="@{chattingModel.currentTime}"
+            theWarsOfStar:setCurrentDate="@{chattingModel.timeStamp}"
             android:layout_marginBottom="6dp"
             android:layout_marginEnd="6dp"
             android:textColor="@color/shimmer_color"

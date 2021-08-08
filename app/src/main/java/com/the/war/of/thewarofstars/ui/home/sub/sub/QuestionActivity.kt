@@ -17,6 +17,7 @@ import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityQuestionBinding
 import com.the.war.of.thewarofstars.model.ChattingItem
+import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.util.KeyboardVisibilityUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -129,8 +130,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                             to          = receiverUID,
                             from        = senderUID,
                             content     = message,
-                            currentTime = Timestamp.now(),
-                            isHost      = true
+                            timeStamp   = 123
                         )
                     )
                     // 7. 포커스를 마지막 메시지로 이동한다
@@ -141,14 +141,22 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                         ChattingItem(
                             to          = receiverUID,
                             from        = senderUID,
-                            content     = message,
-                            currentTime = Timestamp.now(),
-                            isHost      = true
+                            content     = message
                         )
                     )
                 }
             }
         }
+
+        observing {
+            chattingHistory.observe(this@QuestionActivity, { list ->
+                chattingAdapter.addAllBallon(list)
+
+                dataBinding.rvChatting.smoothScrollToPosition(chattingAdapter.itemCount - 1)
+            })
+        }
+
+
 
 
     }
@@ -175,6 +183,10 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(input.windowToken, 0)
         input.clearFocus()
+    }
+
+    private fun observing(action: QuestionViewModel.() -> Unit) {
+        questionviewModel.run(action)
     }
 
     companion object {

@@ -17,7 +17,6 @@ interface ChattingApi {
     suspend fun sendMessage(
         @Query("to") to: String,
         @Query("from") from: String,
-        @Query("content") content: String,
-        @Query("currentTime") currentTime: Timestamp
+        @Query("content") content: String
     ): ChattingResponse
 }

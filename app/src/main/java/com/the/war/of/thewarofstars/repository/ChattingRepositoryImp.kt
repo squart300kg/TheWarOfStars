@@ -15,10 +15,9 @@ class ChattingRepositoryImp(
     override fun sendMessage(chattingItem: ChattingItem): Flow<ChattingResponse> {
         return flow {
             val data = chattingApi.sendMessage(
-                to          = chattingItem.to,
-                from        = chattingItem.from,
-                content     = chattingItem.content,
-                currentTime = chattingItem.currentTime
+                to          = chattingItem.to.toString(),
+                from        = chattingItem.from.toString(),
+                content     = chattingItem.content.toString()
             )
             emit(data)
         }

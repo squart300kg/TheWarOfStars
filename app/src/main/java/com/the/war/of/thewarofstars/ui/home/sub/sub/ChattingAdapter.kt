@@ -55,6 +55,12 @@ class ChattingAdapter(
 
     }
 
+    fun addAllBallon(chattingHistory: List<ChattingItem>) {
+        items.clear()
+        items.addAll(chattingHistory)
+        notifyDataSetChanged()
+    }
+
     companion object {
 
     }

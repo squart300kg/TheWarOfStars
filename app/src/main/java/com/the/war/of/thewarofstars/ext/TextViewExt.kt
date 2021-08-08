@@ -38,14 +38,23 @@ fun TextView.setDate(timestamp: Timestamp) {
 
 @SuppressLint("LongLogTag")
 @BindingAdapter("theWarsOfStar:setCurrentDate")
-fun TextView.setCurrentDate(timestamp: Timestamp) {
+fun TextView.setCurrentDate(timestamp: Long) {
     val TAG = "BindingAdapter_setCurrentDateLog"
+//    this.text = timestamp.toString()
+
+//    val sdf = SimpleDateFormat("yyyy-MM-dd-hh-mm")
+//    val date = sdf.format(timestamp)
+//    Log.d("TTT UNix Date -> ", sdf.format((System.currentTimeMillis())).toString())
+//    Log.d("TTTT date -> ", date.toString())
+
     val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd\nHH:mm")
-    val result = simpleDateFormat.format(timestamp.toDate())
-    Log.i(TAG, timestamp.toString())
-    Log.i(TAG, timestamp.toDate().toString())
-    Log.i(TAG, result)
-    this.text = result
+    val date = simpleDateFormat.format(timestamp)
+    this.text = date.toString()
+//    Log.i(TAG, timestamp.toString())
+//    Log.i(TAG, timestamp.toDate().toString())
+//    Log.i(TAG, result)
+//    this.text = result
+
 }
 
 
