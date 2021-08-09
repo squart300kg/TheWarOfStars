@@ -10,14 +10,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.Timestamp
 import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils.dpToPx
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityQuestionBinding
 import com.the.war.of.thewarofstars.model.ChattingItem
-import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.util.KeyboardVisibilityUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -62,6 +60,9 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
          */
 
         binding {
+
+            questionModel = questionviewModel
+
             tvChattingDescription.apply {
                 receiverUID   = intent.getStringExtra("uID").toString()
                 receiverName  = intent.getStringExtra("name").toString()
@@ -125,7 +126,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     // 5. '입력창' 지워줌
                     etChattingInput.text.clear()
                     // 6. '채팅 어댑터'에 '메시지'를 추가
-                    chattingAdapter.addOneBalloon(
+                    chattingAdapter.loadOneBalloon(
                         ChattingItem(
                             to          = receiverUID,
                             from        = senderUID,
@@ -150,7 +151,9 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
 
         observing {
             chattingHistory.observe(this@QuestionActivity, { list ->
-                chattingAdapter.addAllBallon(list)
+                chattingAdapter.setReceiver(questionviewModel.receiverUID.value.toString())
+                chattingAdapter.setSender(questionviewModel.senderUID.value.toString())
+                chattingAdapter.loadAllBallon(list)
 
                 dataBinding.rvChatting.smoothScrollToPosition(chattingAdapter.itemCount - 1)
             })

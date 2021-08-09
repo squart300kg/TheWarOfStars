@@ -1,12 +1,9 @@
 package com.the.war.of.thewarofstars.ui.home.sub.sub
 
-import android.R.attr.breakStrategy
-import android.R.attr.button
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -35,6 +32,14 @@ class QuestionViewModel(
     private val _chattingHistory = MutableLiveData<MutableList<ChattingItem>>()
     val chattingHistory: LiveData<MutableList<ChattingItem>>
         get() = _chattingHistory
+
+    private val _senderUID = MutableLiveData<String>()
+    val senderUID: LiveData<String>
+        get() = _senderUID
+
+    private val _receiverUID = MutableLiveData<String>()
+    val receiverUID: LiveData<String>
+        get() = _receiverUID
 
     private val TAG = "QuestionViewModelLog"
 
@@ -126,6 +131,9 @@ class QuestionViewModel(
 
                     if (userId == receiver) {
                         getCommentContent(roomId.toString())
+
+                        _senderUID.value   = sender
+                        _receiverUID.value = receiver
                     }
 
                 }
@@ -165,14 +173,15 @@ class QuestionViewModel(
                         val commentId      = it.key
                         val commentContent = it.getValue(ChattingItem().javaClass)
 
-                        val uid       = commentContent?.uid
+                        val sender       = commentContent?.uid
                         val timeStamp = commentContent?.timeStamp
                         val content   = commentContent?.content
 
-                        Log.i(TAG, "timeStamp : $timeStamp, uid : $uid, content : $content")
+                        Log.i(TAG, "timeStamp : $timeStamp, uid : $sender, content : $content")
 
                         val chattingItem = ChattingItem(
-                            uid = uid,
+                            uid = commentId,
+                            to = sender,
                             timeStamp = requireNotNull(timeStamp),
                             content = content.toString()
                         )

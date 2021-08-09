@@ -5,9 +5,9 @@
     xmlns:theWarsOfStar="http://schemas.android.com/tools"
     >
     <data>
-<!--        <variable-->
-<!--            name=""-->
-<!--            type="" />-->
+        <variable
+            name="questionModel"
+            type="com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -44,9 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
+            theWarsOfStar:listitem="@layout/item_chatting"
+
             app:layout_constraintTop_toBottomOf="@id/iv_back"
             app:layout_constraintBottom_toTopOf="@+id/layout_custom_chatting_input"
-            theWarsOfStar:listitem="@layout/item_chatting"
             >
 
         </androidx.recyclerview.widget.RecyclerView>
