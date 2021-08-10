@@ -10,6 +10,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.nhn.android.naverlogin.OAuthLogin
@@ -26,12 +28,14 @@ open class Application: Application() {
 
     var firebaseStore: FirebaseFirestore? = null
     var firebaseDatabase: FirebaseDatabase? = null
+    var firebaseFunction: FirebaseFunctions? = null
     var naverLoginModule: OAuthLogin? = null
 
-    var userUID: String? = null
-    var userEmail: String? = null
-    var userName: String? = null
+    var userUID: String?      = null
+    var userEmail: String?    = null
+    var userName: String?     = null
     var userFcmToken: String? = null
+    var userType: String?     = null
 
     val TAG = "ApplicationLog"
 
@@ -68,6 +72,9 @@ open class Application: Application() {
         // RDB초기화
         firebaseDatabase = Firebase.database
 //        firebaseDatabase!!.useEmulator("172.32.4.12", 9000)
+
+        // Function초기화
+        firebaseFunction = Firebase.functions
 
         // FCM토큰 초기화
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->

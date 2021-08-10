@@ -36,6 +36,7 @@ open class BaseViewModel(
         val password = securePreferences.getEncryptedString("password", "")
         val name     = securePreferences.getEncryptedString("name", "")
         val uID      = securePreferences.getEncryptedString("uID", "")
+        val type     = securePreferences.getEncryptedString("type", "")
 
 
         val map = HashMap<String, String>()
@@ -43,15 +44,24 @@ open class BaseViewModel(
         map["password"] = password
         map["name"] = name
         map["uID"] = uID
+        map["type"] = type
 
         return map
     }
 
-    fun saveAutoLogin(autoLogin: Boolean, email: String?, name: String?, uID: String?, password: String?) {
+    fun saveAutoLogin(
+        autoLogin: Boolean,
+        email: String?,
+        name: String?,
+        uID: String?,
+        password: String?,
+        type: String?
+    ) {
         securePreferences.edit().putUnencryptedString("autoLoginStatus", autoLogin.toString()).commit()
         securePreferences.edit().putUnencryptedString("email", email.toString()).commit()
         securePreferences.edit().putUnencryptedString("name", name.toString()).commit()
         securePreferences.edit().putUnencryptedString("uID", uID.toString()).commit()
         securePreferences.edit().putUnencryptedString("password", password.toString()).commit()
+        securePreferences.edit().putUnencryptedString("type", type.toString()).commit()
     }
 }

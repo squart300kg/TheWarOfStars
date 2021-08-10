@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.functions.FirebaseFunctionsException
+import com.google.gson.JsonObject
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
@@ -46,26 +49,27 @@ class QuestionViewModel(
     fun sendMessage(
         chattingItem: ChattingItem
     )
-//    : Task<String>
+//    : Task<JSONObject>
     {
 
         Log.i(TAG, "chattingItem : $chattingItem")
 
 //        val item = hashMapOf(
-//            "text" to chattingItem.content
-////            "from" to chattingItem.from,
-////            "content" to chattingItem.content,
-////            "currentTime" to chattingItem.currentTime
+//            "to"      to chattingItem.to,
+//            "from"    to chattingItem.from,
+//            "content" to chattingItem.content,
+//            "type"    to chattingItem.type
 //        )
-
-//        return requireNotNull(Application.instance?.fireFunction)
+//
+//        return requireNotNull(Application.instance?.firebaseFunction)
 //            .getHttpsCallable("sendMessage")
 //            .call(item)
 //            .continueWith { task ->
 //                // This continuation runs on either success or failure, but if the task
 //                // has failed then result will throw an Exception which will be
 //                // propagated down.
-//                val result = task.result?.data as String
+//                val result = JSONObject(task.result?.data.toString())
+//                Log.i(TAG, "continueWith : $result")
 //                result
 //            }
 //            .addOnCompleteListener { task ->
@@ -85,6 +89,7 @@ class QuestionViewModel(
 //                Log.i(TAG, "successed - $it")
 //            }
 
+
         job?.cancel()
         job = viewModelScope.launch {
             chattingRepository.sendMessage(chattingItem)
@@ -95,10 +100,11 @@ class QuestionViewModel(
                         _errorCode.value = errorJson.getString("code")
                         _errorMsg.value = errorJson.getString("message")
                     }
+                    exception.printStackTrace()
                     Log.i(TAG, "failed - code : ${_errorCode.value}, msg : ${_errorMsg.value}, exception : $exception")
                 }
                 .collect {
-                    Log.i(TAG, "result : ${it.result}")
+                    Log.i(TAG, "commentDate : ${it.commentDate}")
                 }
 
         }
@@ -145,11 +151,6 @@ class QuestionViewModel(
             }
         })
 
-
-
-
-
-
     }
 
     private fun getCommentContent(roomId: String) {
@@ -173,11 +174,12 @@ class QuestionViewModel(
                         val commentId      = it.key
                         val commentContent = it.getValue(ChattingItem().javaClass)
 
-                        val sender       = commentContent?.uid
+                        val sender    = commentContent?.uid
                         val timeStamp = commentContent?.timeStamp
                         val content   = commentContent?.content
 
                         Log.i(TAG, "timeStamp : $timeStamp, uid : $sender, content : $content")
+
 
                         val chattingItem = ChattingItem(
                             uid = commentId,

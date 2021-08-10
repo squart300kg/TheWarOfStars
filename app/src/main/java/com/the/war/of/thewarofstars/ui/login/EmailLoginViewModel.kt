@@ -24,6 +24,10 @@ class EmailLoginViewModel(
     val name: LiveData<String>
         get() = _name
 
+    private val _type = MutableLiveData<String>()
+    val type: LiveData<String>
+        get() = _type
+
     private val _password = MutableLiveData<String>()
     val password: LiveData<String>
         get() = _password
@@ -49,6 +53,7 @@ class EmailLoginViewModel(
                         _email.value    = email
                         _password.value = password
                         _name.value     = if (loginType == USER_TYPE) document.data["nickname"] as String else document.data["name"] as String
+                        _type.value     = if (loginType == USER_TYPE) "USER" else "GAMER"
                         _uID.value      = document.id
 
                         _isConfirmed.value = true

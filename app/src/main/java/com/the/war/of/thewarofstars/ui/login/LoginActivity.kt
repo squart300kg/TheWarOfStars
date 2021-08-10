@@ -144,8 +144,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         if (status) {
             val userInfoMap = loginViewModel.getAutoLoginUserInfo()
             Application.instance?.userEmail = userInfoMap["email"]
-            Application.instance?.userName = userInfoMap["name"]
-            Application.instance?.userUID = userInfoMap["uID"]
+            Application.instance?.userName  = userInfoMap["name"]
+            Application.instance?.userUID   = userInfoMap["uID"]
+            Application.instance?.userType  = userInfoMap["type"]
             Toast.makeText(this, "autoLoginIsAvailable\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}", Toast.LENGTH_LONG).show()
             goNext(MainActivity::class.java)
         }

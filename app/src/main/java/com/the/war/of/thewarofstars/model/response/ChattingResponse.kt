@@ -1,5 +1,9 @@
 package com.the.war.of.thewarofstars.model.response
 
+import com.google.gson.annotations.SerializedName
+
 data class ChattingResponse(
-    val result: String?
+
+    @SerializedName("commentDate")
+    val commentDate: Int
 )

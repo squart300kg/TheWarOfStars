@@ -131,7 +131,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                             to          = receiverUID,
                             from        = senderUID,
                             content     = message,
-                            timeStamp   = 123
+                            type        = Application.instance?.userType.toString()
                         )
                     )
                     // 7. 포커스를 마지막 메시지로 이동한다
@@ -142,7 +142,8 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                         ChattingItem(
                             to          = receiverUID,
                             from        = senderUID,
-                            content     = message
+                            content     = message,
+                            type        = Application.instance?.userType.toString()
                         )
                     )
                 }

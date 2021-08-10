@@ -17,7 +17,8 @@ class ChattingRepositoryImp(
             val data = chattingApi.sendMessage(
                 to          = chattingItem.to.toString(),
                 from        = chattingItem.from.toString(),
-                content     = chattingItem.content.toString()
+                content     = chattingItem.content.toString(),
+                type        = chattingItem.type.toString()
             )
             emit(data)
         }

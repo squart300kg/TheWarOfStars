@@ -6,5 +6,5 @@ data class ChattingItem(
     val from: String? = null,
     val content: String? = null,
     val timeStamp: Long = System.currentTimeMillis(),
-    val isHost: Boolean = true,
+    val type: String?= null
 )

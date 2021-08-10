@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
-import android.widget.RadioGroup
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
@@ -70,8 +69,9 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                         val name     = emailLoginViewModel.name.value
                         val password = emailLoginViewModel.password.value
                         val uID      = emailLoginViewModel.uID.value
+                        val type     = emailLoginViewModel.type.value
 
-                        saveAutoLogin(true, email, name ,uID, password)
+                        saveAutoLogin(true, email, name ,uID, password, type)
 
                         Application.instance?.userUID = uID
                         Application.instance?.userEmail = email
