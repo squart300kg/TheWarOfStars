@@ -37,6 +37,7 @@
             android:id="@+id/etv_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/white"
             android:backgroundTint="@android:color/darker_gray"
             android:inputType="textEmailAddress"
             />
@@ -54,6 +55,7 @@
             android:id="@+id/etv_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/white"
             android:backgroundTint="@android:color/darker_gray"
             android:inputType="textPassword"
             />
