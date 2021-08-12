@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class ChattingResponse(
 
     @SerializedName("commentDate")
-    val commentDate: Int
+    val commentDate: Long
 )

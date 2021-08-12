@@ -1,8 +1,7 @@
 package com.the.war.of.thewarofstars.ui.home.sub.sub
 
 import android.app.Activity
-import android.view.Gravity
-import android.view.View
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.BR
@@ -28,7 +27,7 @@ class ChattingAdapter(
 
     override fun getItemViewType(position: Int): Int {
 
-        return if (items[position].to == receiver) {
+        return if (items[position].uid == receiver) {
             LEFT
         } else {
             RIGHT
@@ -92,6 +91,7 @@ class ChattingAdapter(
     }
 
     fun loadAllBallon(chattingHistory: List<ChattingItem>) {
+        Log.i(TAG, "list : $chattingHistory")
         items.clear()
         items.addAll(chattingHistory)
         notifyDataSetChanged()

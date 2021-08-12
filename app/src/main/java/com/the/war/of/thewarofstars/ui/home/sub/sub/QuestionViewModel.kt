@@ -4,12 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.functions.FirebaseFunctionsException
-import com.google.gson.JsonObject
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
@@ -174,16 +171,15 @@ class QuestionViewModel(
                         val commentId      = it.key
                         val commentContent = it.getValue(ChattingItem().javaClass)
 
-                        val sender    = commentContent?.uid
-                        val timeStamp = commentContent?.timeStamp
-                        val content   = commentContent?.content
+                        val commentHostUid = commentContent?.uid
+                        val timeStamp      = commentContent?.timeStamp
+                        val content        = commentContent?.content
 
-                        Log.i(TAG, "timeStamp : $timeStamp, uid : $sender, content : $content")
+                        Log.i(TAG, "timeStamp : $timeStamp, uid : $commentHostUid, content : $content")
 
 
                         val chattingItem = ChattingItem(
-                            uid = commentId,
-                            to = sender,
+                            uid = commentHostUid,
                             timeStamp = requireNotNull(timeStamp),
                             content = content.toString()
                         )
