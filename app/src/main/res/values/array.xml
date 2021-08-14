@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tribe_type_array">
+        <item>종족을 선택해 주세요</item>
+        <item>테란</item>
+        <item>저그</item>
+        <item>프로토스</item>
+    </string-array>
+
+</resources>
