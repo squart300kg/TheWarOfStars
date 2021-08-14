@@ -64,4 +64,13 @@ open class BaseViewModel(
         securePreferences.edit().putUnencryptedString("password", password.toString()).commit()
         securePreferences.edit().putUnencryptedString("type", type.toString()).commit()
     }
+
+    fun deleteAutoLogin() {
+        securePreferences.edit().putUnencryptedString("autoLoginStatus", "false").commit()
+        securePreferences.edit().putUnencryptedString("email", null).commit()
+        securePreferences.edit().putUnencryptedString("name", null).commit()
+        securePreferences.edit().putUnencryptedString("uID", null).commit()
+        securePreferences.edit().putUnencryptedString("password", null).commit()
+        securePreferences.edit().putUnencryptedString("type", null).commit()
+    }
 }

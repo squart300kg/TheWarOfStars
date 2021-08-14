@@ -64,8 +64,8 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
             questionModel = questionviewModel
 
             tvChattingDescription.apply {
-                receiverUID   = intent.getStringExtra("uID").toString()
-                receiverName  = intent.getStringExtra("name").toString()
+                receiverName  = intent.getStringExtra("senderName").toString()
+                receiverUID   = intent.getStringExtra("senderUID").toString()
 
                 senderUID     = Application.instance?.userUID.toString()
 
@@ -128,10 +128,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     // 6. '채팅 어댑터'에 '메시지'를 추가
                     chattingAdapter.loadOneBalloon(
                         ChattingItem(
-                            to          = receiverUID,
-                            from        = senderUID,
                             content     = message,
-                            type        = Application.instance?.userType.toString()
                         )
                     )
                     // 7. 포커스를 마지막 메시지로 이동한다
@@ -159,9 +156,6 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                 dataBinding.rvChatting.smoothScrollToPosition(chattingAdapter.itemCount - 1)
             })
         }
-
-
-
 
     }
 

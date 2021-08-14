@@ -11,6 +11,7 @@ import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.contant.NotiInfo
 import com.the.war.of.thewarofstars.databinding.ActivityLoginBinding
 import com.the.war.of.thewarofstars.util.NaverLogin
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -91,9 +92,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                         /**
                          * 회원이므로 메인페이지로 이동한다.
                          */
-                        Application.instance?.userEmail    = loginViewModel.email.value
-                        Application.instance?.userName = loginViewModel.nickname.value
-                        Application.instance?.userUID      = loginViewModel.uID.value
+                        Application.instance?.userEmail = loginViewModel.email.value
+                        Application.instance?.userName  = loginViewModel.nickname.value
+                        Application.instance?.userUID   = loginViewModel.uID.value
                         goNext(MainActivity::class.java)
                     }
                     false -> {
@@ -118,37 +119,44 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     private fun checkForNotification() {
-        if (intent?.extras != null) {
+        val extras = intent?.extras
+        if (extras != null) {
 
-            val notiType   = intent.getStringExtra("notiType")
-            val senderUID  = intent.getStringExtra("senderUID")
-            val senderName = intent.getStringExtra("senderName")
-            val senderType = intent.getStringExtra("senderType")
-            val intent = MainActivity.newIntent(this).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                putExtra("notiType", senderName)
-                putExtra("senderUID", senderUID)
-                putExtra("senderName", notiType)
-                putExtra("senderType", senderType)
+            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
+                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
+                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
+                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
+
+                val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
+                val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
+
+                val intent = MainActivity.newIntent(this).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    putExtra(NotiInfo.SENDER_NAME.type, senderName)
+                    putExtra(NotiInfo.SENDER_UID.type, senderUID)
+                }
+                Log.i(TAG, "senderUID : $senderUID, senderName : $senderName")
+                startActivity(intent)
+                finish()
             }
-            startActivity(intent)
-            finish()
-            Log.i(TAG, "senderName: $senderName, senderUID: $senderUID")
 
         }
     }
 
     private fun isAutoLoginEnabled() {
         val status = loginViewModel.getAutoLoginStatus().toBoolean()
+        Log.i(TAG, "autoLoginStatus : $status")
         if (status) {
             val userInfoMap = loginViewModel.getAutoLoginUserInfo()
             Application.instance?.userEmail = userInfoMap["email"]
             Application.instance?.userName  = userInfoMap["name"]
             Application.instance?.userUID   = userInfoMap["uID"]
             Application.instance?.userType  = userInfoMap["type"]
-            Toast.makeText(this, "autoLoginIsAvailable\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "자동로그인 성공!\n\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}, \n fcmToken : ${Application.instance?.userFcmToken}, userType : ${Application.instance?.userType}", Toast.LENGTH_LONG).show()
             goNext(MainActivity::class.java)
+        } else {
+            Toast.makeText(this, "자동로그인 실패!\n\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}, \n fcmToken : ${Application.instance?.userFcmToken}, userType : ${Application.instance?.userType}", Toast.LENGTH_LONG).show()
         }
     }
 

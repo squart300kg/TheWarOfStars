@@ -44,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
+            theWarsOfStar:listitem="@layout/item_chatting_left"
             app:layout_constraintTop_toBottomOf="@id/iv_back"
             app:layout_constraintBottom_toTopOf="@+id/layout_custom_chatting_input"
             >

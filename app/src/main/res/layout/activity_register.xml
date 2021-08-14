@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:theWarsOfStar="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="registerVm"
+            type="com.the.war.of.thewarofstars.ui.login.RegisterViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        theWarsOfStar:context=".ui.login.RegisterActivity">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

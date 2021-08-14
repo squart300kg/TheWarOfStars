@@ -43,49 +43,9 @@ class QuestionViewModel(
 
     private val TAG = "QuestionViewModelLog"
 
-    fun sendMessage(
-        chattingItem: ChattingItem
-    )
-//    : Task<JSONObject>
-    {
+    fun sendMessage(chattingItem: ChattingItem){
 
         Log.i(TAG, "chattingItem : $chattingItem")
-
-//        val item = hashMapOf(
-//            "to"      to chattingItem.to,
-//            "from"    to chattingItem.from,
-//            "content" to chattingItem.content,
-//            "type"    to chattingItem.type
-//        )
-//
-//        return requireNotNull(Application.instance?.firebaseFunction)
-//            .getHttpsCallable("sendMessage")
-//            .call(item)
-//            .continueWith { task ->
-//                // This continuation runs on either success or failure, but if the task
-//                // has failed then result will throw an Exception which will be
-//                // propagated down.
-//                val result = JSONObject(task.result?.data.toString())
-//                Log.i(TAG, "continueWith : $result")
-//                result
-//            }
-//            .addOnCompleteListener { task ->
-//                if (!task.isSuccessful) {
-//                    val e = task.exception
-//                    if (e is FirebaseFunctionsException) {
-//                        val code = e.code
-//                        val details = e.details
-//                        Log.i(TAG, "code : $code, details : $details")
-//                    }
-//                }
-//            }
-//            .addOnFailureListener {
-//                Log.i(TAG, "failed - $it")
-//            }
-//            .addOnSuccessListener {
-//                Log.i(TAG, "successed - $it")
-//            }
-
 
         job?.cancel()
         job = viewModelScope.launch {
@@ -168,7 +128,7 @@ class QuestionViewModel(
                     val chattingHistory = mutableListOf<ChattingItem>()
                     snapshot.children.forEach {
 
-                        val commentId      = it.key
+                        val commentUid     = it.key
                         val commentContent = it.getValue(ChattingItem().javaClass)
 
                         val commentHostUid = commentContent?.uid
@@ -176,7 +136,6 @@ class QuestionViewModel(
                         val content        = commentContent?.content
 
                         Log.i(TAG, "timeStamp : $timeStamp, uid : $commentHostUid, content : $content")
-
 
                         val chattingItem = ChattingItem(
                             uid = commentHostUid,

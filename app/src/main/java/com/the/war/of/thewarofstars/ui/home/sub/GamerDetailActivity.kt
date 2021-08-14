@@ -107,9 +107,9 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
             tvQuestion.apply {
                 setOnClickListener {
                     val intent = Intent(this@GamerDetailActivity, QuestionActivity::class.java)
-                    intent.putExtra("name", name)
-                    intent.putExtra("uID", uID)
-                    intent.putExtra("email", email)
+                    intent.putExtra("senderName", name)
+                    intent.putExtra("senderUID", uID)
+//                    intent.putExtra("email", email)
                     startActivity(intent)
                 }
             }

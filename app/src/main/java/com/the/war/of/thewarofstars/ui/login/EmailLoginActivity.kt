@@ -1,6 +1,7 @@
 package com.the.war.of.thewarofstars.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -57,8 +58,17 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                     etvPassword.text.toString(),
                     loginType
                 )
-
             }
+
+            tvRegister.apply {
+                setOnClickListener {
+                    startActivity(Intent(this@EmailLoginActivity, RegisterActivity::class.java))
+                }
+            }
+
+
+
+
         }
         observing {
             isConfirmed.observe(this@EmailLoginActivity, { isConfirmed ->

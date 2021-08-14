@@ -17,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 //import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.the.war.of.thewarofstars.contant.NotiInfo
 import com.the.war.of.thewarofstars.databinding.ActivityMainBinding
 import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
 import com.the.war.of.thewarofstars.ui.navigation.setupWithNavController
@@ -47,19 +48,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForNotification() {
-        if (intent?.extras != null) {
+        val extras = intent?.extras
 
-            val notiType   = intent.getStringExtra("notiType")
-            val senderUID  = intent.getStringExtra("senderUID")
-            val senderName = intent.getStringExtra("senderName")
-            val senderType = intent.getStringExtra("senderType")
-            val intent = QuestionActivity.newIntent(this).apply {
-                putExtra("notiType", senderName)
-                putExtra("uID", senderUID)
-                putExtra("name", notiType)
-                putExtra("senderType", senderType)
+        if (extras != null) {
+            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
+                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
+                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
+                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
+
+                val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
+                val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
+
+                val intent = QuestionActivity.newIntent(this).apply {
+                    putExtra(NotiInfo.SENDER_NAME.type, senderName)
+                    putExtra(NotiInfo.SENDER_UID.type, senderUID)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
+
         }
     }
 
