@@ -123,7 +123,7 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/layout_input_password_nickname"
+                android:id="@+id/layout_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -139,6 +139,7 @@
                     android:textSize="14sp"
                     />
                 <LinearLayout
+                    android:id="@+id/layout_input_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -148,33 +149,46 @@
                     android:gravity="center_vertical"
                     >
                     <EditText
+                        android:id="@+id/et_nickname"
                         android:layout_weight="8"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:inputType="text"
+                        android:backgroundTint="@color/light_transparent"
                         android:textColor="@color/white"
                         android:maxLength="10"
                         />
                     <TextView
+                        android:id="@+id/tv_check_dup"
                         android:layout_weight="2"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
                         android:text="중복확인"
                         android:textColor="#8f8f8f"
                         android:textSize="14sp"
                         />
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_nickname_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#8f8f8f"
+                    android:visibility="gone"
+                    android:text="사용가능한 닉네임 입니다"
+                    />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/layout_input_type"
+                android:id="@+id/layout_input_tribe_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:weightSum="10"
-                app:layout_constraintTop_toBottomOf="@+id/layout_input_password_nickname"
+                app:layout_constraintTop_toBottomOf="@+id/layout_nickname"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 >

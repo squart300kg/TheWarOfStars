@@ -1,16 +1,16 @@
 package com.the.war.of.thewarofstars.ui.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.contant.TribeType
 import com.the.war.of.thewarofstars.databinding.ActivityRegisterBinding
+import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_register) {
@@ -26,7 +26,40 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
             registerVm = registerViewModel
 
             initializeSpinner(spinnerQuestionType)
+
+            tvCheckDup.apply{
+                setOnClickListener {
+                    registerViewModel.isExistNickname(etNickname.text.toString())
+
+                    hideKeyBoard(etNickname)
+                }
+            }
         }
+
+        observing {
+            isExistNickname.observe(this@RegisterActivity, { isExist ->
+                when (isExist) {
+                    true -> {
+                        dataBinding.layoutInputNickname.setBackgroundResource(R.drawable.border_input_error)
+                        dataBinding.tvNicknameMessage.visibility = View.VISIBLE
+                        dataBinding.tvCheckDup.setTextColor(Color.parseColor("#ff6a1a"))
+                        dataBinding.tvNicknameMessage.setTextColor(Color.parseColor("#ff3434"))
+                        dataBinding.tvNicknameMessage.text = "사용중인 닉네임 입니다"
+                    }
+
+                    false -> {
+                        dataBinding.layoutInputNickname.setBackgroundResource(R.drawable.border_chatting_input)
+                        dataBinding.tvNicknameMessage.visibility = View.VISIBLE
+                        dataBinding.tvCheckDup.setTextColor(Color.parseColor("#8f8f8f"))
+                        dataBinding.tvNicknameMessage.setTextColor(Color.parseColor("#8f8f8f"))
+                        dataBinding.tvNicknameMessage.text = "사용 가능한 닉네임 입니다"
+
+                    }
+                }
+            })
+        }
+
+
 
     }
 
@@ -58,5 +91,15 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
             override fun onNothingSelected(p0: AdapterView<*>?) { }
 
         }
+    }
+
+    private fun hideKeyBoard(input: EditText) {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(input.windowToken, 0)
+        input.clearFocus()
+    }
+
+    private fun observing(action: RegisterViewModel.() -> Unit) {
+        registerViewModel.run(action)
     }
 }
