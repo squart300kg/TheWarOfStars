@@ -83,7 +83,7 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
 
                         saveAutoLogin(true, email, name ,uID, password, type)
 
-                        Application.instance?.userUID = uID
+                        Application.instance?.userUID   = uID
                         Application.instance?.userEmail = email
 
                         setResult(RESULT_OK)

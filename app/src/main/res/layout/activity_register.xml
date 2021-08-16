@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@id/iv_back"
             >
             <LinearLayout
-                android:id="@+id/layout_input_email"
+                android:id="@+id/layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -63,13 +63,45 @@
                     android:text="이메일"
                     android:textSize="14sp"
                     />
-                <EditText
+                <LinearLayout
+                    android:id="@+id/layout_input_email"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/border_chatting_input"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:inputType="textEmailAddress"
+                    android:background="@drawable/border_chatting_input"
+                    android:weightSum="10"
+                    android:gravity="center_vertical"
+                    >
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_weight="8"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:inputType="textEmailAddress"
+                        android:backgroundTint="@color/light_transparent"
+                        android:textColor="@color/white"
+                        />
+                    <TextView
+                        android:id="@+id/tv_email_check_dup"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="중복확인"
+                        android:textColor="#8f8f8f"
+                        android:textSize="14sp"
+                        />
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_email_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#8f8f8f"
+                    android:visibility="gone"
+                    android:text="사용가능한 닉네임 입니다"
                     />
             </LinearLayout>
             <LinearLayout
@@ -78,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/layout_input_email"
+                app:layout_constraintTop_toBottomOf="@+id/layout_email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 >
@@ -89,6 +121,7 @@
                     android:textSize="14sp"
                     />
                 <EditText
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/border_chatting_input"
@@ -114,6 +147,7 @@
                     android:textSize="14sp"
                     />
                 <EditText
+                    android:id="@+id/et_password_comfirm"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/border_chatting_input"
@@ -159,7 +193,7 @@
                         android:maxLength="10"
                         />
                     <TextView
-                        android:id="@+id/tv_check_dup"
+                        android:id="@+id/tv_nickname_check_dup"
                         android:layout_weight="2"
                         android:layout_width="0dp"
                         android:gravity="center"
