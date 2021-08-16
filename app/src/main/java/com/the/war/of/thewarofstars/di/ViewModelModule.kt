@@ -4,7 +4,7 @@ import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import com.the.war.of.thewarofstars.ui.message.MessageViewModel
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.ui.home.sub.GamerDetailViewModel
-import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionViewModel
+import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionViewModel
 import com.the.war.of.thewarofstars.ui.login.EmailLoginViewModel
 import com.the.war.of.thewarofstars.ui.login.RegisterViewModel
 import com.the.war.of.thewarofstars.ui.mypage.MyPageViewModel

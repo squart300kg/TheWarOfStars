@@ -7,13 +7,13 @@
     <data>
         <variable
             name="questionModel"
-            type="com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionViewModel" />
+            type="com.the.war.of.thewarofstars.ui.home.sub.question.QuestionViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        theWarsOfStar:context=".ui.home.sub.sub.QuestionActivity">
+        theWarsOfStar:context=".ui.home.sub.question.QuestionActivity">
 
         <ImageView
             android:id="@+id/iv_back"

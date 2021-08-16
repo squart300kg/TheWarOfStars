@@ -5,13 +5,11 @@ import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.model.BannerItem
-import com.the.war.of.thewarofstars.model.ChattingItem
 import com.the.war.of.thewarofstars.model.GamerItem
 import com.the.war.of.thewarofstars.model.ReviewItem
 import com.the.war.of.thewarofstars.ui.home.BannerAdapter
 import com.the.war.of.thewarofstars.ui.home.GamerListAdapter
 import com.the.war.of.thewarofstars.ui.home.sub.ReviewAdapter
-import com.the.war.of.thewarofstars.ui.home.sub.sub.ChattingAdapter
 
 @BindingAdapter("theWarsOfStar:setItems")
 fun <T> RecyclerView.setItems(items: List<T>?) {

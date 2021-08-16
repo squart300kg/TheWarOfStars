@@ -16,7 +16,7 @@ import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
-import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
+import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
@@ -136,7 +136,8 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                 .load(thumbnailURL)
                 .transform(
                     CenterCrop(),
-                    RoundedCorners(20))
+                    RoundedCorners(20)
+                )
                 .placeholder(R.color.black)
                 .error(R.color.black)
                 .into(ivGamerThumbnail)

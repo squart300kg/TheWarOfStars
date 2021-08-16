@@ -3,23 +3,13 @@ package com.the.war.of.thewarofstars
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 //import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.the.war.of.thewarofstars.contant.NotiInfo
-import com.the.war.of.thewarofstars.databinding.ActivityMainBinding
-import com.the.war.of.thewarofstars.ui.home.sub.sub.QuestionActivity
+import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 import com.the.war.of.thewarofstars.ui.navigation.setupWithNavController
 import com.the.war.of.thewarofstars.util.BackButtonCloseHandler
 

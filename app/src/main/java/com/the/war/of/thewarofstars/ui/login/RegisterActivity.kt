@@ -108,11 +108,11 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
                         Application.instance?.firebaseStore
                             ?.collection("UserList")
                             ?.add(hashMapOf(
-                                "email" to email,
+                                "email"    to email,
                                 "password" to password,
                                 "fcmToken" to fcmToken,
                                 "nickname" to nickname,
-                                "tribe" to tribe
+                                "tribe"    to tribe
                             ))
                             ?.addOnSuccessListener { document ->
 

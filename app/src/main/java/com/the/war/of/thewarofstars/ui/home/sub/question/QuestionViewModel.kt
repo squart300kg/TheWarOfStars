@@ -1,4 +1,4 @@
-package com.the.war.of.thewarofstars.ui.home.sub.sub
+package com.the.war.of.thewarofstars.ui.home.sub.question
 
 import android.util.Log
 import androidx.lifecycle.LiveData
