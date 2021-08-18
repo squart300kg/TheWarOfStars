@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:theWarsOfStar="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="payVm"
+            type="com.the.war.of.thewarofstars.ui.home.sub.pay.PayViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        theWarsOfStar:context=".ui.home.sub.pay.PayActivity">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_back"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="결제하기"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_line_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_back"
+            >
+
+            <TextView
+                android:id="@+id/tv_pay_for_kakao"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="카카오결제"
+                android:gravity="center"
+                android:background="@drawable/border_chatting_balloon"
+                />
+            <TextView
+                android:id="@+id/tv_pay_for_mobile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="핸드폰결제"
+                android:gravity="center"
+                android:background="@drawable/border_chatting_balloon"
+                />
+            <TextView
+                android:id="@+id/tv_pay_for_card"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="카드 결제"
+                android:gravity="center"
+                android:background="@drawable/border_chatting_balloon"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_line_1"
+            >
+
+            <TextView
+                android:id="@+id/tv_pay_for_samsung"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="삼서페이"
+                android:gravity="center"
+                android:background="@drawable/border_chatting_balloon"
+                />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

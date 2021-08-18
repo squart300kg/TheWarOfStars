@@ -1,2 +1,4 @@
 rootProject.name = "TheWarOfStars"
 include ':app'
+include ':ImportModule'
+include ':Import'

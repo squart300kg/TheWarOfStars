@@ -16,6 +16,7 @@ import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
+import com.the.war.of.thewarofstars.ui.home.sub.pay.PayActivity
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -55,7 +56,9 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
 
             gamerDetailModel = gamerDetailViewModel
 
-            ivBack.setOnClickListener { onBackPressed() }
+            ivBack.apply {
+                setOnClickListener { onBackPressed() }
+            }
 
             tvGamerTitle.apply {
                 text = title
@@ -111,6 +114,12 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                     intent.putExtra("senderUID", uID)
 //                    intent.putExtra("email", email)
                     startActivity(intent)
+                }
+            }
+
+            tvPay.apply {
+                setOnClickListener {
+                    startActivity(Intent(this@GamerDetailActivity, PayActivity::class.java))
                 }
             }
 

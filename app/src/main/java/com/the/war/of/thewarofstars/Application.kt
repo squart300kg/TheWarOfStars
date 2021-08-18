@@ -14,6 +14,7 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.iamport.sdk.domain.core.Iamport
 import com.nhn.android.naverlogin.OAuthLogin
 import com.the.war.of.thewarofstars.di.networkModule
 import com.the.war.of.thewarofstars.di.preferencesModule
@@ -21,9 +22,8 @@ import com.the.war.of.thewarofstars.di.repositoryModule
 import com.the.war.of.thewarofstars.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
-
 open class Application: Application() {
 
     var firebaseStore: FirebaseFirestore? = null
@@ -52,6 +52,9 @@ open class Application: Application() {
 
         notificationInitialize()
     }
+
+
+
 
     private fun notificationInitialize() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -94,7 +97,16 @@ open class Application: Application() {
         instance = this
     }
 
-    private fun koinInitialize() = configureDi()
+    private fun koinInitialize() {
+
+        val koinApp = startKoin {
+            androidLogger(Level.ERROR)
+            androidContext(this@Application)
+            modules(listOf(preferencesModule, networkModule ,repositoryModule ,viewModelModule))
+        }
+
+        Iamport.createWithKoin(this, koinApp)
+    }
 
     private fun naverInitialize() {
         naverLoginModule = OAuthLogin.getInstance()
@@ -106,13 +118,14 @@ open class Application: Application() {
                 getString(R.string.app_name)
             )
         }
+
     }
 
-    open fun configureDi() = startKoin {
-        androidLogger(Level.ERROR)
-        androidContext(this@Application)
-        modules(listOf(preferencesModule, networkModule ,repositoryModule ,viewModelModule))
-    }
+//    open fun configureDi() = startKoin {
+//        androidLogger(Level.ERROR)
+//        androidContext(this@Application)
+//        modules(listOf(preferencesModule, networkModule ,repositoryModule ,viewModelModule))
+//    }
 
     companion object {
         private const val Tag = "Sauce Application"
@@ -121,3 +134,4 @@ open class Application: Application() {
     }
 
 }
+
