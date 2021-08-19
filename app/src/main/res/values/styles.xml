@@ -9,7 +9,7 @@
         <item name="colorOnPrimary">@color/black</item>
 
 <!--        커서색, 드래그 하이트라이트색, EditText 밑줄색-->
-        <item name="colorAccent">#dd5e17</item>
+        <item name="colorAccent">@color/main_orange_color</item>
 
         <item name="colorPrimaryVariant">@color/black</item>
         <!-- Secondary brand color. -->
