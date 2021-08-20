@@ -3,6 +3,8 @@ package com.the.war.of.thewarofstars.ui.login
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -32,6 +34,9 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 피드백받을 이메일에 밑줄
+        initializeUnderLine()
 
         binding {
             registerVm = registerViewModel
@@ -185,6 +190,12 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
 
 
 
+    }
+
+    private fun initializeUnderLine() {
+        val content = SpannableString(dataBinding.tvGuideFeedbackEmail.text.toString())
+        content.setSpan(UnderlineSpan(), 7, 24, 0)
+        dataBinding.tvGuideFeedbackEmail.text = content
     }
 
     /**

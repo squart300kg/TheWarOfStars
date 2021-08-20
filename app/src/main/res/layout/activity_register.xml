@@ -92,7 +92,6 @@
                         android:textColor="#8f8f8f"
                         android:textSize="14sp"
                         />
-
                 </LinearLayout>
                 <TextView
                     android:id="@+id/tv_email_message"
@@ -102,6 +101,28 @@
                     android:textColor="#8f8f8f"
                     android:visibility="gone"
                     android:text="사용가능한 닉네임 입니다"
+                    />
+                <ImageView
+                    android:id="@+id/iv_bolloon_up_arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/balloon_arrow_up"
+                    android:layout_marginStart="40dp"
+                    app:layout_constraintTop_toBottomOf="@id/et_email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+                <TextView
+                    android:id="@+id/tv_guide_feedback_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_guide_feedback_email"
+                    android:textColor="@color/white"
+                    android:background="@drawable/border_pay_email_bolloon"
+                    android:padding="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_bolloon_up_arrow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     />
             </LinearLayout>
             <LinearLayout

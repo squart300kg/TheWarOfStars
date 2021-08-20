@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.SkeletonScreen
 import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils
+import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
@@ -119,7 +120,14 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
 
             tvPay.apply {
                 setOnClickListener {
-                    startActivity(Intent(this@GamerDetailActivity, PayActivity::class.java))
+                    Intent(this@GamerDetailActivity, PayActivity::class.java).apply {
+
+                        putExtra("productName", name)
+                        putExtra("buyerName", Application.instance?.userEmail)
+                        putExtra("price", price)
+                        startActivity(this)
+                    }
+
                 }
             }
 
