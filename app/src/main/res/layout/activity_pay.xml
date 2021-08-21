@@ -114,7 +114,7 @@
                 android:layout_marginTop="5dp"
                 android:padding="10dp"
                 android:background="@drawable/border_chatting_input"
-                theWarsOfStar:text = "정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다.정석 운영플레이를 해주셨으면 좋겠습니다."
+                android:text = "정석 운영플레이를 통해 실력을 기르고 싶습니다."
                 app:layout_constraintTop_toBottomOf="@id/tv_request_before_game"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

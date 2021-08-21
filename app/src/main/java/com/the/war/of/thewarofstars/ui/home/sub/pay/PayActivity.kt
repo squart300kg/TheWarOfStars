@@ -1,21 +1,29 @@
 package com.the.war.of.thewarofstars.ui.home.sub.pay
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.method.ScrollingMovementMethod
 import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import com.iamport.sdk.data.sdk.IamPortRequest
+import com.iamport.sdk.data.sdk.IamPortResponse
 import com.iamport.sdk.data.sdk.PG
 import com.iamport.sdk.data.sdk.PayMethod
+import com.iamport.sdk.domain.core.ICallbackPaymentResult
 import com.iamport.sdk.domain.core.Iamport
+import com.iamport.sdk.domain.utils.Event
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.contant.PayType
 import com.the.war.of.thewarofstars.databinding.ActivityPayBinding
 import com.the.war.of.thewarofstars.util.DateUtil
+import org.json.JSONObject
 import java.text.DecimalFormat
 
 
@@ -28,6 +36,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
     private var payType: PayType = PayType.PHONE
     private var productName: String? = null
+    private var sellerName: String? = null
     private var buyerName: String? = null
     private var price: Long? = null
 
@@ -111,7 +120,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                 setOnClickListener {
                 var request: IamPortRequest? = null
 
-                val merchant_uid = "seller : $productName, buyer : $buyerName, at : ${DateUtil.getCurrentDateString()}"
+                val merchant_uid = "S:$sellerName|B:$buyerName|T:${DateUtil.getCurrentDateString()}"
                     Log.i(TAG, "clickPay\nmerchant_uid : $merchant_uid")
 
                     when (payType) {
@@ -131,7 +140,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                                 pay_method   = PayMethod.kakaopay,
                                 name         = productName,
                                 merchant_uid = merchant_uid,
-                                amount       = requireNotNull(price.toString()),
+//                                amount       = requireNotNull(price.toString()),
+                                amount       = "100",
                                 buyer_name   = buyerName
                             )
                         }
@@ -152,24 +162,62 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                         iamPortRequest = request!!,
                         approveCallback = {
                             /* 최종 결제전 콜백 함수. */
-                            Log.i(TAG, "approveCallback")
+                            Log.i(TAG, "결제전")
                         },
                         paymentResultCallback = {
                             /* 최종 결제결과 콜백 함수. */
-                            Log.i(TAG, "approveCallback")
+                            callBackListener.result(it)
+
                         })
                 }
             }
         }
 
+    }
+
+    private val callBackListener = object : ICallbackPaymentResult {
+        override fun result(iamPortResponse: IamPortResponse?) {
+            val resJson = GsonBuilder().setPrettyPrinting().create().toJson(iamPortResponse)
+
+            Log.i(TAG, "callBackListener1\n $resJson")
+
+            if (iamPortResponse != null) {
+
+                Log.i(TAG, "callBackListener2\n $resJson")
+
+                val jsonObject = JSONObject(resJson)
+                val isSuccess    = jsonObject.getString("imp_success").toBoolean()
+                val merchant_uid = jsonObject.getString("merchant_uid")
+
+                Log.i(TAG, "callBackListener3\n " +
+                        "isSuccess : $isSuccess\n " +
+                        "merchant_uid : $merchant_uid")
+
+                if (isSuccess) {
+                    goToPayCompleteActivity()
+                } else {
+                    val errorMessage = jsonObject.getString("error_msg")
+                    Toast.makeText(this@PayActivity, errorMessage, Toast.LENGTH_LONG).show()
+                }
 
 
-
+            }
+        }
+    }
+    private fun goToPayCompleteActivity() {
+        Intent(this@PayActivity, PayCompleteActivity::class.java).apply {
+            putExtra("request", dataBinding.etRequestBeforeGame.text.toString())
+            putExtra("price", price)
+            putExtra("payDate", DateUtil.getCurrentDateForPayComplete())
+            finish()
+            startActivity(this)
+        }
 
     }
 
     private fun initializeValues() {
         productName = intent.getStringExtra("productName")
+        sellerName  = intent.getStringExtra("sellerName")
         buyerName   = intent.getStringExtra("buyerName")
         price       = intent.getLongExtra("price", 0)
     }
@@ -186,29 +234,5 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         dataBinding.tvGuideFeedbackEmail.text = content
     }
 
-    fun pay() {
-        val request = IamPortRequest(
-            pg = PG.nice.makePgRawName(),              // PG 사
-            pay_method = PayMethod.phone,                     // 결제수단
-            name = productName,                         // 주문명
-            merchant_uid = "테스트결제uid",                 // 주문번호
-            amount = requireNotNull(price.toString()),                            // 결제금액
-            buyer_name = buyerName
-        )
-
-        // 결제요청
-        Iamport.payment(
-            userCode = requireNotNull(productName),
-            iamPortRequest = request,
-            approveCallback = {
-                /* 최종 결제전 콜백 함수. */
-                Log.i(TAG, "approveCallback")
-            },
-            paymentResultCallback = {
-                /* 최종 결제결과 콜백 함수. */
-                Log.i(TAG, "approveCallback")
-            })
-
-    }
 
 }

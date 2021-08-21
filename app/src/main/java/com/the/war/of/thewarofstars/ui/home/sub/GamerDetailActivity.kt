@@ -122,7 +122,8 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                 setOnClickListener {
                     Intent(this@GamerDetailActivity, PayActivity::class.java).apply {
 
-                        putExtra("productName", name)
+                        putExtra("productName", title)
+                        putExtra("sellerName", name)
                         putExtra("buyerName", Application.instance?.userEmail)
                         putExtra("price", price)
                         startActivity(this)
