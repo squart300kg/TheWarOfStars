@@ -151,7 +151,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                                 pay_method   = PayMethod.samsung,
                                 name         = productName,
                                 merchant_uid = merchant_uid,
-                                amount       = requireNotNull(price.toString()),
+//                                amount       = requireNotNull(price.toString()),
+                                amount       = "100",
                                 buyer_name   = buyerName
                             )
                         }

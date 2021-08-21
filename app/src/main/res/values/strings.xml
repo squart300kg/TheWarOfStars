@@ -19,4 +19,8 @@
     <string name="import_franchisee_code">imp52859274</string>
     <string name="pay_ok_complete_guide">게임을 완료했으며, 경기 피드백(리플레이, 리플레이 분석 동영상)을 받았을 경우 클릭해 주세요</string>
 
+    <!--다이얼로그 문구    -->
+    <string name="dialog_pay_ok">게임을 완료했으며, 경기피드백(리플레이, 리플레이 분석 영상)을 이메일로 수신받으셨습니까?</string>
+    <string name="dialog_pay_cancel">인수 취소를 위하여 관리자의 검토가 필요하며, 24시간 이내에 처리가 진행됩니다. 거래를 취소하시겠습니까?</string>
+
 </resources>
