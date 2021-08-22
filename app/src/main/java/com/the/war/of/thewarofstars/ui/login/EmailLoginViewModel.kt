@@ -36,6 +36,14 @@ class EmailLoginViewModel(
     val uID: LiveData<String>
         get() = _uID
 
+    private val _tribe = MutableLiveData<String>()
+    val tribe: LiveData<String>
+        get() = _tribe
+
+    private val _gameID = MutableLiveData<String>()
+    val gameID: LiveData<String>
+        get() = _gameID
+
     val TAG = "EmailLoginViewModelLog"
 
     fun confirmEmailLogin(email: String, password: String, loginType: String) {
@@ -55,6 +63,8 @@ class EmailLoginViewModel(
                         _name.value     = if (loginType == USER_TYPE) document.data["nickname"] as String else document.data["name"] as String
                         _type.value     = if (loginType == USER_TYPE) "USER" else "GAMER"
                         _uID.value      = document.id
+                        _tribe.value    = document.data["tribe"] as String
+                        _gameID.value   = document.data["gameID"] as String
 
                         _isConfirmed.value = true
                         return@addOnSuccessListener

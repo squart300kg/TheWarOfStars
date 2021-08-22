@@ -109,6 +109,7 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
                         val fcmToken = Application.instance!!.userFcmToken
                         val nickname = dataBinding.etNickname.text.toString()
                         val tribe = tribeType
+                        val gameID = dataBinding.etGameId.text.toString()
 
                         Application.instance?.firebaseStore
                             ?.collection("UserList")
@@ -117,13 +118,14 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
                                 "password" to password,
                                 "fcmToken" to fcmToken,
                                 "nickname" to nickname,
-                                "tribe"    to tribe
+                                "tribe"    to tribe,
+                                "gameID"    to gameID,
                             ))
                             ?.addOnSuccessListener { document ->
 
                                 val uID = document.id
 
-                                registerViewModel.saveAutoLogin(true, email, nickname ,uID, password, "USER")
+                                registerViewModel.saveAutoLogin(true, email, nickname ,uID, password, "USER", tribe.toString(), gameID)
                                 Log.d(TAG, "회원가입 완료! id : ${document.id}")
 
                                 val intent = MainActivity.newIntent(this@RegisterActivity).apply {
@@ -269,6 +271,13 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
         //4. 종족을 선택했는지 체크한다
         if (tribeType == null) {
             Toast.makeText(this@RegisterActivity, "종족을 선택해 주세요", Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        //4. 게임 아이디를 입력했는지 체크한다
+        val gameID = dataBinding.etGameId.toString()
+        if (gameID.isNullOrEmpty() || gameID.isBlank()) {
+            Toast.makeText(this@RegisterActivity, "게임 아이디를 입력해 주세요", Toast.LENGTH_LONG).show()
             return false
         }
 

@@ -80,8 +80,18 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                         val password = emailLoginViewModel.password.value
                         val uID      = emailLoginViewModel.uID.value
                         val type     = emailLoginViewModel.type.value
+                        val tribe    = emailLoginViewModel.tribe.value
+                        val gameID   = emailLoginViewModel.gameID.value
 
-                        saveAutoLogin(true, email, name ,uID, password, type)
+                        saveAutoLogin(
+                            autoLogin = true,
+                            email     = email,
+                            name      = name,
+                            uID       = uID,
+                            password  = password,
+                            type      = type,
+                            tribe     = tribe,
+                            gameID    = gameID)
 
                         Application.instance?.userUID   = uID
                         Application.instance?.userEmail = email

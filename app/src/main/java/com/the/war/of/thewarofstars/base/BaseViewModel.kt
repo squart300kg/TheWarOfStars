@@ -37,14 +37,18 @@ open class BaseViewModel(
         val name     = securePreferences.getEncryptedString("name", "")
         val uID      = securePreferences.getEncryptedString("uID", "")
         val type     = securePreferences.getEncryptedString("type", "")
+        val tribe    = securePreferences.getEncryptedString("tribe", "")
+        val gameID   = securePreferences.getEncryptedString("gameID", "")
 
 
         val map = HashMap<String, String>()
-        map["email"] = email
+        map["email"]    = email
         map["password"] = password
-        map["name"] = name
-        map["uID"] = uID
-        map["type"] = type
+        map["name"]     = name
+        map["uID"]      = uID
+        map["type"]     = type
+        map["tribe"]    = tribe
+        map["gameID"]   = gameID
 
         return map
     }
@@ -55,7 +59,9 @@ open class BaseViewModel(
         name: String?,
         uID: String?,
         password: String?,
-        type: String?
+        type: String?,
+        tribe: String?,
+        gameID: String?
     ) {
         securePreferences.edit().putUnencryptedString("autoLoginStatus", autoLogin.toString()).commit()
         securePreferences.edit().putUnencryptedString("email", email.toString()).commit()
@@ -63,6 +69,8 @@ open class BaseViewModel(
         securePreferences.edit().putUnencryptedString("uID", uID.toString()).commit()
         securePreferences.edit().putUnencryptedString("password", password.toString()).commit()
         securePreferences.edit().putUnencryptedString("type", type.toString()).commit()
+        securePreferences.edit().putUnencryptedString("tribe", tribe.toString()).commit()
+        securePreferences.edit().putUnencryptedString("gameID", gameID.toString()).commit()
     }
 
     fun deleteAutoLogin() {
@@ -72,5 +80,7 @@ open class BaseViewModel(
         securePreferences.edit().putUnencryptedString("uID", null).commit()
         securePreferences.edit().putUnencryptedString("password", null).commit()
         securePreferences.edit().putUnencryptedString("type", null).commit()
+        securePreferences.edit().putUnencryptedString("tribe", null).commit()
+        securePreferences.edit().putUnencryptedString("gameID", null).commit()
     }
 }

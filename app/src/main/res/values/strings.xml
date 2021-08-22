@@ -7,6 +7,8 @@
     <string name="naver_client_id">6bz5yOCDpQjXowdpNbQb</string>
     <string name="naver_client_secret">60muS35nlG</string>
 
+    <string name="import_franchisee_code">imp52859274</string>
+
     <string name="boot_pay_application_id">6119fd4b7b5ba4001d52a152</string>
 
     <string name="back_button_close_guide">\'이전\' 버튼을 한번 더 누르시면 종료됩니다.</string>
@@ -15,12 +17,21 @@
 
     <string name="pay_guide_feedback_email">경기 피드백(리플레이, 리플레이 분석 동영상)을 받을 이메일 입니다. 꼭 기억해 주세요!</string>
     <string name="pay_agree_all_terms"><![CDATA[<구매조건 및 이용약관에 동의하며, 결제를 진행합니다.>]]></string>
-    <string name="register_guide_feedback_email">경기 피드백(리플레이, 리플레이 분석 동영상)을 받을 이메일 입니다. 신중히 입력해 주세요!</string>
-    <string name="import_franchisee_code">imp52859274</string>
     <string name="pay_ok_complete_guide">게임을 완료했으며, 경기 피드백(리플레이, 리플레이 분석 동영상)을 받았을 경우 클릭해 주세요</string>
+    <string name="pay_request_hint">선수님께 바라는 요청사항을 적어주세요!\n상세히 적을수록 실력향상에 도움이 됩니다.</string>
+
+    <string name="register_guide_feedback_email">경기 피드백(리플레이, 리플레이 분석 동영상)을 받을 이메일 입니다. 신중히 입력해 주세요!</string>
+    <string name="register_game_id">앞으로 게임을 진행할 아이디 입니다. 꼭 기억해 주세요!</string>
 
     <!--다이얼로그 문구    -->
     <string name="dialog_pay_ok">게임을 완료했으며, 경기피드백(리플레이, 리플레이 분석 영상)을 이메일로 수신받으셨습니까?</string>
     <string name="dialog_pay_cancel">인수 취소를 위하여 관리자의 검토가 필요하며, 24시간 이내에 처리가 진행됩니다. 거래를 취소하시겠습니까?</string>
+    <string name="dialog_pay_process_guide">게임 시작 직후, 반드시 자신의 코드를 채팅창에 써주세요</string>
+    <string name="dialog_pay_process_notice">게임 아이디가 일치하지 않거나, 채팅창에 코드를 쓰지 않은 게임은 무효게임으로 간주됩니다</string>
+    <string name="dialog_pay_process_notice_ok">숙지했습니다</string>
+    <string name="dialog_pay_process_please_check">약관에 동의해 주셔야 합니다</string>
+    <string name="dialog_process_feedback_game_id">해당 아이디로 게임을 진행해 주셔야 합니다. 꼭 기억해 주세요!</string>
+    <string name="dialog_pay_process_guide_to_gamer">✓ 선수님은 \'게이머 코드\'를 채팅창에 써주세요</string>
+    <string name="dialog_pay_process_guide_to_amature">✓ 아마추어님은 \'아마추어 코드\'를 채팅창에 써주세요</string>
 
 </resources>

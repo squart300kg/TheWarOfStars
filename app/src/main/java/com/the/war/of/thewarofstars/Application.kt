@@ -30,12 +30,14 @@ open class Application: Application() {
     var firebaseDatabase: FirebaseDatabase? = null
     var firebaseFunction: FirebaseFunctions? = null
     var naverLoginModule: OAuthLogin? = null
-
     var userUID: String?      = null
+
     var userEmail: String?    = null
     var userName: String?     = null
     var userFcmToken: String? = null
     var userType: String?     = null
+    var userGameID: String? = null
+    var userTribe: String? = null
 
     val TAG = "ApplicationLog"
 

@@ -149,11 +149,30 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         Log.i(TAG, "autoLoginStatus : $status")
         if (status) {
             val userInfoMap = loginViewModel.getAutoLoginUserInfo()
-            Application.instance?.userEmail = userInfoMap["email"]
-            Application.instance?.userName  = userInfoMap["name"]
-            Application.instance?.userUID   = userInfoMap["uID"]
-            Application.instance?.userType  = userInfoMap["type"]
-            Toast.makeText(this, "자동로그인 성공!\n\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}, \n fcmToken : ${Application.instance?.userFcmToken}, userType : ${Application.instance?.userType}", Toast.LENGTH_LONG).show()
+            Application.instance?.userEmail  = userInfoMap["email"]
+            Application.instance?.userName   = userInfoMap["name"]
+            Application.instance?.userUID    = userInfoMap["uID"]
+            Application.instance?.userType   = userInfoMap["type"]
+            Application.instance?.userTribe  = userInfoMap["tribe"]
+            Application.instance?.userGameID = userInfoMap["gameID"]
+            Toast.makeText(this, "자동로그인 성공!\n\n " +
+                    "email : ${Application.instance?.userEmail},\n " +
+                    "name : ${Application.instance?.userName},\n " +
+                    "uID : ${Application.instance?.userUID}, \n " +
+                    "fcmToken : ${Application.instance?.userFcmToken}\n, " +
+                    "userType : ${Application.instance?.userType}\n " +
+                    "tribe : ${Application.instance?.userTribe}\n " +
+                    "gameID : ${Application.instance?.userGameID}",
+                Toast.LENGTH_LONG).show()
+
+            Log.i(TAG, "isAutoLoginEnabled\n " +
+                    "email : ${Application.instance?.userEmail}\n" +
+                    "name : ${Application.instance?.userName}\n" +
+                    "uID : ${Application.instance?.userUID}\n" +
+                    "fcmToken : ${Application.instance?.userFcmToken}\n" +
+                    "userType : ${Application.instance?.userType} \n" +
+                    "tribe : ${Application.instance?.userTribe} \n" +
+                    "gameID : ${Application.instance?.userGameID}")
             goNext(MainActivity::class.java)
         } else {
             Toast.makeText(this, "자동로그인 실패!\n\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}, \n fcmToken : ${Application.instance?.userFcmToken}, userType : ${Application.instance?.userType}", Toast.LENGTH_LONG).show()
