@@ -55,7 +55,6 @@
             android:textStyle="bold"
             android:text="@string/dialog_pay_process_guide_to_gamer"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_guide"
             />
         <TextView
@@ -68,7 +67,6 @@
             android:textStyle="bold"
             android:text="@string/dialog_pay_process_guide_to_amature"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_guide_to_gamer"
             />
 

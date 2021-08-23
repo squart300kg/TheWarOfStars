@@ -31,6 +31,19 @@ class PayProcessDialogFragment(
         dataBinding =
             DataBindingUtil.inflate(inflater, R.layout.pay_process_dialog, container, false)
 
+        dataBinding.layoutNoticeOk.apply {
+            setOnClickListener {
+                when (dataBinding.cbNoticeOk.isChecked) {
+                    true -> {
+                        dataBinding.cbNoticeOk.isChecked = false
+                    }
+                    false -> {
+                        dataBinding.cbNoticeOk.isChecked = true
+                    }
+                }
+            }
+        }
+
         dataBinding.layoutOk.apply {
             setOnClickListener {
                 val isTermsChecked = dataBinding.cbNoticeOk.isChecked

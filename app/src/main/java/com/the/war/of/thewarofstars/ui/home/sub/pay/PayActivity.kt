@@ -51,6 +51,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         // 피드백받을 이메일에 밑줄
         initializeUnderLine()
 
+        // intent 초기값 세팅
         initializeValues()
 
         // 초기 뷰 세팅
@@ -166,9 +167,12 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                     pay_method   = PayMethod.phone,
                     name         = productName,
                     merchant_uid = merchant_uid,
-                    amount       = requireNotNull(price.toString()),
-                    buyer_name   = buyerName
+//                    amount       = requireNotNull(price.toString()),
+                    amount       = "100",
+                    buyer_name   = buyerName,
+                    digital      = true
                 )
+
             }
             PayType.KAKAO -> {
                 request = IamPortRequest(
@@ -219,9 +223,20 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                 Log.i(TAG, "callBackListener2\n $resJson")
 
                 val jsonObject = JSONObject(resJson)
-                val isSuccess    = jsonObject.getString("imp_success").toBoolean()
-                val merchant_uid = jsonObject.getString("merchant_uid")
+                val isSuccess: Boolean?
+                val merchant_uid           = jsonObject.getString("merchant_uid")
 
+                when (payType) {
+                    PayType.PHONE -> {
+                        isSuccess = jsonObject.getString("success").toBoolean()
+                    }
+                    PayType.KAKAO -> {
+                        isSuccess = jsonObject.getString("imp_success").toBoolean()
+                    }
+                    PayType.SAMSUNG -> {
+                        isSuccess = jsonObject.getString("success").toBoolean()
+                    }
+                }
                 Log.i(TAG, "callBackListener3\n " +
                         "isSuccess : $isSuccess\n " +
                         "merchant_uid : $merchant_uid")
