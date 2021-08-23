@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:theWarsOfStar="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="chattingListItem"
+            type="com.the.war.of.thewarofstars.model.ChattingListItem" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_thumbnail"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            theWarsOfStar:src="@drawable/sample1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            theWarsOfStar:text="helloMan"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_thumbnail"
+            />
+        <TextView
+            android:id="@+id/last_chatting_date"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            theWarsOfStar:text="21.08.24"
+            android:textColor="@color/shimmer_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_contents"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@id/iv_thumbnail"
+            app:layout_constraintEnd_toStartOf="@id/last_chatting_date"
+            app:layout_constraintBottom_toBottomOf="parent"
+            theWarsOfStar:text="안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다."
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+
