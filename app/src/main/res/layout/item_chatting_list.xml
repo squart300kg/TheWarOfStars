@@ -55,6 +55,7 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:textColor="@color/white"
+            android:layout_marginEnd="10dp"
             app:layout_constraintTop_toBottomOf="@id/tv_nickname"
             app:layout_constraintStart_toEndOf="@id/iv_thumbnail"
             app:layout_constraintEnd_toStartOf="@id/last_chatting_date"
@@ -62,6 +63,13 @@
             theWarsOfStar:text="안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다.안녕하세요 스타가 배우고싶어 연락드렸습니다."
             />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shimmer_color"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_contents"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

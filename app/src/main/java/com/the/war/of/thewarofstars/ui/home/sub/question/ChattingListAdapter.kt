@@ -21,7 +21,8 @@ import com.the.war.of.thewarofstars.model.ChattingListItem
  * Created by sangyoon on 2021/07/25
  */
 class ChattingListAdapter(
-    val activity: Activity
+    val activity: Activity,
+    val chattingDetail: () -> Unit
 ): RecyclerView.Adapter<ChattingListAdapter.ChattingListViewHolder>()  {
 
     private val items: MutableList<ChattingListItem> = mutableListOf(
@@ -115,6 +116,9 @@ class ChattingListAdapter(
     override fun onBindViewHolder(holder: ChattingListViewHolder, position: Int) {
         holder.bindItem(items[position])
         holder.initializeViews(items[position])
+        holder.itemView.setOnClickListener {
+            chattingDetail()
+        }
 
     }
 

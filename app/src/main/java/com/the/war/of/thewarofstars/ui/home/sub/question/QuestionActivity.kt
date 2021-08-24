@@ -21,13 +21,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_question) {
 
-    private val questionviewModel: QuestionViewModel by viewModel()
+    private val questionViewModel: QuestionViewModel by viewModel()
 
     lateinit var chattingAdapter: ChattingAdapter
     lateinit var receiverUID: String
     lateinit var receiverName: String
 
     lateinit var senderUID: String
+
+    var isDummy: Boolean = false
 
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
@@ -61,13 +63,15 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
 
         binding {
 
-            questionModel = questionviewModel
+            questionModel = questionViewModel
 
             tvChattingDescription.apply {
                 receiverName  = intent.getStringExtra("senderName").toString()
                 receiverUID   = intent.getStringExtra("senderUID").toString()
 
                 senderUID     = Application.instance?.userUID.toString()
+
+                isDummy       = intent.getBooleanExtra("isDummy", false)
 
                 val roomTitle = receiverName + "님께 보내는 메시지"
                 this.text = roomTitle
@@ -135,22 +139,24 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
                     rvChatting.smoothScrollToPosition(chattingAdapter.itemCount - 1)
 
                     // 8. 네트워크 통신을 시작한다
-                    questionviewModel.sendMessage(
-                        ChattingItem(
-                            to          = receiverUID,
-                            from        = senderUID,
-                            content     = message,
-                            type        = Application.instance?.userType.toString()
+                    if (!isDummy) {
+                        questionViewModel.sendMessage(
+                            ChattingItem(
+                                to          = receiverUID,
+                                from        = senderUID,
+                                content     = message,
+                                type        = Application.instance?.userType.toString()
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
 
         observing {
             chattingHistory.observe(this@QuestionActivity, { list ->
-                chattingAdapter.setReceiver(questionviewModel.receiverUID.value.toString())
-                chattingAdapter.setSender(questionviewModel.senderUID.value.toString())
+                chattingAdapter.setReceiver(questionViewModel.receiverUID.value.toString())
+                chattingAdapter.setSender(questionViewModel.senderUID.value.toString())
                 chattingAdapter.loadAllBallon(list)
 
                 dataBinding.rvChatting.smoothScrollToPosition(chattingAdapter.itemCount - 1)
@@ -162,11 +168,21 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
     override fun onResume() {
         super.onResume()
 
-        if (questionviewModel.chattingHistory.value == null) {
+        if (questionViewModel.chattingHistory.value == null) {
             Log.i(TAG, "sender : $senderUID, receiver : $receiverUID")
-            questionviewModel.loadChattingHistory(
+            questionViewModel.loadChattingHistory(
                 sender   = senderUID,
                 receiver = receiverUID
+            )
+        }
+
+        if (isDummy) {
+            chattingAdapter.setReceiver("Dummy")
+            chattingAdapter.loadOneBalloon(
+                ChattingItem(
+                    uid     = "Dummy",
+                    content = "스타가 너무 배우고 싶습니다 도와주실 수 있나용?",
+                )
             )
         }
 
@@ -184,7 +200,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
     }
 
     private fun observing(action: QuestionViewModel.() -> Unit) {
-        questionviewModel.run(action)
+        questionViewModel.run(action)
     }
 
     companion object {
