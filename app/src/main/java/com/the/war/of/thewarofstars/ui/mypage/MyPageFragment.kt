@@ -30,12 +30,12 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
 
             myPageVm = myPageViewModel
 
-            tvLogout.apply {
-                setOnClickListener {
-
-                    myPageViewModel.logout()
-                }
-            }
+//            tvLogout.apply {
+//                setOnClickListener {
+//
+//                    myPageViewModel.logout()
+//                }
+//            }
         }
 
         observing {

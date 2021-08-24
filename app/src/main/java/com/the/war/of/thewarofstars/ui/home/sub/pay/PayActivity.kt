@@ -23,8 +23,11 @@ import com.the.war.of.thewarofstars.contant.DialogType
 import com.the.war.of.thewarofstars.contant.PayType
 import com.the.war.of.thewarofstars.databinding.ActivityPayBinding
 import com.the.war.of.thewarofstars.ui.dialog.PayProcessDialogFragment
+import com.the.war.of.thewarofstars.ui.home.HomeViewModel
+import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import com.the.war.of.thewarofstars.util.DateUtil
 import org.json.JSONObject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
 
@@ -34,6 +37,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
     var dialog = PayProcessDialogFragment(this@PayActivity)
 
+    private val loginViewModel: LoginViewModel by viewModel()
+
     private var isPersonalUsageTermsClicked = false
     private var isPayServiceTermsClicked    = false
 
@@ -42,6 +47,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
     private var sellerName: String? = null
     private var buyerName: String? = null
     private var price: Long? = null
+
+    private var isTermsChecked: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,6 +137,12 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             }
         }
 
+        observing {
+            isTermsChecked.observe(this@PayActivity, { isTermsChecked ->
+                this@PayActivity.isTermsChecked = isTermsChecked
+            })
+        }
+
     }
 
     private fun showProcessDialog() {
@@ -145,7 +158,9 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             DialogInterface.OnDismissListener {
             override fun onDismiss(p0: DialogInterface?) {
 
-                requestPay()
+                if (isTermsChecked) {
+                    requestPay()
+                }
 
             }
             override fun dismiss() { }
@@ -281,6 +296,10 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         val content = SpannableString(dataBinding.tvGuideFeedbackEmail.text.toString())
         content.setSpan(UnderlineSpan(), 7, 24, 0)
         dataBinding.tvGuideFeedbackEmail.text = content
+    }
+
+    private fun observing(action: LoginViewModel.() -> Unit) {
+        loginViewModel.run(action)
     }
 
 

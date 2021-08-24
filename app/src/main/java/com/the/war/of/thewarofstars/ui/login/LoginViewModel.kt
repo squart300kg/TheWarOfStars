@@ -43,6 +43,10 @@ class LoginViewModel(
     val isRegister: LiveData<Boolean>
         get() = _isRegister
 
+    private val _isTermsChecked = MutableLiveData<Boolean>()
+    val isTermsChecked: LiveData<Boolean>
+        get() = _isTermsChecked
+
     val TAG = "LoginViewModelLog"
 
     fun requestNaverUserInfo(accessToken: String) {
@@ -105,5 +109,9 @@ class LoginViewModel(
                 Log.i(TAG, "회원정보 등록 완료! email : ${_email.value}, nickname : ${_nickname.value}")
                 _isRegister.value = true
             }
+    }
+
+    fun isTermsChecked(isChecked: Boolean) {
+        _isTermsChecked.value = isChecked
     }
 }

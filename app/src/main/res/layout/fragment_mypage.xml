@@ -9,25 +9,265 @@
             name="myPageVm"
             type="com.the.war.of.thewarofstars.ui.mypage.MyPageViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        theWarsOfStar:context=".ui.mypage.MyPageFragment">
+        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            theWarsOfStar:context=".ui.mypage.MyPageFragment">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="마이 페이지"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_greeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                theWarsOfStar:text="안녕하세요\n 이영호님!"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_point_title"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="포인트"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_greeting"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_point"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="150,000P"
+                app:layout_constraintTop_toBottomOf="@id/tv_greeting"
+                app:layout_constraintEnd_toStartOf="@id/tv_request_convert"
+                />
+
+            <TextView
+                android:id="@+id/tv_request_convert"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:text="환전신청"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/border_request_convert"
+                app:layout_constraintTop_toBottomOf="@id/tv_greeting"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_account_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="통장번호"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_point_title"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:text="[농협] 123-1234-1234-12"
+                app:layout_constraintTop_toBottomOf="@id/tv_point_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_email_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이메일"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_account_title"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:text="squart300kg@naver.com"
+                app:layout_constraintTop_toBottomOf="@id/tv_account_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_tribe_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="종족"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_email_title"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_tribe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:text="TERRAN"
+                app:layout_constraintTop_toBottomOf="@id/tv_email_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_game_id_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="게임 아이디"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_tribe_title"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_game_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="10dp"
+                android:text="FLASH"
+                app:layout_constraintTop_toBottomOf="@id/tv_tribe_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
         <TextView
-            android:id="@+id/tv_logout"
+            android:id="@+id/tv_sell_page"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:text="로그아웃"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="50dp"
+            android:text="거래 진행 페이지 바로가기"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/border_request_convert"
+            app:layout_constraintTop_toBottomOf="@id/tv_game_id_title"
+            />
+
+            <View
+                android:id="@+id/v_devider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/shimmer_color"
+                app:layout_constraintTop_toBottomOf="@id/tv_sell_page"
+                />
+
+            <TextView
+                android:id="@+id/tv_modify_profile"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:text="계정 정보 변경"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/v_devider"
+                />
+
+            <TextView
+                android:id="@+id/tv_deal_history"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:text="거래 내역 조회"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_modify_profile"
+                />
+
+            <TextView
+                android:id="@+id/tv_kakao_question"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:text="카카오톡 문의하기"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_deal_history"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_write_review"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:text="앱 리뷰 쓰기"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_kakao_question"
+                />
+
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:text="로그아웃"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_write_review"
+                />
+
+            <TextView
+                android:id="@+id/tv_service_out"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:text="회원탈퇴"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tv_logout"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

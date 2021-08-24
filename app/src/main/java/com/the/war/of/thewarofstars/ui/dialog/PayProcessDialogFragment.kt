@@ -10,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.PayProcessDialogBinding
+import com.the.war.of.thewarofstars.ui.login.LoginViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
  * Created by sangyoon on 2021/07/27
@@ -18,6 +20,8 @@ class PayProcessDialogFragment(
     val activity: Activity
 ) : DialogFragment()  {
     private lateinit var dataBinding: PayProcessDialogBinding
+
+    private val loginViewModel: LoginViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +53,7 @@ class PayProcessDialogFragment(
                 val isTermsChecked = dataBinding.cbNoticeOk.isChecked
 
                 if (isTermsChecked) {
+                    loginViewModel.isTermsChecked(isTermsChecked)
                     dialog?.dismiss()
                 }
 
