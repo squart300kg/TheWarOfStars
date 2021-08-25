@@ -18,6 +18,7 @@
             android:layout_height="match_parent"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:paddingBottom="?attr/actionBarSize"
             theWarsOfStar:context=".ui.mypage.MyPageFragment">
 
             <TextView
@@ -264,7 +265,9 @@
                 android:text="회원탈퇴"
                 android:textStyle="bold"
                 android:gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_logout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

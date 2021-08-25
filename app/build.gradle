@@ -65,6 +65,9 @@ android {
 
 dependencies {
 
+    // lottie
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
     // 아임포트
     implementation 'com.github.iamport:iamport-android:v1.0.0'
 

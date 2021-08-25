@@ -16,8 +16,10 @@ import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseFragment
 import com.the.war.of.thewarofstars.databinding.FragmentHomeBinding
 import com.the.war.of.thewarofstars.databinding.FragmentMypageBinding
+import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteActivity
 import com.the.war.of.thewarofstars.ui.login.EmailLoginViewModel
 import com.the.war.of.thewarofstars.ui.login.LoginActivity
+import com.the.war.of.thewarofstars.ui.mypage.sub.ConvertActivity
 
 class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
 
@@ -30,12 +32,28 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
 
             myPageVm = myPageViewModel
 
-//            tvLogout.apply {
-//                setOnClickListener {
-//
-//                    myPageViewModel.logout()
-//                }
-//            }
+            tvRequestConvert.apply {
+                setOnClickListener {
+                    Intent(requireActivity(), ConvertActivity::class.java).apply {
+                        startActivity(this)
+                    }
+                }
+            }
+
+            tvSellPage.apply {
+                setOnClickListener {
+                    Intent(requireActivity(), PayCompleteActivity::class.java).apply {
+                        startActivity(this)
+                    }
+                }
+            }
+
+            tvLogout.apply {
+                setOnClickListener {
+
+                    myPageViewModel.logout()
+                }
+            }
         }
 
         observing {

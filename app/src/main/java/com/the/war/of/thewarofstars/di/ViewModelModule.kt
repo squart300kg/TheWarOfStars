@@ -4,6 +4,7 @@ import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import com.the.war.of.thewarofstars.ui.message.MessageViewModel
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.ui.home.sub.GamerDetailViewModel
+import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteViewModel
 import com.the.war.of.thewarofstars.ui.home.sub.pay.PayViewModel
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionViewModel
 import com.the.war.of.thewarofstars.ui.login.EmailLoginViewModel
@@ -22,4 +23,5 @@ val viewModelModule = module {
     viewModel { QuestionViewModel(get(), get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { PayViewModel(get()) }
+    viewModel { PayCompleteViewModel(get()) }
 }

@@ -16,7 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.home.sub.pay.PayCompleteActivity"></activity>
+        <activity android:name=".ui.home.sub.pay.PayCompleteCancelActivity"></activity>
+        <activity android:name=".ui.home.sub.pay.PayCompleteOkActivity" />
+        <activity android:name=".ui.mypage.sub.ConvertActivity" />
+        <activity android:name=".ui.home.sub.pay.PayCompleteActivity" />
         <activity android:name=".ui.home.sub.pay.PayActivity" />
         <activity android:name=".ui.login.RegisterActivity" />
 

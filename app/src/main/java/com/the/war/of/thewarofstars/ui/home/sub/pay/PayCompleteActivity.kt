@@ -1,6 +1,7 @@
 package com.the.war.of.thewarofstars.ui.home.sub.pay
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
@@ -11,9 +12,13 @@ import com.the.war.of.thewarofstars.contant.DialogType
 import com.the.war.of.thewarofstars.databinding.ActivityPayCompleteBinding
 import com.the.war.of.thewarofstars.ui.dialog.PayCancelDialogFragment
 import com.the.war.of.thewarofstars.ui.dialog.PayOkDialogFragment
+import com.the.war.of.thewarofstars.ui.home.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
 class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.activity_pay_complete) {
+
+    private val payCompleteViewModel: PayCompleteViewModel by viewModel()
 
     private var isPaySelected: Boolean = true
 
@@ -67,6 +72,18 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
                     }
                 }
             }
+        }
+
+        observing {
+            isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
+                when (isClickedOk) {
+                    true -> {
+                        Intent(this@PayCompleteActivity, PayCompleteOkActivity::class.java).apply {
+                            startActivity(this)
+                        }
+                    }
+                }
+            })
         }
 
     }
@@ -144,5 +161,9 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
         dataBinding.tvRequestBeforeGameContent.text = request
         dataBinding.tvPrice.text                    = DecimalFormat("###,###").format(price) + "원"
         dataBinding.tvPayDate.text                  = payDate
+    }
+
+    private fun observing(action: PayCompleteViewModel.() -> Unit) {
+        payCompleteViewModel.run(action)
     }
 }

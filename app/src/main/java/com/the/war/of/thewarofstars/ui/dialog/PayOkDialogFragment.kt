@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.PayOkDialogBinding
+import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
  * Created by sangyoon on 2021/07/27
@@ -17,6 +19,8 @@ class PayOkDialogFragment(
     activity: Activity
 ) : DialogFragment()  {
     private lateinit var dataBinding: PayOkDialogBinding
+
+    private val payCompleteViewModel: PayCompleteViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +43,8 @@ class PayOkDialogFragment(
 
         dataBinding.tvOk.apply {
             setOnClickListener {
-
+                payCompleteViewModel.clickOK()
+                dismiss()
             }
 
         }
