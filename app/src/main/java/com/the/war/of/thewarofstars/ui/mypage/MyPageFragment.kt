@@ -28,6 +28,8 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initializeValues()
+
         binding {
 
             myPageVm = myPageViewModel
@@ -76,6 +78,11 @@ class MyPageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_myp
         }
     }
 
+    private fun initializeValues() {
+        binding.tvEmail.text  = Application.instance?.userEmail
+        binding.tvTribe.text  = Application.instance?.userTribe
+        binding.tvGameId.text = Application.instance?.userGameID
+    }
 
 
     private fun observing(action: MyPageViewModel.() -> Unit) {
