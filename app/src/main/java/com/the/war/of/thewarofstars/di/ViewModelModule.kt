@@ -10,6 +10,7 @@ import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionViewModel
 import com.the.war.of.thewarofstars.ui.login.EmailLoginViewModel
 import com.the.war.of.thewarofstars.ui.login.RegisterViewModel
 import com.the.war.of.thewarofstars.ui.mypage.MyPageViewModel
+import com.the.war.of.thewarofstars.ui.mypage.sub.ConvertViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -24,4 +25,5 @@ val viewModelModule = module {
     viewModel { RegisterViewModel(get()) }
     viewModel { PayViewModel(get()) }
     viewModel { PayCompleteViewModel(get()) }
+    viewModel { ConvertViewModel() }
 }

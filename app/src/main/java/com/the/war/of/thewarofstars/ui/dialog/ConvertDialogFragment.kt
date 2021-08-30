@@ -13,6 +13,8 @@ import androidx.fragment.app.DialogFragment
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ConvertDialogBinding
 import com.the.war.of.thewarofstars.ui.login.LoginViewModel
+import com.the.war.of.thewarofstars.ui.mypage.sub.ConvertViewModel
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -25,7 +27,7 @@ class ConvertDialogFragment(
 ) : DialogFragment()  {
     private lateinit var dataBinding: ConvertDialogBinding
 
-    private val loginViewModel: LoginViewModel by sharedViewModel()
+    private val convertViewModel: ConvertViewModel by sharedViewModel()
 
     private val TAG = "ConvertDialogFragmentLog"
 
@@ -68,6 +70,13 @@ class ConvertDialogFragment(
                     }
                 }
             })
+        }
+
+        dataBinding.tvRequestConvert.apply {
+            setOnClickListener {
+                convertViewModel.convertClick()
+                dismiss()
+            }
         }
 
 

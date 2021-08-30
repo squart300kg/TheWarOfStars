@@ -12,10 +12,14 @@ import com.the.war.of.thewarofstars.contant.DialogType
 import com.the.war.of.thewarofstars.databinding.ActivityConvertBinding
 import com.the.war.of.thewarofstars.ui.dialog.ConvertDialogFragment
 import com.the.war.of.thewarofstars.ui.dialog.PayOkDialogFragment
+import com.the.war.of.thewarofstars.ui.home.HomeViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ConvertActivity: BaseActivity<ActivityConvertBinding>(R.layout.activity_convert) {
 
-    var dialog     = ConvertDialogFragment(this@ConvertActivity)
+    var dialog = ConvertDialogFragment(this@ConvertActivity)
+
+    private val convertViewModel: ConvertViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +42,25 @@ class ConvertActivity: BaseActivity<ActivityConvertBinding>(R.layout.activity_co
 
             layoutRequestConvert.apply {
                 setOnClickListener {
-                    showConvertDialog()
+//                    showConvertDialog()
+                    Intent(this@ConvertActivity, ConvertInputActivity::class.java).apply {
+                        startActivity(this)
+                    }
                 }
             }
+        }
+
+        observing {
+            isConvertClicked.observe(this@ConvertActivity, { isConvertClicked ->
+                when (isConvertClicked) {
+                    true -> {
+
+                    }
+                    false -> {
+
+                    }
+                }
+            })
         }
     }
 
@@ -62,5 +82,9 @@ class ConvertActivity: BaseActivity<ActivityConvertBinding>(R.layout.activity_co
             override fun cancel() { }
 
         })
+    }
+
+    private fun observing(action: ConvertViewModel.() -> Unit) {
+        convertViewModel.run(action)
     }
 }

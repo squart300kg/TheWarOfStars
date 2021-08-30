@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.mypage.sub.RequestConvertActivity"></activity>
+        <activity android:name=".ui.mypage.sub.ConvertInputActivity"></activity>
+        <activity android:name=".ui.mypage.sub.RequestConvertActivity" />
         <activity android:name=".ui.home.sub.pay.PayCompleteCancelActivity" />
         <activity android:name=".ui.home.sub.pay.PayCompleteOkActivity" />
         <activity android:name=".ui.mypage.sub.ConvertActivity" />
