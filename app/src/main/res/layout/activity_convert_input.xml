@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="보유 포인트"
-            android:textColor="@color/main_orange_color"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginTop="50dp"
@@ -70,8 +70,7 @@
             android:layout_height="1dp"
             android:background="@color/shimmer_color"
             android:layout_marginTop="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/tv_my_point"
             />
 
@@ -81,7 +80,8 @@
             android:layout_height="100dp"
             android:inputType="number"
             android:textSize="30sp"
-            android:maxLength="8"
+            android:maxLength="10"
+            android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/main_orange_color"
             android:layout_marginTop="30dp"
@@ -103,6 +103,7 @@
             app:layout_constraintTop_toBottomOf="@id/et_input"
             >
             <TextView
+                android:id="@+id/tv_auto_account_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="전액"
@@ -114,6 +115,7 @@
                 android:background="@drawable/border_convert_input_account"
                 />
             <TextView
+                android:id="@+id/tv_auto_account_100"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+100만"
@@ -126,6 +128,7 @@
                 android:background="@drawable/border_convert_input_account"
                 />
             <TextView
+                android:id="@+id/tv_auto_account_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+10만"
@@ -138,6 +141,7 @@
                 android:background="@drawable/border_convert_input_account"
                 />
             <TextView
+                android:id="@+id/tv_auto_account_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+5만"
@@ -150,6 +154,7 @@
                 android:background="@drawable/border_convert_input_account"
                 />
             <TextView
+                android:id="@+id/tv_auto_account_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+1만"
@@ -188,6 +193,7 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+                    android:id="@+id/tv_number_two"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -198,6 +204,7 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+                    android:id="@+id/tv_number_three"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -214,6 +221,7 @@
                 android:weightSum="100"
                 >
                 <TextView
+                    android:id="@+id/tv_number_four"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -224,6 +232,7 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+                    android:id="@+id/tv_number_five"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -234,6 +243,7 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+                    android:id="@+id/tv_number_six"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -250,6 +260,7 @@
                 android:weightSum="100"
                 >
                 <TextView
+                    android:id="@+id/tv_number_seven"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -260,6 +271,7 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+                    android:id="@+id/tv_number_eight"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -270,6 +282,7 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+                    android:id="@+id/tv_number_nine"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -286,6 +299,7 @@
                 android:weightSum="100"
                 >
                 <TextView
+                    android:id="@+id/tv_number_double_zero"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -296,6 +310,7 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+                    android:id="@+id/tv_number_zero"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
@@ -306,6 +321,8 @@
                     android:paddingBottom="15dp"
                     />
                 <TextView
+
+                    android:id="@+id/tv_number_erase"
                     android:layout_width="0dp"
                     android:layout_weight="33"
                     android:layout_height="wrap_content"
