@@ -1,5 +1,6 @@
 package com.the.war.of.thewarofstars.di
 
+import com.the.war.of.thewarofstars.ui.home.FreeLectureViewModel
 import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import com.the.war.of.thewarofstars.ui.message.MessageViewModel
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
@@ -26,4 +27,5 @@ val viewModelModule = module {
     viewModel { PayViewModel(get()) }
     viewModel { PayCompleteViewModel(get()) }
     viewModel { ConvertViewModel() }
+    viewModel { FreeLectureViewModel(get(), get()) }
 }

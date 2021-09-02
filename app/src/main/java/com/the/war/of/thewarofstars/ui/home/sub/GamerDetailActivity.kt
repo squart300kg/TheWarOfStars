@@ -17,6 +17,7 @@ import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
+import com.the.war.of.thewarofstars.ui.home.sub.free.FreeLectureActivity
 import com.the.war.of.thewarofstars.ui.home.sub.pay.PayActivity
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -61,6 +62,13 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                 setOnClickListener { onBackPressed() }
             }
 
+            tvFreeLecture.apply {
+                setOnClickListener {
+                    Intent(this@GamerDetailActivity, FreeLectureActivity::class.java).apply {
+                        startActivity(this)
+                    }
+                }
+            }
             tvGamerTitle.apply {
                 text = title
             }

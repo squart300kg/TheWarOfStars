@@ -3,6 +3,7 @@ package com.the.war.of.thewarofstars.di
 import android.util.Log
 import com.the.war.of.thewarofstars.api.ChattingApi
 import com.the.war.of.thewarofstars.api.LoginApi
+import com.the.war.of.thewarofstars.api.YoutubeApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -58,5 +59,24 @@ val networkModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ChattingApi::class.java)
+    }
+
+    factory <YoutubeApi> {
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(debugInterceptor("Chatting"))
+//            .addInterceptor(AuthInterceptor(get()))
+            .build()
+
+        val url = "https://www.googleapis.com/youtube/v3/"
+
+        Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(YoutubeApi::class.java)
     }
 }

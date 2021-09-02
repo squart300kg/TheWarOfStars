@@ -20,6 +20,10 @@ open class BaseViewModel(
     val errorMsg: LiveData<String>
         get() = _errorMsg
 
+    protected val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     protected var job: Job? = null
 
     override fun onCleared() {
