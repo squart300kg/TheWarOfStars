@@ -42,18 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            theWarsOfStar:setItems="@{freeVm.freeLectureList}"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            theWarsOfStar:listitem="@layout/item_free_lecture"
+            theWarsOfStar:setItems="@{freeVm.freeLectureList}"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-        <kr.co.prnd.YouTubePlayerView
-            android:id="@+id/v_youtube"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

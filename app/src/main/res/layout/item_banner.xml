@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/coverImageView"
-            theWarsOfStar:setBanner = "@{bannerModel.imageURL}"
+            theWarsOfStar:setImage = "@{bannerModel.imageURL}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

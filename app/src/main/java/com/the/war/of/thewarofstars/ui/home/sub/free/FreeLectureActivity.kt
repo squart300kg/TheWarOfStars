@@ -52,9 +52,7 @@ class FreeLectureActivity: BaseActivity<ActivityFreeLectureBinding>(R.layout.act
 //                    .show()
             }
 
-            vYoutube.apply {
-                play("-V2VAa8G2TE")
-            }
+
         }
 
 

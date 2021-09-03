@@ -12,7 +12,6 @@ import com.the.war.of.thewarofstars.ui.home.BannerAdapter
 import com.the.war.of.thewarofstars.ui.home.GamerListAdapter
 import com.the.war.of.thewarofstars.ui.home.sub.FreeLecturesAdapter
 import com.the.war.of.thewarofstars.ui.home.sub.ReviewAdapter
-import com.the.war.of.thewarofstars.ui.home.sub.free.FreeLectureActivity
 
 @BindingAdapter("theWarsOfStar:setItems")
 fun <T> RecyclerView.setItems(items: List<T>?) {

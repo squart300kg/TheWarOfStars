@@ -7,20 +7,9 @@ import com.google.gson.annotations.SerializedName
 
 data class FreeLecturesResponse(
     @Expose
-    @SerializedName("etag")
-    val etag: String?,
-    @Expose
     @SerializedName("items")
-    val items: List<Item>?,
-    @Expose
-    @SerializedName("kind")
-    val kind: String?,
-    @Expose
-    @SerializedName("nextPageToken")
-    val nextPageToken: String?,
-    @Expose
-    @SerializedName("pageInfo")
-    val pageInfo: PageInfo?
+    val items: List<Item>?
+
 ) {
     fun toPresentation(): List<Item> {
         val list = mutableListOf<Item>()
@@ -31,25 +20,38 @@ data class FreeLecturesResponse(
     }
     data class Item(
         @Expose
-        @SerializedName("contentDetails")
-        val contentDetails: ContentDetails?,
-        @Expose
-        @SerializedName("etag")
-        val etag: String?,
-        @Expose
-        @SerializedName("id")
-        val id: String?,
-        @Expose
-        @SerializedName("kind")
-        val kind: String?
+        @SerializedName("snippet")
+        val snippet: Snippet?
     ) {
-        data class ContentDetails(
+        data class Snippet(
             @Expose
-            @SerializedName("videoId")
-            val videoId: String?,
+            @SerializedName("resourceId")
+            val resourceId: ResourceId?,
             @Expose
-            @SerializedName("videoPublishedAt")
-            val videoPublishedAt: String?
-        )
+            @SerializedName("title")
+            val title: String?,
+            @Expose
+            @SerializedName("thumbnails")
+            val thumbnails: Thumbnails?
+
+        ) {
+            data class Thumbnails(
+                @Expose
+                @SerializedName("high")
+                val high: High?
+            ) {
+                data class High(
+                    @Expose
+                    @SerializedName("url")
+                    val url: String?
+                )
+            }
+            data class ResourceId(
+                @Expose
+                @SerializedName("videoId")
+                val videoId: String?
+            )
+        }
+
     }
 }

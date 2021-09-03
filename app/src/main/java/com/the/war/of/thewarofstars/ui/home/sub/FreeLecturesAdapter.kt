@@ -7,28 +7,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.the.war.of.thewarofstars.BR
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseViewHolder
-import com.the.war.of.thewarofstars.databinding.ItemBannerBinding
-import com.the.war.of.thewarofstars.model.BannerItem
+import com.the.war.of.thewarofstars.databinding.ItemFreeLectureBinding
 import com.the.war.of.thewarofstars.model.response.FreeLecturesResponse
+import com.the.war.of.thewarofstars.util.GlideUtil
 
 class FreeLecturesAdapter(
     val activity: Activity
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items: MutableList<FreeLecturesResponse.Item> = mutableListOf()
-    private val TAG = "BannerAdapterLog"
+    private val TAG = "FreeLecturesAdapterLog"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return LecturesViewHolder(
-            BR.bannerModel,
+            BR.freeLectureItem,
             parent,
-            R.layout.item_banner
+            R.layout.item_free_lecture
         )
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as LecturesViewHolder
         holder.bindItem(items[position])
+
+        holder.initializeYoutube(items[position])
 
     }
 
@@ -44,11 +46,22 @@ class FreeLecturesAdapter(
         Log.i(TAG, items.size.toString())
     }
 
-    class LecturesViewHolder(
+    inner class LecturesViewHolder(
         itemId: Int,
         parent: ViewGroup,
         layoutRes: Int
-    ): BaseViewHolder<FreeLecturesResponse.Item, ItemBannerBinding>(itemId, parent, layoutRes) {
+    ): BaseViewHolder<FreeLecturesResponse.Item, ItemFreeLectureBinding>(itemId, parent, layoutRes) {
+        fun initializeYoutube(item: FreeLecturesResponse.Item) {
+            Log.i(TAG, "initializeYoutube\n " +
+                    "videoId : ${item.snippet?.resourceId?.videoId.toString()}\n " +
+                    "videoTitle : ${item.snippet?.title}")
+
+            GlideUtil.loadImage(
+                imageView = itemBinding.ivYoutubeThumbnail,
+                url       = item.snippet?.thumbnails?.high?.url.toString()
+            )
+            itemBinding.tvVideoTitle.text = item.snippet?.title
+        }
 
     }
 

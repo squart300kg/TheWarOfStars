@@ -3,13 +3,9 @@ package com.the.war.of.thewarofstars.ui.home
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.securepreferences.SecurePreferences
-import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
-import com.the.war.of.thewarofstars.model.BannerItem
-import com.the.war.of.thewarofstars.model.GamerItem
 import com.the.war.of.thewarofstars.model.response.FreeLecturesResponse
 import com.the.war.of.thewarofstars.repository.FreeLectureRepository
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +56,7 @@ class FreeLectureViewModel(
                             "SUCCESS\n " +
                             "result : ${_freeLectureList.value}")
                 }
+
             _isLoading.value = false
         }
 
