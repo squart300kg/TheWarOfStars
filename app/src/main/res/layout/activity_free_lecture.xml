@@ -7,7 +7,7 @@
     <data>
         <variable
             name="freeVm"
-            type="com.the.war.of.thewarofstars.ui.home.FreeLectureViewModel" />
+            type="com.the.war.of.thewarofstars.ui.home.sub.free.FreeLectureViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

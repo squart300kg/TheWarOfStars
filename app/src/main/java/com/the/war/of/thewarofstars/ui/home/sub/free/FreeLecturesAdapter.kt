@@ -1,4 +1,4 @@
-package com.the.war.of.thewarofstars.ui.home.sub
+package com.the.war.of.thewarofstars.ui.home.sub.free
 
 import android.app.Activity
 import android.util.Log
@@ -12,7 +12,8 @@ import com.the.war.of.thewarofstars.model.response.FreeLecturesResponse
 import com.the.war.of.thewarofstars.util.GlideUtil
 
 class FreeLecturesAdapter(
-    val activity: Activity
+    val activity: Activity,
+    val watchToVideo: (String, String) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items: MutableList<FreeLecturesResponse.Item> = mutableListOf()
@@ -30,7 +31,12 @@ class FreeLecturesAdapter(
         val holder = viewHolder as LecturesViewHolder
         holder.bindItem(items[position])
 
+        holder.itemView.setOnClickListener {
+            watchToVideo(items[position].snippet?.resourceId?.videoId.toString(), items[position].snippet?.description.toString())
+        }
         holder.initializeYoutube(items[position])
+
+
 
     }
 
@@ -51,6 +57,7 @@ class FreeLecturesAdapter(
         parent: ViewGroup,
         layoutRes: Int
     ): BaseViewHolder<FreeLecturesResponse.Item, ItemFreeLectureBinding>(itemId, parent, layoutRes) {
+
         fun initializeYoutube(item: FreeLecturesResponse.Item) {
             Log.i(TAG, "initializeYoutube\n " +
                     "videoId : ${item.snippet?.resourceId?.videoId.toString()}\n " +
@@ -62,6 +69,8 @@ class FreeLecturesAdapter(
             )
             itemBinding.tvVideoTitle.text = item.snippet?.title
         }
+
+
 
     }
 

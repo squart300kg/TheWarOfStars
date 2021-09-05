@@ -9,9 +9,10 @@ interface YoutubeApi {
     @GET("playlistItems")
     suspend fun getFreeLectures(
         @Query("part")part: String = "snippet",
-        @Query("fields")fields: String = "items(snippet(title, resourceId.videoId, thumbnails.high.url))",
+        @Query("fields")fields: String = "items(snippet(title, description, resourceId.videoId, thumbnails.high.url))",
         @Query("key")key: String,
         @Query("playlistId")playListId: String,
+        @Query("maxResults")maxResults: String = "15",
     ): FreeLecturesResponse
 
 }

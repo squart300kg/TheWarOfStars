@@ -31,6 +31,9 @@ data class FreeLecturesResponse(
             @SerializedName("title")
             val title: String?,
             @Expose
+            @SerializedName("description")
+            val description: String?,
+            @Expose
             @SerializedName("thumbnails")
             val thumbnails: Thumbnails?
 

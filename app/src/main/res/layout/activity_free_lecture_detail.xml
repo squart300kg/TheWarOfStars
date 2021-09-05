@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:theWarsOfStar="http://schemas.android.com/tools">
+    <data>
+<!--        <variable-->
+<!--            name=""-->
+<!--            type="" />-->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        theWarsOfStar:context=".ui.home.sub.free.detail.FreeLectureDetailActivity">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <kr.co.prnd.YouTubePlayerView
+                    android:id="@+id/v_youtube"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintDimensionRatio="H, 2:1"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_contents"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:padding="20dp"
+                    android:background="@drawable/border_gamer_description"
+                    android:text="sdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\n"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

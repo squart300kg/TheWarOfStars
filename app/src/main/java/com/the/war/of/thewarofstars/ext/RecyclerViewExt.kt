@@ -10,7 +10,7 @@ import com.the.war.of.thewarofstars.model.ReviewItem
 import com.the.war.of.thewarofstars.model.response.FreeLecturesResponse
 import com.the.war.of.thewarofstars.ui.home.BannerAdapter
 import com.the.war.of.thewarofstars.ui.home.GamerListAdapter
-import com.the.war.of.thewarofstars.ui.home.sub.FreeLecturesAdapter
+import com.the.war.of.thewarofstars.ui.home.sub.free.FreeLecturesAdapter
 import com.the.war.of.thewarofstars.ui.home.sub.ReviewAdapter
 
 @BindingAdapter("theWarsOfStar:setItems")
