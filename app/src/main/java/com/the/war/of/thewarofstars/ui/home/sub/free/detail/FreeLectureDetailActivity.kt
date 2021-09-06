@@ -9,6 +9,7 @@ import com.the.war.of.thewarofstars.databinding.ActivityFreeLectureDetailBinding
 class FreeLectureDetailActivity: BaseActivity<ActivityFreeLectureDetailBinding>(R.layout.activity_free_lecture_detail) {
 
     private var videoId: String? = null
+    private var contents: String? = null
 
     private val TAG = "FreeLectureDetailActivityLog"
 
@@ -20,7 +21,9 @@ class FreeLectureDetailActivity: BaseActivity<ActivityFreeLectureDetailBinding>(
         binding {
             vYoutube.apply {
                 play(videoId.toString())
-
+            }
+            tvContents.apply {
+                text = contents
             }
         }
 
@@ -28,6 +31,7 @@ class FreeLectureDetailActivity: BaseActivity<ActivityFreeLectureDetailBinding>(
 
     private fun initializeValues() {
         videoId = intent.getStringExtra("videoId")
+        contents = intent.getStringExtra("contents")
         Log.i(TAG, "videoId : $videoId")
     }
 }

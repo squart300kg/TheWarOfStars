@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.TextView
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
@@ -108,19 +109,19 @@ class ConvertInputActivity: BaseActivity<ActivityConvertInputBinding>(R.layout.a
 
             tvAutoAccount10.apply {
                 setOnClickListener {
-                    clickNumber(TEN_THOUSAND)
+                    clickNumber(ONE_HUNDRED_THOUSAND)
                 }
             }
 
             tvAutoAccount5.apply {
                 setOnClickListener {
-                    clickNumber(FIVE_THOUSAND)
+                    clickNumber(FIFTEEN_THOUSAND)
                 }
             }
 
             tvAutoAccount1.apply {
                 setOnClickListener {
-                    clickNumber(ONE_THOUSAND)
+                    clickNumber(TEN_THOUSAND)
                 }
             }
 
@@ -148,25 +149,60 @@ class ConvertInputActivity: BaseActivity<ActivityConvertInputBinding>(R.layout.a
 
                 dataBinding.etInput.text = result
             }
+            MILLION -> {
+                if (isConvertPointLessThan(MILLION))
+                    input(number)
+
+            }
+            ONE_HUNDRED_THOUSAND -> {
+                if (isConvertPointLessThan(ONE_HUNDRED_THOUSAND))
+                    input(number)
+            }
+            FIFTEEN_THOUSAND -> {
+                if (isConvertPointLessThan(FIFTEEN_THOUSAND))
+                    input(number)
+            }
+            TEN_THOUSAND -> {
+                if (isConvertPointLessThan(TEN_THOUSAND))
+                    input(number)
+            }
             else -> {
-                val formatter        = DecimalFormat("###,###")
-                val input            = dataBinding.etInput.text.toString()
-                val inputEraiseComma = (input + number).replace(",", "")
-                val inputInt         = inputEraiseComma.toInt()
-                var result           = formatter.format(inputInt)
-
-                if (result.length >= MAX_LENGTH) {
-                    val resultEraiseComma = result.replace(",", "")
-                    val resultString      = resultEraiseComma.substring(0, 8).toInt()
-                    result = formatter.format(resultString)
-                }
-
-                dataBinding.etInput.text = result
+                input(number)
             }
         }
+    }
 
+    private fun isConvertPointLessThan(newInputPoint: String): Boolean {
+        val newInputPoint = newInputPoint.toInt()
+        val originPoint = if (dataBinding.etInput.text.toString().isNullOrEmpty())
+                                0
+                            else
+                                dataBinding.etInput.text.toString().replace(",", "").toInt()
+        val resulrPoint = (originPoint + newInputPoint)
+        if (resulrPoint > newInputPoint) {
+            if (originPoint < newInputPoint) {
+                dataBinding.etInput.text = ""
+                return true
+            }
+            return false
+        }
+        return true
+    }
 
+    private fun input(number: String) {
+        val formatter        = DecimalFormat("###,###")
+        val input            = dataBinding.etInput.text.toString()
+        val inputEraiseComma = (input + number).replace(",", "")
+        val inputInt         = inputEraiseComma.toInt()
+        var result           = formatter.format(inputInt)
 
+        if (result.length >= MAX_LENGTH) {
+            val resultEraiseComma = result.replace(",", "")
+            val resultString      = resultEraiseComma.substring(0, 8).toInt()
+            result = formatter.format(resultString)
+        }
+
+        dataBinding.etInput.text = result
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -214,9 +250,9 @@ class ConvertInputActivity: BaseActivity<ActivityConvertInputBinding>(R.layout.a
 
         const val ALL = "500000"
         const val MILLION = "1000000"
-        const val TEN_THOUSAND = "100000"
-        const val FIVE_THOUSAND = "50000"
-        const val ONE_THOUSAND = "10000"
+        const val ONE_HUNDRED_THOUSAND = "100000"
+        const val FIFTEEN_THOUSAND = "50000"
+        const val TEN_THOUSAND = "10000"
 
         const val MAX_LENGTH = 10
     }

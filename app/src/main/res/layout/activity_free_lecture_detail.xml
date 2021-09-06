@@ -36,7 +36,7 @@
                     android:layout_margin="20dp"
                     android:padding="20dp"
                     android:background="@drawable/border_gamer_description"
-                    android:text="sdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\n"
+                    theWarsOfStar:text="sdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\nsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsf\n\n"
                     app:layout_constraintBottom_toBottomOf="parent"
                     />
 
