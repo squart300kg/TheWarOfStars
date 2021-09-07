@@ -43,13 +43,9 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        uID          = intent.getStringExtra("uID")
-        name         = intent.getStringExtra("name")
-        price        = intent.getLongExtra("price", 0)
-        thumbnailURL = intent.getStringExtra("thumbnailURL")
-        title        = intent.getStringExtra("title")
-        description  = intent.getStringExtra("description")
-        email        = intent.getStringExtra("email")
+        initializeValues()
+
+        initializeView()
 
         loadGamerInfo(name, price, thumbnailURL, title, description)
 
@@ -151,6 +147,23 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
         }
 
 
+    }
+
+    private fun initializeView() {
+        val isMe = Application.instance?.userUID == uID
+
+        if (isMe)
+            dataBinding.layoutQuestionAndPay.visibility = View.GONE
+    }
+
+    private fun initializeValues() {
+        uID          = intent.getStringExtra("uID")
+        name         = intent.getStringExtra("name")
+        price        = intent.getLongExtra("price", 0)
+        thumbnailURL = intent.getStringExtra("thumbnailURL")
+        title        = intent.getStringExtra("title")
+        description  = intent.getStringExtra("description")
+        email        = intent.getStringExtra("email")
     }
 
     private fun loadGamerInfo(name: String?, price: Long?, thumbnailURL: String?, title: String?, description: String?) {

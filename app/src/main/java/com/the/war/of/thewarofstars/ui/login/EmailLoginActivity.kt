@@ -48,8 +48,6 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                         }
                     }
                 }
-
-
             }
 
             btnLogin.setOnClickListener {
