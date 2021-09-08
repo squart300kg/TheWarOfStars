@@ -19,7 +19,7 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
 
     private val emailLoginViewModel: EmailLoginViewModel by viewModel()
 
-    private var loginType = GAMER_TYPE
+    private var loginType = GamerList
 
     private val TAG = "EmailLoginActivityLog"
 
@@ -39,11 +39,11 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                 setOnCheckedChangeListener { group, resId ->
                     when (resId) {
                         R.id.rb_gamer_type -> {
-                            loginType = GAMER_TYPE
+                            loginType = GamerList
                             Log.i(TAG, "loginType : $loginType")
                         }
                         R.id.rb_user_type -> {
-                            loginType = USER_TYPE
+                            loginType = USER_LIST
                             Log.i(TAG, "loginType : $loginType")
                         }
                     }
@@ -163,8 +163,8 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
     companion object {
         const val DRAWABLE_RIGHT = 2
 
-        const val USER_TYPE  = "UserList"
-        const val GAMER_TYPE = "GamerList"
+        const val USER_LIST  = "UserList"
+        const val GamerList = "GamerList"
     }
 
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
-import com.the.war.of.thewarofstars.ui.login.EmailLoginActivity.Companion.USER_TYPE
+import com.the.war.of.thewarofstars.ui.login.EmailLoginActivity.Companion.USER_LIST
 
 class EmailLoginViewModel(
     private val securePreferences: SecurePreferences
@@ -44,13 +44,18 @@ class EmailLoginViewModel(
     val gameID: LiveData<String>
         get() = _gameID
 
+    private val _collectionName = MutableLiveData<String>()
+    val collectionName: LiveData<String>
+        get() = _collectionName
+
     val TAG = "EmailLoginViewModelLog"
 
     fun confirmEmailLogin(email: String, password: String, loginType: String) {
 
         Log.i(TAG, "email: $email, password : $password")
 
-        Application?.instance?.firebaseStore?.collection(loginType)
+        Application.instance?.firebaseStore
+            ?.collection(loginType)
             ?.whereEqualTo("email", email)
             ?.get()
             ?.addOnSuccessListener { documents ->
@@ -58,15 +63,17 @@ class EmailLoginViewModel(
                     Log.i(TAG, "입력 : $password, 서버 : ${document.data["password"]}")
                     if (password == document.data["password"]) {
                         // 로그인 성공
-                        _email.value    = email
-                        _password.value = password
-                        _name.value     = if (loginType == USER_TYPE) document.data["nickname"] as String else document.data["name"] as String
-                        _type.value     = if (loginType == USER_TYPE) "USER" else "GAMER"
-                        _uID.value      = document.id
-                        _tribe.value    = document.data["tribe"] as String
-                        _gameID.value   = document.data["gameID"] as String
+                        _email.value          = email
+                        _password.value       = password
+                        _name.value           = if (loginType == USER_LIST) document.data["nickname"] as String else document.data["name"] as String
+                        _type.value           = if (loginType == USER_LIST) "USER" else "GAMER"
+                        _uID.value            = document.id
+                        _tribe.value          = document.data["tribe"] as String
+                        _gameID.value         = document.data["gameID"] as String
+                        _collectionName.value = loginType
 
-                        _isConfirmed.value = true
+                        updateFCMToken()
+//                        _isConfirmed.value = true
                         return@addOnSuccessListener
                     } else {
                         // 비밀번호 틀림
@@ -79,4 +86,20 @@ class EmailLoginViewModel(
                 return@addOnSuccessListener
             }
     }
+
+    private fun updateFCMToken() {
+        Application.instance?.firebaseStore
+            ?.collection(collectionName.value.toString())
+            ?.document(uID.value.toString())
+            ?.update("fcmToken", Application.instance?.userFcmToken)
+            ?.addOnSuccessListener {
+                Log.d(TAG, "fcmToken 업데이트 완료")
+                _isConfirmed.value = true
+            }
+            ?.addOnFailureListener { e ->
+                Log.w(TAG, "fcmTOken 업데이트 실패", e)
+            }
+    }
+
+
 }

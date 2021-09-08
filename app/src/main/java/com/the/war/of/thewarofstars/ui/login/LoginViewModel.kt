@@ -47,6 +47,10 @@ class LoginViewModel(
     val isTermsChecked: LiveData<Boolean>
         get() = _isTermsChecked
 
+    private val _isConfirmed = MutableLiveData<Boolean>()
+    val isConfirmed: LiveData<Boolean>
+        get() = _isConfirmed
+
     val TAG = "LoginViewModelLog"
 
     fun requestNaverUserInfo(accessToken: String) {
@@ -114,4 +118,31 @@ class LoginViewModel(
     fun isTermsChecked(isChecked: Boolean) {
         _isTermsChecked.value = isChecked
     }
+
+    fun logout() {
+        val collectionName = if (Application.instance?.userType == USER_TYPE) USER_LIST else GAMER_LIST
+        Log.i(TAG, "collectionName : $collectionName")
+
+        Application.instance?.firebaseStore
+            ?.collection(collectionName)
+            ?.document(uID.value.toString())
+            ?.update("fcmToken", "")
+            ?.addOnSuccessListener {
+                Log.d(TAG, "fcmToken 업데이트 완료")
+                _isConfirmed.value = true
+            }
+            ?.addOnFailureListener { e ->
+                Log.w(TAG, "fcmTOken 업데이트 실패", e)
+            }
+    }
+
+    companion object {
+        const val USER_LIST  = "UserList"
+        const val GAMER_LIST = "GamerList"
+
+        const val USER_TYPE  = "USER"
+        const val GAMER_TYPE = "GAMER"
+    }
+
+
 }
