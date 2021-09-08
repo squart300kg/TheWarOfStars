@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
-import com.the.war.of.thewarofstars.ui.login.EmailLoginActivity.Companion.USER_LIST
+import com.the.war.of.thewarofstars.contant.CollectionType
+import com.the.war.of.thewarofstars.contant.UserType
 
 class EmailLoginViewModel(
     private val securePreferences: SecurePreferences
@@ -65,8 +66,8 @@ class EmailLoginViewModel(
                         // 로그인 성공
                         _email.value          = email
                         _password.value       = password
-                        _name.value           = if (loginType == USER_LIST) document.data["nickname"] as String else document.data["name"] as String
-                        _type.value           = if (loginType == USER_LIST) "USER" else "GAMER"
+                        _name.value           = if (loginType == CollectionType.USER_LIST.type) document.data["nickname"] as String else document.data["name"] as String
+                        _type.value           = if (loginType == CollectionType.USER_LIST.type) UserType.USER.type else UserType.GAMER.type
                         _uID.value            = document.id
                         _tribe.value          = document.data["tribe"] as String
                         _gameID.value         = document.data["gameID"] as String

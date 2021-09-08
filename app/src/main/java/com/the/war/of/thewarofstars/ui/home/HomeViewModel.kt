@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.the.war.of.thewarofstars.Application
+import com.the.war.of.thewarofstars.contant.CollectionType
 import com.the.war.of.thewarofstars.model.BannerItem
 import com.the.war.of.thewarofstars.model.GamerItem
 
@@ -23,7 +24,7 @@ class HomeViewModel : ViewModel() {
     fun getGamers() {
 
         Application?.instance?.firebaseStore.let { firebaseDB ->
-            firebaseDB?.collection("GamerList").let { gamerList ->
+            firebaseDB?.collection(CollectionType.GAMER_LIST.type).let { gamerList ->
                 gamerList?.get()
                     ?.addOnSuccessListener { collection ->
                         if (collection != null) {

@@ -14,7 +14,9 @@ import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.contant.CollectionType
 import com.the.war.of.thewarofstars.contant.TribeType
+import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.databinding.ActivityRegisterBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.regex.Matcher
@@ -112,7 +114,7 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
                         val gameID = dataBinding.etGameId.text.toString()
 
                         Application.instance?.firebaseStore
-                            ?.collection("UserList")
+                            ?.collection(CollectionType.USER_LIST.type)
                             ?.add(hashMapOf(
                                 "email"    to email,
                                 "password" to password,
@@ -125,7 +127,7 @@ class RegisterActivity: BaseActivity<ActivityRegisterBinding>(R.layout.activity_
 
                                 val uID = document.id
 
-                                registerViewModel.saveAutoLogin(true, email, nickname ,uID, password, "USER", tribe.toString(), gameID)
+                                registerViewModel.saveAutoLogin(true, email, nickname ,uID, password, UserType.USER.type, tribe.toString(), gameID)
                                 Log.d(TAG, "회원가입 완료! id : ${document.id}")
 
                                 val intent = MainActivity.newIntent(this@RegisterActivity).apply {

@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
+import com.the.war.of.thewarofstars.contant.CollectionType
+import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import org.koin.java.KoinJavaComponent.inject
 
@@ -25,7 +27,7 @@ class MyPageViewModel: ViewModel() {
     private val TAG = "MyPageViewModelLog"
 
     fun logout() {
-        val collectionName = if (Application.instance?.userType == LoginViewModel.USER_TYPE) LoginViewModel.USER_LIST else LoginViewModel.GAMER_LIST
+        val collectionName = if (Application.instance?.userType == UserType.USER.type) CollectionType.USER_LIST.type else CollectionType.GAMER_LIST.type
         val uID = Application.instance?.userUID.toString()
         Log.i(TAG, "collectionName : $collectionName, uID : $uID")
 

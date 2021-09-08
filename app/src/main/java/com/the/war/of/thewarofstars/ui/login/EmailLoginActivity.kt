@@ -12,6 +12,7 @@ import android.widget.EditText
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.contant.CollectionType
 import com.the.war.of.thewarofstars.databinding.ActivityEmailLoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,7 +20,7 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
 
     private val emailLoginViewModel: EmailLoginViewModel by viewModel()
 
-    private var loginType = GamerList
+    private var loginType = CollectionType.GAMER_LIST.type
 
     private val TAG = "EmailLoginActivityLog"
 
@@ -39,11 +40,11 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                 setOnCheckedChangeListener { group, resId ->
                     when (resId) {
                         R.id.rb_gamer_type -> {
-                            loginType = GamerList
+                            loginType = CollectionType.GAMER_LIST.type
                             Log.i(TAG, "loginType : $loginType")
                         }
                         R.id.rb_user_type -> {
-                            loginType = USER_LIST
+                            loginType = CollectionType.USER_LIST.type
                             Log.i(TAG, "loginType : $loginType")
                         }
                     }
@@ -124,7 +125,6 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
                     val img = R.mipmap.icon_close_white
                     setCompoundDrawablesWithIntrinsicBounds(0, 0, img, 0)
                 }
-
                 checkLoginButtonEnable()
             }
         })
@@ -163,8 +163,6 @@ class EmailLoginActivity: BaseActivity<ActivityEmailLoginBinding>(R.layout.activ
     companion object {
         const val DRAWABLE_RIGHT = 2
 
-        const val USER_LIST  = "UserList"
-        const val GamerList = "GamerList"
     }
 
 }

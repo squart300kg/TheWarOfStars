@@ -16,6 +16,7 @@ import com.smarteist.autoimageslider.IndicatorView.utils.DensityUtils
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.databinding.ActivityGamerDetailBinding
 import com.the.war.of.thewarofstars.ui.home.sub.free.FreeLectureActivity
 import com.the.war.of.thewarofstars.ui.home.sub.pay.PayActivity
@@ -150,9 +151,9 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
     }
 
     private fun initializeView() {
-        val isMe = Application.instance?.userUID == uID
+        val isGamer = Application.instance?.userType == UserType.GAMER.type
 
-        if (isMe)
+        if (isGamer)
             dataBinding.layoutQuestionAndPay.visibility = View.GONE
     }
 

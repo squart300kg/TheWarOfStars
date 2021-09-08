@@ -7,6 +7,7 @@ import com.google.firebase.Timestamp
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
+import com.the.war.of.thewarofstars.contant.CollectionType
 import com.the.war.of.thewarofstars.model.ReviewItem
 
 class GamerDetailViewModel(
@@ -24,8 +25,8 @@ class GamerDetailViewModel(
     val TAG = "GamerDetailViewModelLog"
 
     fun getReviews(gamer: String?) {
-        Application?.instance?.firebaseStore.let { firebaseDB ->
-            firebaseDB?.collection("ReviewList")
+        Application.instance?.firebaseStore.let { firebaseDB ->
+            firebaseDB?.collection(CollectionType.REVIEW_LIST.type)
                 ?.whereEqualTo("gamer", gamer)
                 ?.get()
                 ?.addOnSuccessListener { documents ->

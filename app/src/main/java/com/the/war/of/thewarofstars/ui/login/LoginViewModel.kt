@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
+import com.the.war.of.thewarofstars.contant.CollectionType
+import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.model.User
 import com.the.war.of.thewarofstars.repository.LoginRepository
 import kotlinx.coroutines.Dispatchers
@@ -82,7 +84,7 @@ class LoginViewModel(
     fun isRegister(email: String?) {
 
         Log.i(TAG, "inputEmail : $email")
-        Application.instance?.firebaseStore?.collection("UserList")
+        Application.instance?.firebaseStore?.collection(CollectionType.USER_LIST.type)
                 ?.whereEqualTo("email", email)
                     ?.get()
                     ?.addOnSuccessListener { documents ->
@@ -100,7 +102,7 @@ class LoginViewModel(
     fun registerUser() {
 
         Application.instance?.firebaseStore
-            ?.collection("UserList")
+            ?.collection(CollectionType.USER_LIST.type)
             ?.document(email.value.toString())
             ?.set(
                 User(
@@ -120,7 +122,7 @@ class LoginViewModel(
     }
 
     fun logout() {
-        val collectionName = if (Application.instance?.userType == USER_TYPE) USER_LIST else GAMER_LIST
+        val collectionName = if (Application.instance?.userType == UserType.USER.type) CollectionType.USER_LIST.type else CollectionType.GAMER_LIST.type
         Log.i(TAG, "collectionName : $collectionName")
 
         Application.instance?.firebaseStore
@@ -135,14 +137,5 @@ class LoginViewModel(
                 Log.w(TAG, "fcmTOken 업데이트 실패", e)
             }
     }
-
-    companion object {
-        const val USER_LIST  = "UserList"
-        const val GAMER_LIST = "GamerList"
-
-        const val USER_TYPE  = "USER"
-        const val GAMER_TYPE = "GAMER"
-    }
-
 
 }

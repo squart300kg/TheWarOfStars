@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.base.BaseViewModel
+import com.the.war.of.thewarofstars.contant.CollectionType
 
 /**
  * Created by sangyoon on 2021/08/14
@@ -27,7 +28,7 @@ class RegisterViewModel(
 
         Log.i(TAG, "email : $email")
 
-        Application.instance?.firebaseStore?.collection("UserList")
+        Application.instance?.firebaseStore?.collection(CollectionType.USER_LIST.type)
             ?.whereEqualTo("email", email)
             ?.get()
             ?.addOnSuccessListener { documents ->
@@ -58,7 +59,7 @@ class RegisterViewModel(
 
         Log.i(TAG, "nickname : $nickname")
 
-        Application.instance?.firebaseStore?.collection("UserList")
+        Application.instance?.firebaseStore?.collection(CollectionType.USER_LIST.type)
             ?.whereEqualTo("nickname", nickname)
             ?.get()
             ?.addOnSuccessListener { documents ->
