@@ -24,7 +24,7 @@ val viewModelModule = module {
     viewModel { GamerDetailViewModel(get()) }
     viewModel { QuestionViewModel(get(), get()) }
     viewModel { RegisterViewModel(get()) }
-    viewModel { PayViewModel(get()) }
+    viewModel { PayViewModel(get(), get()) }
     viewModel { PayCompleteViewModel(get()) }
     viewModel { ConvertViewModel() }
     viewModel { FreeLectureViewModel(get(), get()) }

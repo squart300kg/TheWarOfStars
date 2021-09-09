@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp
 import com.the.war.of.thewarofstars.model.ChattingItem
 import com.the.war.of.thewarofstars.model.response.ChattingResponse
 import com.the.war.of.thewarofstars.model.response.NaverUserResponse
+import com.the.war.of.thewarofstars.model.response.PayResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,7 +12,7 @@ import retrofit2.http.Query
 /**
  * Created by sangyoon on 2021/07/27
  */
-interface ChattingApi {
+interface FunctionApi {
 
     @GET("sendMessage")
     suspend fun sendMessage(
@@ -20,4 +21,12 @@ interface ChattingApi {
         @Query("content") content: String,
         @Query("type") type: String
     ): ChattingResponse
+
+    @GET("sendPayNotification")
+    suspend fun sendPayNotification(
+        @Query("to") to: String,
+        @Query("from") from: String,
+    ): PayResponse
+
+
 }

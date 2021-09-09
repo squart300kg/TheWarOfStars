@@ -1,7 +1,7 @@
 package com.the.war.of.thewarofstars.di
 
 import android.util.Log
-import com.the.war.of.thewarofstars.api.ChattingApi
+import com.the.war.of.thewarofstars.api.FunctionApi
 import com.the.war.of.thewarofstars.api.LoginApi
 import com.the.war.of.thewarofstars.api.YoutubeApi
 import okhttp3.OkHttpClient
@@ -42,7 +42,7 @@ val networkModule = module {
             .create(LoginApi::class.java)
     }
 
-    factory <ChattingApi> {
+    factory <FunctionApi> {
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
@@ -58,7 +58,7 @@ val networkModule = module {
             .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ChattingApi::class.java)
+            .create(FunctionApi::class.java)
     }
 
     factory <YoutubeApi> {

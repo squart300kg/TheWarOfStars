@@ -7,4 +7,5 @@ val repositoryModule = module {
     factory <LoginRepository> { LoginRepositoryImp(get()) }
     factory <ChattingRepository> { ChattingRepositoryImp(get()) }
     factory <FreeLectureRepository> { FreeLectureRepositoryImp(get()) }
+    factory <PayRepository> { PayRepositoryImp(get()) }
 }

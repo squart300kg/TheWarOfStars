@@ -65,7 +65,7 @@ open class Application: Application() {
     private fun notificationInitialize() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.notification_channel_name)
-            val id   = getString(R.string.notification_channel_id)
+            val id   = getString(R.string.notification_chatting_channel_id)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(id, name, importance)
             val notificationManager = getSystemService(NotificationManager::class.java)

@@ -22,8 +22,8 @@ import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.contant.DialogType
 import com.the.war.of.thewarofstars.contant.PayType
 import com.the.war.of.thewarofstars.databinding.ActivityPayBinding
+import com.the.war.of.thewarofstars.model.PayNotiItem
 import com.the.war.of.thewarofstars.ui.dialog.PayProcessDialogFragment
-import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import com.the.war.of.thewarofstars.util.DateUtil
 import org.json.JSONObject
@@ -38,6 +38,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
     var dialog = PayProcessDialogFragment(this@PayActivity)
 
     private val loginViewModel: LoginViewModel by viewModel()
+    private val payViewModel: PayViewModel by viewModel()
 
     private var isPersonalUsageTermsClicked = false
     private var isPayServiceTermsClicked    = false
@@ -45,6 +46,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
     private var payType: PayType = PayType.PHONE
     private var productName: String? = null
     private var sellerName: String? = null
+    private var sellerUID: String? = null
     private var buyerName: String? = null
     private var price: Long? = null
 
@@ -129,15 +131,12 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
             tvPay.apply {
                 setOnClickListener {
-
                     showProcessDialog()
-
-
                 }
             }
         }
 
-        observing {
+        observingForLogin {
             isTermsChecked.observe(this@PayActivity, { isTermsChecked ->
                 this@PayActivity.isTermsChecked = isTermsChecked
             })
@@ -215,7 +214,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
         // 결제요청
         Iamport.payment(getString(R.string.import_franchisee_code),
-            iamPortRequest = request!!,
+            iamPortRequest = request,
             approveCallback = {
                 /* 최종 결제전 콜백 함수. */
                 Log.i(TAG, "결제전")
@@ -256,12 +255,22 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                         "isSuccess : $isSuccess\n " +
                         "merchant_uid : $merchant_uid")
 
-                if (isSuccess) {
-                    goToPayCompleteActivity()
-                } else {
-                    val errorMessage = jsonObject.getString("error_msg")
-                    Toast.makeText(this@PayActivity, errorMessage, Toast.LENGTH_LONG).show()
+                when (isSuccess) {
+                    true -> {
+                        payViewModel.sendPayNotification(
+                            PayNotiItem(
+                                to = sellerUID,
+                                from = Application.instance?.userUID
+                            )
+                        )
+                        goToPayCompleteActivity()
+                    }
+                    false -> {
+                        val errorMessage = jsonObject.getString("error_msg")
+                        Toast.makeText(this@PayActivity, errorMessage, Toast.LENGTH_LONG).show()
+                    }
                 }
+
 
 
             }
@@ -281,6 +290,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
     private fun initializeValues() {
         productName = intent.getStringExtra("productName")
         sellerName  = intent.getStringExtra("sellerName")
+        sellerUID   = intent.getStringExtra("sellerUID")
         buyerName   = intent.getStringExtra("buyerName")
         price       = intent.getLongExtra("price", 0)
     }
@@ -298,7 +308,11 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         dataBinding.tvGuideFeedbackEmail.text = content
     }
 
-    private fun observing(action: LoginViewModel.() -> Unit) {
+    private fun observingForLogin(action: LoginViewModel.() -> Unit) {
+        loginViewModel.run(action)
+    }
+
+    private fun observingForPay(action: LoginViewModel.() -> Unit) {
         loginViewModel.run(action)
     }
 

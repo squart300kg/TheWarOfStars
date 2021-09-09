@@ -129,6 +129,7 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
 
                         putExtra("productName", title)
                         putExtra("sellerName", name)
+                        putExtra("sellerUID", uID)
                         putExtra("buyerName", Application.instance?.userEmail)
                         putExtra("price", price)
                         startActivity(this)
