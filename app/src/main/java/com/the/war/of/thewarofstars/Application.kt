@@ -3,6 +3,7 @@ package com.the.war.of.thewarofstars
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
@@ -63,13 +64,28 @@ open class Application: Application() {
 
 
     private fun notificationInitialize() {
+        createChannelFor(
+            id = getString(R.string.notification_pay_channel_id),
+            name = getString(R.string.notification_pay_channel_name)
+        )
+        createChannelFor(
+            id = getString(R.string.notification_chatting_channel_id),
+            name = getString(R.string.notification_chatting_channel_name)
+        )
+    }
+
+    private fun createChannelFor(id: String, name: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.notification_channel_name)
-            val id   = getString(R.string.notification_chatting_channel_id)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(id, name, importance)
             val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(channel)
+
+//            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//            val notificationChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
+//            notificationManager.createNotificationChannel(notificationChannel)
+
+
         }
     }
 

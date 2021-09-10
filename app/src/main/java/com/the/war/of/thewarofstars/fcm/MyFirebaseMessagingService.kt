@@ -1,6 +1,7 @@
 package com.the.war.of.thewarofstars.fcm
 
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -51,6 +52,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 }
                 MessageType.PAY.type -> {
                     Log.i(TAG, "PAY type")
+
                     val intent = Intent(this, PayCompleteActivity::class.java)
                     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
@@ -63,7 +65,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         .setTicker(contentTitle)
                         .setContentTitle(contentTitle)
                         .setSmallIcon(android.R.mipmap.sym_def_app_icon)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentText(contentBody)
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true)

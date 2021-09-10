@@ -11,8 +11,10 @@ import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.contant.MessageType
 import com.the.war.of.thewarofstars.contant.NotiInfo
 import com.the.war.of.thewarofstars.databinding.ActivityLoginBinding
+import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteActivity
 import com.the.war.of.thewarofstars.util.NaverLogin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -120,26 +122,48 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun checkForNotification() {
         val extras = intent?.extras
+        Log.i(TAG, "extra : $extras")
         if (extras != null) {
+            when (extras[NotiInfo.NOTI_TYPE.type]) {
+                MessageType.CHATTING.type -> {
+                    val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
+                    val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
 
-            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
-                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
-                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
-                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
-
-                val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
-                val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
-
-                val intent = MainActivity.newIntent(this).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    putExtra(NotiInfo.SENDER_NAME.type, senderName)
-                    putExtra(NotiInfo.SENDER_UID.type, senderUID)
+                    val intent = MainActivity.newIntent(this).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        putExtra(NotiInfo.SENDER_NAME.type, senderName)
+                        putExtra(NotiInfo.SENDER_UID.type, senderUID)
+                    }
+                    Log.i(TAG, "senderUID : $senderUID, senderName : $senderName")
+                    startActivity(intent)
+                    finish()
                 }
-                Log.i(TAG, "senderUID : $senderUID, senderName : $senderName")
-                startActivity(intent)
-                finish()
+                MessageType.PAY.type -> {
+                    Intent(this, PayCompleteActivity::class.java).apply {
+                        startActivity(this)
+                    }
+                }
             }
+
+//            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
+//                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
+//                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
+//                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
+//
+//                val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
+//                val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
+//
+//                val intent = MainActivity.newIntent(this).apply {
+//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    putExtra(NotiInfo.SENDER_NAME.type, senderName)
+//                    putExtra(NotiInfo.SENDER_UID.type, senderUID)
+//                }
+//                Log.i(TAG, "senderUID : $senderUID, senderName : $senderName")
+//                startActivity(intent)
+//                finish()
+//            }
 
         }
     }

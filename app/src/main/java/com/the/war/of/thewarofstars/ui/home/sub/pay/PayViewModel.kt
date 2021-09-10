@@ -24,9 +24,9 @@ class PayViewModel(
     private val payRepository: PayRepository
 ) : BaseViewModel(securePreferences) {
 
-    private val _reviewCount = MutableLiveData<Int>()
-    val reviewCount: LiveData<Int>
-        get() = _reviewCount
+    private val _isPayNotificationSend = MutableLiveData<Boolean>()
+    val isPayNotificationSend: LiveData<Boolean>
+        get() = _isPayNotificationSend
 
     private val TAG = "PayViewModelLog"
 
@@ -58,8 +58,12 @@ class PayViewModel(
                 .collect {
                     Log.i(TAG, "sendPayNotification\n " +
                             "SUCCESS \n" +
-                            "gamerCode : ${it.gamerCode}\n " +
-                            "userCode : ${it.userCode}")
+                            "gamerCode : ${it.gamer.gamerCode}\n " +
+                            "gamerUID : ${it.gamer.gamerUID}\n " +
+                            "userUID : ${it.user.userUID}\n " +
+                            "userCode : ${it.user.userCode}")
+
+                    _isPayNotificationSend.value = true
                 }
 
         }

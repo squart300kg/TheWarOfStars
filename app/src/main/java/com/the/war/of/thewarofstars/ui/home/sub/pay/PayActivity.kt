@@ -136,6 +136,16 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             }
         }
 
+        observingForPay {
+            isPayNotificationSend.observe(this@PayActivity, { isPayNotificationSend ->
+                when (isPayNotificationSend) {
+                    true -> {
+
+                    }
+                }
+            })
+        }
+
         observingForLogin {
             isTermsChecked.observe(this@PayActivity, { isTermsChecked ->
                 this@PayActivity.isTermsChecked = isTermsChecked
@@ -312,8 +322,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         loginViewModel.run(action)
     }
 
-    private fun observingForPay(action: LoginViewModel.() -> Unit) {
-        loginViewModel.run(action)
+    private fun observingForPay(action: PayViewModel.() -> Unit) {
+        payViewModel.run(action)
     }
 
 
