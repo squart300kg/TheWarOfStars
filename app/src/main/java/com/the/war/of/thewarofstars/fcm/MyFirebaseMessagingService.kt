@@ -1,7 +1,6 @@
 package com.the.war.of.thewarofstars.fcm
 
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -9,7 +8,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.the.war.of.thewarofstars.R
-import com.the.war.of.thewarofstars.contant.MessageType
+import com.the.war.of.thewarofstars.contant.NotiType
 import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteActivity
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 
@@ -28,7 +27,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             Log.d(TAG, "Message notification payload: ${remoteMessage.notification}")
 
             when (remoteMessage.data["notiType"]) {
-                MessageType.CHATTING.type -> {
+                NotiType.CHATTING.type -> {
                     Log.i(TAG, "CHATTING type")
 
                     val intent = Intent(this, QuestionActivity::class.java)
@@ -50,7 +49,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     val notificationManager = NotificationManagerCompat.from(this)
                     notificationManager.notify(0, notificationBuilder)
                 }
-                MessageType.PAY.type -> {
+                NotiType.PAY.type -> {
                     Log.i(TAG, "PAY type")
 
                     val intent = Intent(this, PayCompleteActivity::class.java)

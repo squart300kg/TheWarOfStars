@@ -1,6 +1,6 @@
 package com.the.war.of.thewarofstars.contant
 
-enum class MessageType(val type: String) {
+enum class NotiType(val type: String) {
     // message type
     CHATTING("CHATTING"),
     PAY("PAY"),

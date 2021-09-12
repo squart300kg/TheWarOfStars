@@ -1,5 +1,6 @@
 package com.the.war.of.thewarofstars.ui.home.sub.pay
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.the.war.of.thewarofstars.databinding.ActivityPayCompleteBinding
 import com.the.war.of.thewarofstars.ui.dialog.PayCancelDialogFragment
 import com.the.war.of.thewarofstars.ui.dialog.PayOkDialogFragment
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
+import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
@@ -166,4 +168,9 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
     private fun observing(action: PayCompleteViewModel.() -> Unit) {
         payCompleteViewModel.run(action)
     }
+
+    companion object {
+        fun newIntent(context: Context) = Intent(context, PayActivity::class.java)
+    }
+
 }

@@ -11,10 +11,9 @@ import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.MainActivity
 import com.the.war.of.thewarofstars.R
-import com.the.war.of.thewarofstars.contant.MessageType
+import com.the.war.of.thewarofstars.contant.NotiType
 import com.the.war.of.thewarofstars.contant.NotiInfo
 import com.the.war.of.thewarofstars.databinding.ActivityLoginBinding
-import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteActivity
 import com.the.war.of.thewarofstars.util.NaverLogin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -125,23 +124,32 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         Log.i(TAG, "extra : $extras")
         if (extras != null) {
             when (extras[NotiInfo.NOTI_TYPE.type]) {
-                MessageType.CHATTING.type -> {
+                NotiType.CHATTING.type -> {
+                    Log.i(TAG,
+                        "MessageType.CHATTING")
                     val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
                     val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
 
-                    val intent = MainActivity.newIntent(this).apply {
+                    MainActivity.newIntent(this).apply {
                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         putExtra(NotiInfo.SENDER_NAME.type, senderName)
                         putExtra(NotiInfo.SENDER_UID.type, senderUID)
-                    }
-                    Log.i(TAG, "senderUID : $senderUID, senderName : $senderName")
-                    startActivity(intent)
-                    finish()
-                }
-                MessageType.PAY.type -> {
-                    Intent(this, PayCompleteActivity::class.java).apply {
+                        putExtra(NotiInfo.NOTI_TYPE.type, NotiType.CHATTING.type)
+                        Log.i(TAG, "senderUID : $senderUID, senderName : $senderName")
                         startActivity(this)
+                        finish()
+                    }
+                }
+                NotiType.PAY.type -> {
+                    Log.i(TAG,
+                    "MessageType.PAY")
+                    MainActivity.newIntent(this).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        putExtra(NotiInfo.NOTI_TYPE.type, NotiType.PAY.type)
+                        startActivity(this)
+                        finish()
                     }
                 }
             }

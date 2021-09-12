@@ -3,12 +3,15 @@ package com.the.war.of.thewarofstars
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 //import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.the.war.of.thewarofstars.contant.NotiType
 import com.the.war.of.thewarofstars.contant.NotiInfo
+import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteActivity
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 import com.the.war.of.thewarofstars.ui.navigation.setupWithNavController
 import com.the.war.of.thewarofstars.util.BackButtonCloseHandler
@@ -38,14 +41,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForNotification() {
-        val extras = intent?.extras
+        val notiType = intent.getStringExtra(NotiInfo.NOTI_TYPE.type)
 
-        if (extras != null) {
-            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
-                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
-                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
-                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
-
+        when (notiType) {
+            NotiType.CHATTING.type -> {
+                Log.i(TAG,
+                    "MessageType.CHATTING")
                 val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
                 val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
 
@@ -55,8 +56,31 @@ class MainActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             }
-
+            NotiType.PAY.type -> {
+                Log.i(TAG,
+                    "MessageType.PAY")
+                val intent = PayCompleteActivity.newIntent(this).apply { }
+                startActivity(intent)
+            }
         }
+
+//        if (extras != null) {
+//            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
+//                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
+//                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
+//                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
+//
+//                val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
+//                val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
+//
+//                val intent = QuestionActivity.newIntent(this).apply {
+//                    putExtra(NotiInfo.SENDER_NAME.type, senderName)
+//                    putExtra(NotiInfo.SENDER_UID.type, senderUID)
+//                    startActivity(this)
+//                }
+//            }
+//
+//        }
     }
 
     private fun setUpBottomNavigationBar() {
