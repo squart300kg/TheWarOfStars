@@ -137,12 +137,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         }
 
         observingForPay {
-            isPayNotificationSend.observe(this@PayActivity, { isPayNotificationSend ->
-                when (isPayNotificationSend) {
-                    true -> {
-
-                    }
-                }
+            payCompleteDetail.observe(this@PayActivity, { detail ->
+                goToPayCompleteActivity()
             })
         }
 
@@ -270,10 +266,10 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                         payViewModel.sendPayNotification(
                             PayNotiItem(
                                 to = sellerUID,
-                                from = Application.instance?.userUID
+                                from = Application.instance?.userUID,
+                                content = dataBinding.etRequestBeforeGame.text.toString()
                             )
                         )
-                        goToPayCompleteActivity()
                     }
                     false -> {
                         val errorMessage = jsonObject.getString("error_msg")
@@ -288,7 +284,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
     }
     private fun goToPayCompleteActivity() {
         Intent(this@PayActivity, PayCompleteActivity::class.java).apply {
-            putExtra("request", dataBinding.etRequestBeforeGame.text.toString())
+            putExtra("content", dataBinding.etRequestBeforeGame.text.toString())
             putExtra("price", price)
             putExtra("payDate", DateUtil.getCurrentDateForPayComplete())
             finish()

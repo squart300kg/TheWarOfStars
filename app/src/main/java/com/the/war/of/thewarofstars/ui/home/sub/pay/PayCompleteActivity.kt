@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
 import android.util.Log
+import android.view.View
+import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.contant.DialogType
+import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.databinding.ActivityPayCompleteBinding
 import com.the.war.of.thewarofstars.ui.dialog.PayCancelDialogFragment
 import com.the.war.of.thewarofstars.ui.dialog.PayOkDialogFragment
@@ -25,7 +28,7 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
     private var isPaySelected: Boolean = true
 
     private var price: Long? = null
-    private var request: String? = null
+    private var content: String? = null
     private var payDate: String? = null
 
     var okDialog     = PayOkDialogFragment(this@PayCompleteActivity)
@@ -38,10 +41,18 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
 
         initializeValues()
 
-        initializeUnderLine()
+        initializeView()
+
 
         binding {
 
+            tvChatting.setOnClickListener {
+                Intent(this@PayCompleteActivity, QuestionActivity::class.java).apply {
+//                    intent.putExtra("senderName", name)
+//                    intent.putExtra("senderUID", uID)
+                    startActivity(this)
+                }
+            }
             tvPayOk.apply {
 
                 // 기본설정
@@ -144,6 +155,33 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
         })
     }
 
+    private fun initializeView() {
+
+        initializeUnderLine()
+
+        val userType = Application.instance?.userType
+        when (userType) {
+            UserType.USER.type -> {
+                dataBinding.tvPayOkGuide.visibility = View.VISIBLE
+                dataBinding.tvPayOkGuideDownArrow.visibility = View.VISIBLE
+                dataBinding.layoutComplete.visibility = View.VISIBLE
+                dataBinding.tvChatting.text = getString(R.string.pay_ok_chatting_to_gamer)
+                dataBinding.layoutPayStatus.visibility = View.GONE
+
+            }
+            UserType.GAMER.type -> {
+                // TODO 데이터 연동시 지울 것
+                dataBinding.tvRequestBeforeGameContent.text = "정석 운영플레이 실력을 쌓고 싶습니다"
+
+                dataBinding.tvPayOkGuide.visibility = View.GONE
+                dataBinding.tvPayOkGuideDownArrow.visibility = View.GONE
+                dataBinding.layoutComplete.visibility = View.GONE
+                dataBinding.tvChatting.text = getString(R.string.pay_ok_chatting_to_amature)
+                dataBinding.layoutPayStatus.visibility = View.VISIBLE
+            }
+        }
+    }
+
     private fun initializeUnderLine() {
         val content = SpannableString(dataBinding.tvPayOkGuide.text.toString())
         content.setSpan(UnderlineSpan(), 18, 35, 0)
@@ -152,15 +190,15 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
 
     private fun initializeValues() {
         payDate = intent.getStringExtra("payDate")
-        request = intent.getStringExtra("request")
+        content = intent.getStringExtra("content")
         price   = intent.getLongExtra("price", 0)
 
         Log.i(TAG, "initializeValues\n " +
                 "payDate : $payDate\n " +
-                "request : $request\n " +
+                "request : $content\n " +
                 "price : $price")
 
-        dataBinding.tvRequestBeforeGameContent.text = request
+        dataBinding.tvRequestBeforeGameContent.text = content
         dataBinding.tvPrice.text                    = DecimalFormat("###,###").format(price) + "원"
         dataBinding.tvPayDate.text                  = payDate
     }

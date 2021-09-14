@@ -60,9 +60,6 @@ open class Application: Application() {
         notificationInitialize()
     }
 
-
-
-
     private fun notificationInitialize() {
         createChannelFor(
             id = getString(R.string.notification_pay_channel_id),

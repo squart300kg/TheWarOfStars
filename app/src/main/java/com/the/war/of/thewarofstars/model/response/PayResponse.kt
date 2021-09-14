@@ -15,6 +15,9 @@ data class PayResponse(
         @SerializedName("userUID")
         val userUID: String,
 
+        @SerializedName("userNickname")
+        val userNickname: String,
+
         @SerializedName("userCode")
         val userCode: String,
     )
@@ -22,6 +25,9 @@ data class PayResponse(
     data class Gamer(
         @SerializedName("gamerUID")
         val gamerUID: String,
+
+        @SerializedName("gamerName")
+        val gamerName: String,
 
         @SerializedName("gamerCode")
         val gamerCode: String,

@@ -52,7 +52,25 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 NotiType.PAY.type -> {
                     Log.i(TAG, "PAY type")
 
-                    val intent = Intent(this, PayCompleteActivity::class.java)
+                    val payDate = remoteMessage.data["payDate"]
+                    val content = remoteMessage.data["content"]
+                    val gamerUID = remoteMessage.data["gamerUID"]
+                    val gamerName = remoteMessage.data["gamerName"]
+                    val gamerCode = remoteMessage.data["gamerCode"]
+                    val userUID = remoteMessage.data["userUID"]
+                    val userNickname = remoteMessage.data["userNickname"]
+                    val userCode = remoteMessage.data["userCode"]
+                    val intent = Intent(this, PayCompleteActivity::class.java).apply {
+                        putExtra("payDate", payDate)
+                        putExtra("content", content)
+                        putExtra("gamerUID", gamerUID)
+                        putExtra("gamerName", gamerName)
+                        putExtra("gamerCode", gamerCode)
+                        putExtra("userUID", userUID)
+                        putExtra("userNickname", userNickname)
+                        putExtra("userCode", userCode)
+                    }
+
                     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
                     val contentTitle = remoteMessage.notification?.title

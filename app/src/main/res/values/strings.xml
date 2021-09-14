@@ -23,7 +23,7 @@
 
     <string name="pay_guide_feedback_email">경기 피드백(리플레이, 리플레이 분석 동영상)을 받을 이메일 입니다. 꼭 기억해 주세요!</string>
     <string name="pay_agree_all_terms"><![CDATA[<구매조건 및 이용약관에 동의하며, 결제를 진행합니다.>]]></string>
-    <string name="pay_ok_complete_guide">게임을 완료했으며, 경기 피드백(리플레이, 리플레이 분석 동영상)을 받았을 경우 클릭해 주세요</string>
+
     <string name="pay_request_hint">선수님께 바라는 요청사항을 적어주세요!\n상세히 적을수록 실력향상에 도움이 됩니다.</string>
 
     <string name="register_guide_feedback_email">경기 피드백(리플레이, 리플레이 분석 동영상)을 받을 이메일 입니다. 신중히 입력해 주세요!</string>
@@ -31,9 +31,7 @@
 
     <!--다이얼로그 문구    -->
     <string name="dialog_pay_ok">게임을 완료했으며, 경기피드백(리플레이, 리플레이 분석 영상)을 이메일로 수신받으셨습니까?</string>
-
     <string name="dialog_pay_cancel">인수 취소를 위하여 관리자의 검토가 필요하며, 24시간 이내에 처리가 진행됩니다. 거래를 취소하시겠습니까?</string>
-
     <string name="dialog_process_feedback_game_id">해당 아이디로 게임을 진행해 주셔야 합니다. 꼭 기억해 주세요!</string>
 
     <string name="dialog_pay_process_guide">게임 시작 직후, 다음 사항들을 반드시 지켜주세요!</string>
@@ -49,5 +47,10 @@
     <string name="dialog_convert_point">환전 포인트</string>
     <string name="dialog_convert_cash">수령 금액</string>
     <string name="dialog_convert_request">환전 신청</string>
+
+    <!--    결제 완료 페이지-->
+    <string name="pay_ok_chatting_to_gamer">선수님과 채팅하러 가기</string>
+    <string name="pay_ok_chatting_to_amature">아마추어님과 채팅하러 가기</string>
+    <string name="pay_ok_complete_guide">게임을 완료했으며, 경기 피드백(리플레이, 리플레이 분석 동영상)을 받았을 경우 클릭해 주세요</string>
 
 </resources>

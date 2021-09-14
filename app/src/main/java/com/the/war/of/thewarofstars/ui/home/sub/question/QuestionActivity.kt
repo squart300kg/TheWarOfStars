@@ -38,6 +38,7 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initializeValue()
 
         /**
          * 채팅 프로세스
@@ -62,16 +63,9 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
          */
 
         binding {
-
             questionModel = questionViewModel
 
             tvChattingDescription.apply {
-                receiverName  = intent.getStringExtra("senderName").toString()
-                receiverUID   = intent.getStringExtra("senderUID").toString()
-
-                senderUID     = Application.instance?.userUID.toString()
-
-                isDummy       = intent.getBooleanExtra("isDummy", false)
 
                 val roomTitle = receiverName + "님께 보내는 메시지"
                 this.text = roomTitle
@@ -163,6 +157,15 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
             })
         }
 
+    }
+
+    private fun initializeValue() {
+        receiverName  = intent.getStringExtra("senderName").toString()
+        receiverUID   = intent.getStringExtra("senderUID").toString()
+
+        senderUID     = Application.instance?.userUID.toString()
+
+        isDummy       = intent.getBooleanExtra("isDummy", false)
     }
 
     override fun onResume() {

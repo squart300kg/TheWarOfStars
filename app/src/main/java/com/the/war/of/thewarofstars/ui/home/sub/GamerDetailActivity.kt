@@ -118,7 +118,6 @@ class GamerDetailActivity: BaseActivity<ActivityGamerDetailBinding>(R.layout.act
                     val intent = Intent(this@GamerDetailActivity, QuestionActivity::class.java)
                     intent.putExtra("senderName", name)
                     intent.putExtra("senderUID", uID)
-//                    intent.putExtra("email", email)
                     startActivity(intent)
                 }
             }

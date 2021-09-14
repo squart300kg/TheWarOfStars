@@ -64,23 +64,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        if (extras != null) {
-//            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
-//                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
-//                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
-//                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
-//
-//                val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
-//                val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
-//
-//                val intent = QuestionActivity.newIntent(this).apply {
-//                    putExtra(NotiInfo.SENDER_NAME.type, senderName)
-//                    putExtra(NotiInfo.SENDER_UID.type, senderUID)
-//                    startActivity(this)
-//                }
-//            }
-//
-//        }
     }
 
     private fun setUpBottomNavigationBar() {

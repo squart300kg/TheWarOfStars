@@ -153,26 +153,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     }
                 }
             }
-
-//            if (extras.containsKey(NotiInfo.NOTI_TYPE.type)   &&
-//                extras.containsKey(NotiInfo.SENDER_UID.type)  &&
-//                extras.containsKey(NotiInfo.SENDER_NAME.type) &&
-//                extras.containsKey(NotiInfo.SENDER_TYPE.type)) {
-//
-//                val senderName = intent.getStringExtra(NotiInfo.SENDER_NAME.type)
-//                val senderUID  = intent.getStringExtra(NotiInfo.SENDER_UID.type)
-//
-//                val intent = MainActivity.newIntent(this).apply {
-//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    putExtra(NotiInfo.SENDER_NAME.type, senderName)
-//                    putExtra(NotiInfo.SENDER_UID.type, senderUID)
-//                }
-//                Log.i(TAG, "senderUID : $senderUID, senderName : $senderName")
-//                startActivity(intent)
-//                finish()
-//            }
-
         }
     }
 

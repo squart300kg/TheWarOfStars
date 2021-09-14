@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.securepreferences.SecurePreferences
 import com.the.war.of.thewarofstars.base.BaseViewModel
 import com.the.war.of.thewarofstars.model.PayNotiItem
+import com.the.war.of.thewarofstars.model.response.PayResponse
 import com.the.war.of.thewarofstars.repository.PayRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -24,9 +25,9 @@ class PayViewModel(
     private val payRepository: PayRepository
 ) : BaseViewModel(securePreferences) {
 
-    private val _isPayNotificationSend = MutableLiveData<Boolean>()
-    val isPayNotificationSend: LiveData<Boolean>
-        get() = _isPayNotificationSend
+    private val _payCompleteDetail = MutableLiveData<PayResponse>()
+    val payCompleteDetail: LiveData<PayResponse>
+        get() = _payCompleteDetail
 
     private val TAG = "PayViewModelLog"
 
@@ -59,11 +60,13 @@ class PayViewModel(
                     Log.i(TAG, "sendPayNotification\n " +
                             "SUCCESS \n" +
                             "gamerCode : ${it.gamer.gamerCode}\n " +
+                            "gamerName : ${it.gamer.gamerName}\n " +
                             "gamerUID : ${it.gamer.gamerUID}\n " +
                             "userUID : ${it.user.userUID}\n " +
+                            "userName : ${it.user.userNickname}\n " +
                             "userCode : ${it.user.userCode}")
 
-                    _isPayNotificationSend.value = true
+                    _payCompleteDetail.value = it
                 }
 
         }
