@@ -52,23 +52,40 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 NotiType.PAY.type -> {
                     Log.i(TAG, "PAY type")
 
-                    val payDate = remoteMessage.data["payDate"]
-                    val content = remoteMessage.data["content"]
+
                     val gamerUID = remoteMessage.data["gamerUID"]
                     val gamerName = remoteMessage.data["gamerName"]
                     val gamerCode = remoteMessage.data["gamerCode"]
+                    val gamerTribe = remoteMessage.data["gamerTribe"]
+                    val gamerID = remoteMessage.data["gamerID"]
+
                     val userUID = remoteMessage.data["userUID"]
                     val userNickname = remoteMessage.data["userNickname"]
                     val userCode = remoteMessage.data["userCode"]
+                    val userTribe = remoteMessage.data["userTribe"]
+                    val userID = remoteMessage.data["userID"]
+
+                    val content = remoteMessage.data["content"]
+                    val price = remoteMessage.data["price"]
+                    val payDate = remoteMessage.data["payDate"]
+                    val payStatus = remoteMessage.data["payStatus"]
                     val intent = Intent(this, PayCompleteActivity::class.java).apply {
-                        putExtra("payDate", payDate)
-                        putExtra("content", content)
                         putExtra("gamerUID", gamerUID)
                         putExtra("gamerName", gamerName)
                         putExtra("gamerCode", gamerCode)
+                        putExtra("gamerTribe", gamerTribe)
+                        putExtra("gamerID", gamerID)
+
                         putExtra("userUID", userUID)
                         putExtra("userNickname", userNickname)
                         putExtra("userCode", userCode)
+                        putExtra("userTribe", userTribe)
+                        putExtra("userID", userID)
+
+                        putExtra("content", content)
+                        putExtra("price", price)
+                        putExtra("payDate", payDate)
+                        putExtra("payStatus", payStatus)
                     }
 
                     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)

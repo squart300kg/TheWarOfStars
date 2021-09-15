@@ -12,12 +12,14 @@ import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.BaseActivity
 import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.contant.DialogType
+import com.the.war.of.thewarofstars.contant.PayProcessType
 import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.databinding.ActivityPayCompleteBinding
 import com.the.war.of.thewarofstars.ui.dialog.PayCancelDialogFragment
 import com.the.war.of.thewarofstars.ui.dialog.PayOkDialogFragment
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
+import com.the.war.of.thewarofstars.util.DateUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
 
@@ -27,9 +29,22 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
 
     private var isPaySelected: Boolean = true
 
-    private var price: Long? = null
+    private var gamerUID: String? = null
+    private var gamerName: String? = null
+    private var gamerCode: String? = null
+    private var gamerTribe: String? = null
+    private var gamerID: String? = null
+
+    private var userUID: String? = null
+    private var userNickname: String? = null
+    private var userCode: String? = null
+    private var userTribe: String? = null
+    private var userID: String? = null
+
     private var content: String? = null
+    private var price: String? = null
     private var payDate: String? = null
+    private var payStatus: String? = null
 
     var okDialog     = PayOkDialogFragment(this@PayCompleteActivity)
     var cancelDialog = PayCancelDialogFragment(this@PayCompleteActivity)
@@ -43,18 +58,13 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
 
         initializeView()
 
-
         binding {
 
             tvChatting.setOnClickListener {
-                Intent(this@PayCompleteActivity, QuestionActivity::class.java).apply {
-//                    intent.putExtra("senderName", name)
-//                    intent.putExtra("senderUID", uID)
-                    startActivity(this)
-                }
+                goToChattingActivity()
             }
-            tvPayOk.apply {
 
+            tvPayOk.apply {
                 // 기본설정
                 isSelected = true
 
@@ -99,6 +109,22 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
             })
         }
 
+    }
+
+    private fun goToChattingActivity() {
+        Intent(this@PayCompleteActivity, QuestionActivity::class.java).apply {
+            when (Application.instance?.userType) {
+                UserType.GAMER.type -> {
+                    putExtra("senderName", userNickname)
+                    putExtra("senderUID", userUID)
+                }
+                UserType.USER.type -> {
+                    putExtra("senderName", gamerName)
+                    putExtra("senderUID", gamerUID)
+                }
+            }
+            startActivity(this)
+        }
     }
 
     private fun selectCancelButton() {
@@ -158,6 +184,20 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
     private fun initializeView() {
 
         initializeUnderLine()
+        dataBinding.tvGamerInfo.text = "${gamerName} 님의 정보"
+        dataBinding.tvGamerCode.text = gamerCode
+        dataBinding.tvGamerTribe.text = gamerTribe
+        dataBinding.tvGamerId.text = gamerID
+
+        dataBinding.tvAmatureInfo.text = "${userNickname} 님의 정보"
+        dataBinding.tvAmatureCode.text = userCode
+        dataBinding.tvAmatureTribe.text = userTribe
+        dataBinding.tvAmatureId.text = userID
+
+        dataBinding.tvRequestBeforeGameContent.text = content
+        dataBinding.tvPrice.text = DecimalFormat("###,###").format(price?.toLong()) + "원"
+        dataBinding.tvPayDate.text = DateUtil.getDateFromTimeMillis(payDate?.toLong())
+        dataBinding.tvPayStatus.text = if (payStatus == PayProcessType.PAY_YET.type) "인수확인 전" else if (payStatus == PayProcessType.PAY_SUCCESS.type) "인수확인 완료" else "인수 취소"
 
         val userType = Application.instance?.userType
         when (userType) {
@@ -165,19 +205,13 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
                 dataBinding.tvPayOkGuide.visibility = View.VISIBLE
                 dataBinding.tvPayOkGuideDownArrow.visibility = View.VISIBLE
                 dataBinding.layoutComplete.visibility = View.VISIBLE
-                dataBinding.tvChatting.text = getString(R.string.pay_ok_chatting_to_gamer)
-                dataBinding.layoutPayStatus.visibility = View.GONE
-
+                dataBinding.tvChatting.text = "${gamerName}님과 채팅하러 가기"
             }
             UserType.GAMER.type -> {
-                // TODO 데이터 연동시 지울 것
-                dataBinding.tvRequestBeforeGameContent.text = "정석 운영플레이 실력을 쌓고 싶습니다"
-
                 dataBinding.tvPayOkGuide.visibility = View.GONE
                 dataBinding.tvPayOkGuideDownArrow.visibility = View.GONE
                 dataBinding.layoutComplete.visibility = View.GONE
-                dataBinding.tvChatting.text = getString(R.string.pay_ok_chatting_to_amature)
-                dataBinding.layoutPayStatus.visibility = View.VISIBLE
+                dataBinding.tvChatting.text = "${userNickname}님과 채팅하러 가기"
             }
         }
     }
@@ -189,18 +223,42 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
     }
 
     private fun initializeValues() {
-        payDate = intent.getStringExtra("payDate")
+        gamerUID = intent.getStringExtra("gamerUID")
+        gamerName = intent.getStringExtra("gamerName")
+        gamerCode = intent.getStringExtra("gamerCode")
+        gamerTribe = intent.getStringExtra("gamerTribe")
+        gamerID = intent.getStringExtra("gamerID")
+
+        userUID = intent.getStringExtra("userUID")
+        userNickname = intent.getStringExtra("userNickname")
+        userCode = intent.getStringExtra("userCode")
+        userTribe = intent.getStringExtra("userTribe")
+        userID = intent.getStringExtra("userID")
+
         content = intent.getStringExtra("content")
-        price   = intent.getLongExtra("price", 0)
+        price   = intent.getStringExtra("price")
+        payDate = intent.getStringExtra("payDate")
+        payStatus = intent.getStringExtra("payStatus")
 
-        Log.i(TAG, "initializeValues\n " +
+        Log.i(
+            TAG,
+            "initializeValues\n " +
+                "gamerUID : $gamerUID\n " +
+                "gamerName : $gamerName\n " +
+                "gamerCode : $gamerCode\n " +
+                "gamerTribe : $gamerTribe\n " +
+                "gamerID : $gamerID\n " +
+
+                "userUID : $userUID\n " +
+                "userNickname : $userNickname\n " +
+                "userCode : $userCode\n " +
+                "userTribe : $userTribe\n " +
+                "userID : $userID\n " +
+
+                "content : $content\n " +
+                "price : $price\n " +
                 "payDate : $payDate\n " +
-                "request : $content\n " +
-                "price : $price")
-
-        dataBinding.tvRequestBeforeGameContent.text = content
-        dataBinding.tvPrice.text                    = DecimalFormat("###,###").format(price) + "원"
-        dataBinding.tvPayDate.text                  = payDate
+                "payStatus : $payStatus\n ")
     }
 
     private fun observing(action: PayCompleteViewModel.() -> Unit) {

@@ -49,8 +49,6 @@
     <string name="dialog_convert_request">환전 신청</string>
 
     <!--    결제 완료 페이지-->
-    <string name="pay_ok_chatting_to_gamer">선수님과 채팅하러 가기</string>
-    <string name="pay_ok_chatting_to_amature">아마추어님과 채팅하러 가기</string>
     <string name="pay_ok_complete_guide">게임을 완료했으며, 경기 피드백(리플레이, 리플레이 분석 동영상)을 받았을 경우 클릭해 주세요</string>
 
 </resources>

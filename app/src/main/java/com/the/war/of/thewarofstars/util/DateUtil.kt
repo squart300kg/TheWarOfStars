@@ -24,4 +24,21 @@ object DateUtil {
 
         return currentDatestring
     }
+
+    fun getDateFromTimeMillis(timeMillis : Long?) : String {
+        val currentDateFormat = SimpleDateFormat(outputPattern2, Locale.getDefault())
+
+        Calendar.getInstance().apply {
+            if (timeMillis != null) {
+                timeInMillis = timeMillis
+            }
+            Log.i("getDateFromTimeMillis", "timeMillis : $timeMillis, result : ${currentDateFormat.format(this.time)}")
+            return currentDateFormat.format(this.time)
+        }
+
+//        val currentDate = timeMillis?.let { Date(it) }
+//        val currentDatestring = currentDateFormat.format(currentDate)
+//
+//        return currentDatestring
+    }
 }

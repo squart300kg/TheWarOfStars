@@ -49,7 +49,8 @@ class PayViewModel(
                         _errorMsg.value = errorJson.getString("message")
                     }
                     exception.printStackTrace()
-                    Log.i(TAG,
+                    Log.i(
+                        TAG,
                         "sendPayNotification\n " +
                                 "FAIL\n " +
                                 "code : ${_errorCode.value}\n, " +
@@ -57,14 +58,22 @@ class PayViewModel(
                                 "exception : $exception")
                 }
                 .collect {
-                    Log.i(TAG, "sendPayNotification\n " +
+                    Log.i(
+                        TAG,
+                        "sendPayNotification\n " +
                             "SUCCESS \n" +
                             "gamerCode : ${it.gamer.gamerCode}\n " +
                             "gamerName : ${it.gamer.gamerName}\n " +
                             "gamerUID : ${it.gamer.gamerUID}\n " +
                             "userUID : ${it.user.userUID}\n " +
                             "userName : ${it.user.userNickname}\n " +
-                            "userCode : ${it.user.userCode}")
+                            "userCode : ${it.user.userCode}\n" +
+                            "content : ${it.content}\n" +
+                            "price : ${it.price}\n" +
+                            "payDate : ${it.payDate}\n" +
+                            "payStatus : ${it.payStatus}\n" +
+                            "notiType : ${it.notiType}\n"
+                    )
 
                     _payCompleteDetail.value = it
                 }

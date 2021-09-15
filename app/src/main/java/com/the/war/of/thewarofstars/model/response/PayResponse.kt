@@ -4,11 +4,26 @@ import com.google.gson.annotations.SerializedName
 
 data class PayResponse(
 
+    @SerializedName("gamer")
+    val gamer: Gamer,
+
     @SerializedName("user")
     val user: User,
 
-    @SerializedName("gamer")
-    val gamer: Gamer
+    @SerializedName("content")
+    val content: String,
+
+    @SerializedName("price")
+    val price: String,
+
+    @SerializedName("payDate")
+    val payDate: String,
+
+    @SerializedName("payStatus")
+    val payStatus: String,
+
+    @SerializedName("notiType")
+    val notiType: String,
 
 ) {
     data class User(
@@ -20,6 +35,12 @@ data class PayResponse(
 
         @SerializedName("userCode")
         val userCode: String,
+
+        @SerializedName("userTribe")
+        val userTribe: String,
+
+        @SerializedName("userID")
+        val userID: String,
     )
 
     data class Gamer(
@@ -31,5 +52,11 @@ data class PayResponse(
 
         @SerializedName("gamerCode")
         val gamerCode: String,
+
+        @SerializedName("gamerTribe")
+        val gamerTribe: String,
+
+        @SerializedName("gamerID")
+        val gamerID: String,
     )
 }

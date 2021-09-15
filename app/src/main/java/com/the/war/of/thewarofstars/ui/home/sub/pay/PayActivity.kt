@@ -23,6 +23,7 @@ import com.the.war.of.thewarofstars.contant.DialogType
 import com.the.war.of.thewarofstars.contant.PayType
 import com.the.war.of.thewarofstars.databinding.ActivityPayBinding
 import com.the.war.of.thewarofstars.model.PayNotiItem
+import com.the.war.of.thewarofstars.model.response.PayResponse
 import com.the.war.of.thewarofstars.ui.dialog.PayProcessDialogFragment
 import com.the.war.of.thewarofstars.ui.login.LoginViewModel
 import com.the.war.of.thewarofstars.util.DateUtil
@@ -138,7 +139,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
         observingForPay {
             payCompleteDetail.observe(this@PayActivity, { detail ->
-                goToPayCompleteActivity()
+                goToPayCompleteActivity(detail)
             })
         }
 
@@ -267,7 +268,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                             PayNotiItem(
                                 to = sellerUID,
                                 from = Application.instance?.userUID,
-                                content = dataBinding.etRequestBeforeGame.text.toString()
+                                content = dataBinding.etRequestBeforeGame.text.toString(),
+                                price = price.toString()
                             )
                         )
                     }
@@ -282,15 +284,27 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             }
         }
     }
-    private fun goToPayCompleteActivity() {
+    private fun goToPayCompleteActivity(detail: PayResponse) {
         Intent(this@PayActivity, PayCompleteActivity::class.java).apply {
-            putExtra("content", dataBinding.etRequestBeforeGame.text.toString())
-            putExtra("price", price)
-            putExtra("payDate", DateUtil.getCurrentDateForPayComplete())
+            putExtra("gamerUID", detail.gamer.gamerUID)
+            putExtra("gamerName", detail.gamer.gamerName)
+            putExtra("gamerCode", detail.gamer.gamerCode)
+            putExtra("gamerTribe", detail.gamer.gamerTribe)
+            putExtra("gamerID", detail.gamer.gamerID)
+
+            putExtra("userUID", detail.user.userUID)
+            putExtra("userNickname", detail.user.userNickname)
+            putExtra("userCode", detail.user.userCode)
+            putExtra("userTribe", detail.user.userTribe)
+            putExtra("userID", detail.user.userID)
+
+            putExtra("content", detail.content)
+            putExtra("price", detail.price.toLong())
+            putExtra("payDate", detail.payDate.toLong())
+            putExtra("payStatus", detail.payStatus)
             finish()
             startActivity(this)
         }
-
     }
 
     private fun initializeValues() {
