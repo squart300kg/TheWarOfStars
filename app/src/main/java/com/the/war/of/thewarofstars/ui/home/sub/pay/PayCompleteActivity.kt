@@ -184,12 +184,12 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
     private fun initializeView() {
 
         initializeUnderLine()
-        dataBinding.tvGamerInfo.text = "${gamerName} 님의 정보"
+        dataBinding.tvGamerInfo.text = "${gamerName}"
         dataBinding.tvGamerCode.text = gamerCode
         dataBinding.tvGamerTribe.text = gamerTribe
         dataBinding.tvGamerId.text = gamerID
 
-        dataBinding.tvAmatureInfo.text = "${userNickname} 님의 정보"
+        dataBinding.tvAmatureInfo.text = "${userNickname}"
         dataBinding.tvAmatureCode.text = userCode
         dataBinding.tvAmatureTribe.text = userTribe
         dataBinding.tvAmatureId.text = userID

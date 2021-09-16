@@ -18,8 +18,10 @@ class PayRepositoryImp(
     override fun sendPayNotification(payNotiItem: PayNotiItem): Flow<PayResponse> {
         return flow {
             val data = functionApi.sendPayNotification(
-                to          = payNotiItem.to.toString(),
-                from        = payNotiItem.from.toString(),
+                to      = payNotiItem.to.toString(),
+                from    = payNotiItem.from.toString(),
+                content = payNotiItem.content.toString(),
+                price   = payNotiItem.price.toString(),
             )
             emit(data)
         }

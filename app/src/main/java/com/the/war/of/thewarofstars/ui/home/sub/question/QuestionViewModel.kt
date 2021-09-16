@@ -63,7 +63,6 @@ class QuestionViewModel(
                 .collect {
                     Log.i(TAG, "commentDate : ${it.commentDate}")
                 }
-
         }
     }
 

@@ -7,7 +7,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.the.war.of.thewarofstars.Application
 import com.the.war.of.thewarofstars.R
+import com.the.war.of.thewarofstars.contant.NotiInfo
 import com.the.war.of.thewarofstars.contant.NotiType
 import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteActivity
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
@@ -26,28 +28,35 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             Log.d(TAG, "Message data payload: ${remoteMessage.data}")
             Log.d(TAG, "Message notification payload: ${remoteMessage.notification}")
 
-            when (remoteMessage.data["notiType"]) {
+            when (remoteMessage.data[NotiInfo.NOTI_TYPE.type]) {
                 NotiType.CHATTING.type -> {
-                    Log.i(TAG, "CHATTING type")
+                    if (isChatting() == false) {
+                        Log.i(TAG, "CHATTING type")
 
-                    val intent = Intent(this, QuestionActivity::class.java)
-                    val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+                        val senderUID = remoteMessage.data[NotiInfo.SENDER_UID.type]
+                        val senderName = remoteMessage.data[NotiInfo.SENDER_NAME.type]
+                        val intent = Intent(this, QuestionActivity::class.java).apply {
+                            putExtra(NotiInfo.SENDER_UID.type, senderUID)
+                            putExtra(NotiInfo.SENDER_NAME.type, senderName)
+                        }
+                        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
-                    val contentTitle = remoteMessage.notification?.title
-                    val contentBody  = remoteMessage.notification?.body
+                        val contentTitle = remoteMessage.notification?.title
+                        val contentBody  = remoteMessage.notification?.body
 
-                    val notificationBuilder = NotificationCompat
-                        .Builder(this, getString(R.string.notification_chatting_channel_id))
-                        .setTicker(contentTitle)
-                        .setContentTitle(contentTitle)
-                        .setSmallIcon(android.R.mipmap.sym_def_app_icon)
-                        .setContentText(contentBody)
-                        .setContentIntent(pendingIntent)
-                        .setAutoCancel(true)
-                        .build()
+                        val notificationBuilder = NotificationCompat
+                            .Builder(this, getString(R.string.notification_chatting_channel_id))
+                            .setTicker(contentTitle)
+                            .setContentTitle(contentTitle)
+                            .setSmallIcon(R.drawable.ic_notification)
+                            .setContentText(contentBody)
+                            .setContentIntent(pendingIntent)
+                            .setAutoCancel(true)
+                            .build()
 
-                    val notificationManager = NotificationManagerCompat.from(this)
-                    notificationManager.notify(0, notificationBuilder)
+                        val notificationManager = NotificationManagerCompat.from(this)
+                        notificationManager.notify(0, notificationBuilder)
+                    }
                 }
                 NotiType.PAY.type -> {
                     Log.i(TAG, "PAY type")
@@ -98,7 +107,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         .Builder(this, getString(R.string.notification_pay_channel_id))
                         .setTicker(contentTitle)
                         .setContentTitle(contentTitle)
-                        .setSmallIcon(android.R.mipmap.sym_def_app_icon)
+                        .setSmallIcon(R.drawable.ic_notification)
                         .setContentText(contentBody)
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true)
@@ -116,5 +125,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             Log.d(TAG, "Body: ${it.body}, Title: ${it.title}, icon: ${it.icon}")
         }
     }
+
+    private fun isChatting() = Application.instance?.isChatting
 
 }

@@ -116,13 +116,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         /**
          * 자동로그인이 설정되어 있는지를 체크
          */
-        isAutoLoginEnabled()
+        if (isAutoLoginEnabled())
+            goNext(MainActivity::class.java)
     }
 
     private fun checkForNotification() {
         val extras = intent?.extras
         Log.i(TAG, "extra : $extras")
-        if (extras != null) {
+        if (extras != null && isAutoLoginEnabled()) {
             when (extras[NotiInfo.NOTI_TYPE.type]) {
                 NotiType.CHATTING.type -> {
                     Log.i(TAG,
@@ -156,7 +157,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
     }
 
-    private fun isAutoLoginEnabled() {
+    private fun isAutoLoginEnabled() : Boolean {
         val status = loginViewModel.getAutoLoginStatus().toBoolean()
         Log.i(TAG, "autoLoginStatus : $status")
         if (status) {
@@ -185,9 +186,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     "userType : ${Application.instance?.userType} \n" +
                     "tribe : ${Application.instance?.userTribe} \n" +
                     "gameID : ${Application.instance?.userGameID}")
-            goNext(MainActivity::class.java)
+            return true
         } else {
             Toast.makeText(this, "자동로그인 실패!\n\n email : ${Application.instance?.userEmail},\n name : ${Application.instance?.userName},\n uID : ${Application.instance?.userUID}, \n fcmToken : ${Application.instance?.userFcmToken}, userType : ${Application.instance?.userType}", Toast.LENGTH_LONG).show()
+            return false
         }
     }
 

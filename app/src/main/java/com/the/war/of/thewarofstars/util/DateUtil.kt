@@ -7,13 +7,14 @@ import java.util.*
 object DateUtil {
     private const val outputPattern = "yyyy-MM-dd'T'HH:mm:ss"
     private const val outputPattern2 = "yyyy년 MM월 dd일 HH시 mm분"
-    fun getCurrentDateString(): String {
+    private const val outputForPay = "yyyyMMddHHmm"
+    fun getCurrentTimeMillisForPay(): Long {
 
-        val currentDateFormat = SimpleDateFormat(outputPattern, Locale.getDefault())
-        val currentDate = Date(System.currentTimeMillis())
-        val currentDatestring = currentDateFormat.format(currentDate)
+        val currentDateFormat = SimpleDateFormat(outputForPay, Locale.getDefault())
+        val currentDate = System.currentTimeMillis()
+//        val currentDatestring = currentDateFormat.format(currentDate)
 
-        return currentDatestring
+        return currentDate
     }
 
     fun getCurrentDateForPayComplete(): String {

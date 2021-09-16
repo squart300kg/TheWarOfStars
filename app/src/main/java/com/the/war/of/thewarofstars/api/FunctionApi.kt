@@ -26,6 +26,8 @@ interface FunctionApi {
     suspend fun sendPayNotification(
         @Query("to") to: String,
         @Query("from") from: String,
+        @Query("content") content: String,
+        @Query("price") price: String,
     ): PayResponse
 
 

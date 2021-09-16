@@ -67,7 +67,6 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         // 초기 뷰 세팅
         initializeView()
 
-
         binding {
 
             tvPayPhone.apply {
@@ -148,7 +147,6 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                 this@PayActivity.isTermsChecked = isTermsChecked
             })
         }
-
     }
 
     private fun showProcessDialog() {
@@ -178,7 +176,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
     private fun requestPay() {
         var request: IamPortRequest? = null
 
-        val merchant_uid = "S:$sellerName|B:$buyerName|T:${DateUtil.getCurrentDateString()}"
+        val merchant_uid = "$sellerName|${DateUtil.getCurrentTimeMillisForPay()}"
         Log.i(TAG, "clickPay\nmerchant_uid : $merchant_uid")
 
         when (payType) {
@@ -245,7 +243,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
                 val jsonObject = JSONObject(resJson)
                 val isSuccess: Boolean?
-                val merchant_uid           = jsonObject.getString("merchant_uid")
+                val merchant_uid = jsonObject.getString("merchant_uid")
 
                 when (payType) {
                     PayType.PHONE -> {
@@ -261,6 +259,13 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                 Log.i(TAG, "callBackListener3\n " +
                         "isSuccess : $isSuccess\n " +
                         "merchant_uid : $merchant_uid")
+
+                Log.i(TAG, "callBackListener4\n " +
+                        "merchandUID : $merchant_uid\n " +
+                        "to : $sellerUID\n " +
+                        "from : ${Application.instance?.userUID}\n " +
+                        "content : ${dataBinding.etRequestBeforeGame.text.toString()}\n " +
+                        "price : ${price.toString()}")
 
                 when (isSuccess) {
                     true -> {

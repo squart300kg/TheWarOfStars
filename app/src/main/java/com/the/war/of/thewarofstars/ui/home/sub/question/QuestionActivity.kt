@@ -189,6 +189,16 @@ class QuestionActivity: BaseActivity<ActivityQuestionBinding>(R.layout.activity_
             )
         }
 
+        initializeChattingStatusFor(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        initializeChattingStatusFor(false)
+    }
+
+    private fun initializeChattingStatusFor(status : Boolean) {
+        Application.instance?.isChatting = status
     }
 
     override fun onDestroy() {
