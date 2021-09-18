@@ -77,8 +77,6 @@ class PayViewModel(
 
                     _payCompleteDetail.value = it
                 }
-
         }
-
     }
 }

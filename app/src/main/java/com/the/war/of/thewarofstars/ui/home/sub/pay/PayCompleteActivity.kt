@@ -15,6 +15,7 @@ import com.the.war.of.thewarofstars.contant.DialogType
 import com.the.war.of.thewarofstars.contant.PayProcessType
 import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.databinding.ActivityPayCompleteBinding
+import com.the.war.of.thewarofstars.model.PayCompleteNotiItem
 import com.the.war.of.thewarofstars.ui.dialog.PayCancelDialogFragment
 import com.the.war.of.thewarofstars.ui.dialog.PayOkDialogFragment
 import com.the.war.of.thewarofstars.ui.home.HomeViewModel
@@ -101,6 +102,32 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
             isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
                 when (isClickedOk) {
                     true -> {
+                        payCompleteViewModel.sendPayCompleteNotification(
+                            PayCompleteNotiItem(
+                                gamer = PayCompleteNotiItem.Gamer(
+                                    gamerUID   = gamerUID.toString(),
+                                    gamerName  = gamerName.toString(),
+                                    gamerCode  = gamerCode.toString(),
+                                    gamerTribe = gamerTribe.toString(),
+                                    gamerID    = gamerID.toString()
+                                ),
+                                user = PayCompleteNotiItem.User(
+                                    userUID      = userUID.toString(),
+                                    userNickname = userNickname.toString(),
+                                    userCode     = userCode.toString(),
+                                    userTribe    = userTribe.toString(),
+                                    userID       = userID.toString()
+                                ),
+                                price = price.toString()
+                            )
+                        )
+                    }
+                    false -> {}
+                }
+            })
+            isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
+                when (isClickedOk) {
+                    true -> {
                         Intent(this@PayCompleteActivity, PayCompleteOkActivity::class.java).apply {
                             startActivity(this)
                         }
@@ -108,7 +135,6 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
                 }
             })
         }
-
     }
 
     private fun goToChattingActivity() {

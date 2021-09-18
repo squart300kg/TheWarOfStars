@@ -109,7 +109,6 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                             isPersonalUsageTermsClicked = true
                         }
                     }
-
                 }
             }
 
@@ -283,9 +282,6 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                         Toast.makeText(this@PayActivity, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
-
-
-
             }
         }
     }
@@ -304,8 +300,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             putExtra("userID", detail.user.userID)
 
             putExtra("content", detail.content)
-            putExtra("price", detail.price.toLong())
-            putExtra("payDate", detail.payDate.toLong())
+            putExtra("price", detail.price)
+            putExtra("payDate", detail.payDate)
             putExtra("payStatus", detail.payStatus)
             finish()
             startActivity(this)

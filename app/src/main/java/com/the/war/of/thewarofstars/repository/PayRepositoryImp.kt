@@ -2,8 +2,10 @@ package com.the.war.of.thewarofstars.repository
 
 import com.the.war.of.thewarofstars.api.FunctionApi
 import com.the.war.of.thewarofstars.model.ChattingItem
+import com.the.war.of.thewarofstars.model.PayCompleteNotiItem
 import com.the.war.of.thewarofstars.model.PayNotiItem
 import com.the.war.of.thewarofstars.model.response.ChattingResponse
+import com.the.war.of.thewarofstars.model.response.PayCompleteResponse
 import com.the.war.of.thewarofstars.model.response.PayResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,6 +24,15 @@ class PayRepositoryImp(
                 from    = payNotiItem.from.toString(),
                 content = payNotiItem.content.toString(),
                 price   = payNotiItem.price.toString(),
+            )
+            emit(data)
+        }
+    }
+
+    override fun sendPayCompleteNotification(payCompleteNotiItem : PayCompleteNotiItem): Flow<PayCompleteResponse> {
+        return flow {
+            val data = functionApi.sendPayCompleteNotification(
+                payCompleteNotiItem = payCompleteNotiItem
             )
             emit(data)
         }
