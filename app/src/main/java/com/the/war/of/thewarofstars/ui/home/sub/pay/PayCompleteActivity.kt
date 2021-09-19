@@ -45,6 +45,8 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
     private var content: String? = null
     private var price: String? = null
     private var payDate: String? = null
+
+    private var payUID: String? = null
     private var payStatus: String? = null
 
     var okDialog     = PayOkDialogFragment(this@PayCompleteActivity)
@@ -102,25 +104,7 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
             isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
                 when (isClickedOk) {
                     true -> {
-                        payCompleteViewModel.sendPayCompleteNotification(
-                            PayCompleteNotiItem(
-                                gamer = PayCompleteNotiItem.Gamer(
-                                    gamerUID   = gamerUID.toString(),
-                                    gamerName  = gamerName.toString(),
-                                    gamerCode  = gamerCode.toString(),
-                                    gamerTribe = gamerTribe.toString(),
-                                    gamerID    = gamerID.toString()
-                                ),
-                                user = PayCompleteNotiItem.User(
-                                    userUID      = userUID.toString(),
-                                    userNickname = userNickname.toString(),
-                                    userCode     = userCode.toString(),
-                                    userTribe    = userTribe.toString(),
-                                    userID       = userID.toString()
-                                ),
-                                price = price.toString()
-                            )
-                        )
+                        payCompleteViewModel.sendPayCompleteNotification(payUID.toString())
                     }
                     false -> {}
                 }
@@ -264,6 +248,8 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
         content = intent.getStringExtra("content")
         price   = intent.getStringExtra("price")
         payDate = intent.getStringExtra("payDate")
+
+        payUID = intent.getStringExtra("payUID")
         payStatus = intent.getStringExtra("payStatus")
 
         Log.i(
@@ -284,6 +270,8 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
                 "content : $content\n " +
                 "price : $price\n " +
                 "payDate : $payDate\n " +
+
+                "payUID : $payUID\n " +
                 "payStatus : $payStatus\n ")
     }
 

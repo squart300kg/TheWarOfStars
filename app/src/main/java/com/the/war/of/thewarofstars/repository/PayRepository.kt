@@ -14,6 +14,6 @@ import kotlinx.coroutines.flow.Flow
 interface PayRepository {
 
     fun sendPayNotification(payNotiItem: PayNotiItem): Flow<PayResponse>
-    fun sendPayCompleteNotification(payCompleteNotiItem : PayCompleteNotiItem): Flow<PayCompleteResponse>
+    fun sendPayCompleteNotification(payUID : String): Flow<PayCompleteResponse>
 
 }

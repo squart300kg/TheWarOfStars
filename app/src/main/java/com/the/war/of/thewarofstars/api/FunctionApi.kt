@@ -34,7 +34,7 @@ interface FunctionApi {
 
     @GET("sendPayCompleteNotification")
     suspend fun sendPayCompleteNotification(
-        @Body payCompleteNotiItem: PayCompleteNotiItem
+        @Query("payUID") payUID : String
     ): PayCompleteResponse
 
 

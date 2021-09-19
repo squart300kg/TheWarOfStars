@@ -29,10 +29,10 @@ class PayRepositoryImp(
         }
     }
 
-    override fun sendPayCompleteNotification(payCompleteNotiItem : PayCompleteNotiItem): Flow<PayCompleteResponse> {
+    override fun sendPayCompleteNotification(payUID : String): Flow<PayCompleteResponse> {
         return flow {
             val data = functionApi.sendPayCompleteNotification(
-                payCompleteNotiItem = payCompleteNotiItem
+                payUID = payUID
             )
             emit(data)
         }

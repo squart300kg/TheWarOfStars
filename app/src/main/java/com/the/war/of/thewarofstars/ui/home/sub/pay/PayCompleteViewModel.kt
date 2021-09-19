@@ -41,10 +41,10 @@ class PayCompleteViewModel(
 
     }
 
-    fun sendPayCompleteNotification(payCompleteNotiItem: PayCompleteNotiItem) {
+    fun sendPayCompleteNotification(payUID: String) {
         job?.cancel()
         job = viewModelScope.launch {
-            payRepository.sendPayCompleteNotification(payCompleteNotiItem)
+            payRepository.sendPayCompleteNotification(payUID)
                 .flowOn(Dispatchers.IO)
                 .catch { exception ->
                     if (exception is HttpException) {

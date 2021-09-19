@@ -302,6 +302,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             putExtra("content", detail.content)
             putExtra("price", detail.price)
             putExtra("payDate", detail.payDate)
+
+            putExtra("payUID", detail.payUID)
             putExtra("payStatus", detail.payStatus)
             finish()
             startActivity(this)

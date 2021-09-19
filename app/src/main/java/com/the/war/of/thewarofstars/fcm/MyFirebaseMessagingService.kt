@@ -77,6 +77,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     val content = remoteMessage.data["content"]
                     val price = remoteMessage.data["price"]
                     val payDate = remoteMessage.data["payDate"]
+
+                    val payUID = remoteMessage.data["payUID"]
                     val payStatus = remoteMessage.data["payStatus"]
                     val intent = Intent(this, PayCompleteActivity::class.java).apply {
                         putExtra("gamerUID", gamerUID)
@@ -94,6 +96,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         putExtra("content", content)
                         putExtra("price", price)
                         putExtra("payDate", payDate)
+
+                        putExtra("payUID", payUID)
                         putExtra("payStatus", payStatus)
                     }
 

@@ -22,6 +22,9 @@ data class PayResponse(
     @SerializedName("payStatus")
     val payStatus: String,
 
+    @SerializedName("payUID")
+    val payUID: String,
+
     @SerializedName("notiType")
     val notiType: String,
 
