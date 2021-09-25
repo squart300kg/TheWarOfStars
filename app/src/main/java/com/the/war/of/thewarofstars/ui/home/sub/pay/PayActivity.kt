@@ -137,7 +137,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
         observingForPay {
             payCompleteDetail.observe(this@PayActivity, { detail ->
-                goToPayCompleteActivity(detail)
+                goToPayCompleteActivityAndSetDetail(detail)
             })
         }
 
@@ -285,7 +285,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             }
         }
     }
-    private fun goToPayCompleteActivity(detail: PayResponse) {
+    private fun goToPayCompleteActivityAndSetDetail(detail: PayResponse) {
         Intent(this@PayActivity, PayCompleteActivity::class.java).apply {
             putExtra("gamerUID", detail.gamer.gamerUID)
             putExtra("gamerName", detail.gamer.gamerName)

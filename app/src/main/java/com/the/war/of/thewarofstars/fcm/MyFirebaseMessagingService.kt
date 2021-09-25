@@ -12,6 +12,7 @@ import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.contant.NotiInfo
 import com.the.war.of.thewarofstars.contant.NotiType
 import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteActivity
+import com.the.war.of.thewarofstars.ui.home.sub.pay.PayCompleteOkActivity
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -101,6 +102,60 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         putExtra("payStatus", payStatus)
                     }
 
+                    val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
+                    val contentTitle = remoteMessage.notification?.title
+                    val contentBody  = remoteMessage.notification?.body
+                    val icon         = remoteMessage.notification?.icon
+
+                    val notificationBuilder = NotificationCompat
+                        .Builder(this, getString(R.string.notification_pay_channel_id))
+                        .setTicker(contentTitle)
+                        .setContentTitle(contentTitle)
+                        .setSmallIcon(R.drawable.ic_notification)
+                        .setContentText(contentBody)
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true)
+                        .build()
+
+                    val notificationManager = NotificationManagerCompat.from(this)
+                    notificationManager.notify(0, notificationBuilder)
+                }
+                NotiType.PAY_SUCCESS.type -> {
+                    val gamerUID = remoteMessage.data["gamerUID"]
+                    val gamerName = remoteMessage.data["gamerName"]
+                    val gamerCode = remoteMessage.data["gamerCode"]
+                    val gamerTribe = remoteMessage.data["gamerTribe"]
+                    val gamerID = remoteMessage.data["gamerID"]
+
+                    val userUID = remoteMessage.data["userUID"]
+                    val userNickname = remoteMessage.data["userNickname"]
+                    val userCode = remoteMessage.data["userCode"]
+                    val userTribe = remoteMessage.data["userTribe"]
+                    val userID = remoteMessage.data["userID"]
+
+                    val price = remoteMessage.data["price"]
+                    val payDate = remoteMessage.data["payDate"]
+                    val payStatus = remoteMessage.data["payStatus"]
+                    val payUID = remoteMessage.data["payUID"]
+                    val intent = Intent(this, PayCompleteOkActivity::class.java).apply {
+                        putExtra("gamerUID", gamerUID)
+                        putExtra("gamerName", gamerName)
+                        putExtra("gamerCode", gamerCode)
+                        putExtra("gamerTribe", gamerTribe)
+                        putExtra("gamerID", gamerID)
+
+                        putExtra("userUID", userUID)
+                        putExtra("userNickname", userNickname)
+                        putExtra("userCode", userCode)
+                        putExtra("userTribe", userTribe)
+                        putExtra("userID", userID)
+
+                        putExtra("price", price)
+                        putExtra("payDate", payDate)
+                        putExtra("payStatus", payStatus)
+                        putExtra("payUID", payUID)
+                    }
                     val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
                     val contentTitle = remoteMessage.notification?.title

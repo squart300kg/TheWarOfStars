@@ -38,10 +38,9 @@ class PayCompleteViewModel(
 
     fun clickOK() {
         _isClickedOk.value = true
-
     }
 
-    fun sendPayCompleteNotification(payUID: String) {
+    fun sendPayCompleteNotificationWithPayUID(payUID: String) {
         job?.cancel()
         job = viewModelScope.launch {
             payRepository.sendPayCompleteNotification(payUID)
@@ -75,6 +74,7 @@ class PayCompleteViewModel(
                                 "price : ${it.price}\n" +
                                 "payDate : ${it.payDate}\n" +
                                 "payStatus : ${it.payStatus}\n" +
+                                "payUID : ${it.payUID}\n" +
                                 "notiType : ${it.notiType}\n"
                     )
 

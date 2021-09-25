@@ -73,13 +73,18 @@
                     >
                     <ImageView
                         android:id="@+id/iv_star"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:src="@mipmap/ic_yellow_star"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintEnd_toStartOf="@+id/tv_score"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
 
                     <TextView
+                        android:id="@+id/tv_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"

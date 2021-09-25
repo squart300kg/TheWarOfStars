@@ -15,10 +15,9 @@ import com.the.war.of.thewarofstars.contant.DialogType
 import com.the.war.of.thewarofstars.contant.PayProcessType
 import com.the.war.of.thewarofstars.contant.UserType
 import com.the.war.of.thewarofstars.databinding.ActivityPayCompleteBinding
-import com.the.war.of.thewarofstars.model.PayCompleteNotiItem
+import com.the.war.of.thewarofstars.model.response.PayCompleteResponse
 import com.the.war.of.thewarofstars.ui.dialog.PayCancelDialogFragment
 import com.the.war.of.thewarofstars.ui.dialog.PayOkDialogFragment
-import com.the.war.of.thewarofstars.ui.home.HomeViewModel
 import com.the.war.of.thewarofstars.ui.home.sub.question.QuestionActivity
 import com.the.war.of.thewarofstars.util.DateUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -104,20 +103,46 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
             isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
                 when (isClickedOk) {
                     true -> {
-                        payCompleteViewModel.sendPayCompleteNotification(payUID.toString())
-                    }
-                    false -> {}
-                }
-            })
-            isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
-                when (isClickedOk) {
-                    true -> {
                         Intent(this@PayCompleteActivity, PayCompleteOkActivity::class.java).apply {
                             startActivity(this)
                         }
                     }
                 }
             })
+            isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
+                when (isClickedOk) {
+                    true -> {
+                        payCompleteViewModel.sendPayCompleteNotificationWithPayUID(payUID.toString())
+                    }
+                    false -> {}
+                }
+            })
+            payCompleteDetail.observe(this@PayCompleteActivity, { detail ->
+                startPayCompleteOkActivityAndSetDetail(detail)
+            })
+        }
+    }
+
+    private fun startPayCompleteOkActivityAndSetDetail(detail: PayCompleteResponse) {
+        Intent(this@PayCompleteActivity, PayCompleteOkActivity::class.java).apply {
+            putExtra("gamerUID", detail.gamer.gamerUID)
+            putExtra("gamerName", detail.gamer.gamerName)
+            putExtra("gamerCode", detail.gamer.gamerCode)
+            putExtra("gamerTribe", detail.gamer.gamerTribe)
+            putExtra("gamerID", detail.gamer.gamerID)
+
+            putExtra("userUID", detail.user.userUID)
+            putExtra("userNickname", detail.user.userNickname)
+            putExtra("userCode", detail.user.userCode)
+            putExtra("userTribe", detail.user.userTribe)
+            putExtra("userID", detail.user.userID)
+
+            putExtra("price", detail.price)
+            putExtra("payDate", detail.payDate)
+            putExtra("payStatus", detail.payStatus)
+            putExtra("payUID", detail.payUID)
+
+            startActivity(this)
         }
     }
 

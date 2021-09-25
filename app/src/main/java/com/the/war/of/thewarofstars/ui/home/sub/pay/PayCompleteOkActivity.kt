@@ -20,8 +20,6 @@ class PayCompleteOkActivity: BaseActivity<ActivityPayCompleteOkBinding>(R.layout
                 }
             }
         }
-
-
     }
 
     private fun goMain() {

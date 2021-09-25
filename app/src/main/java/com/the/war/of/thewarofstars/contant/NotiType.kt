@@ -4,6 +4,7 @@ enum class NotiType(val type: String) {
     // message type
     CHATTING("CHATTING"),
     PAY("PAY"),
+    PAY_SUCCESS("PAY_SUCCESS"),
 }
 
 enum class NotiInfo(val type: String) {
