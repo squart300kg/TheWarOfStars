@@ -4,11 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.iamport.sdk.data.sdk.IamPortRequest
+import com.iamport.sdk.data.sdk.PG
+import com.iamport.sdk.data.sdk.PayMethod
+import com.iamport.sdk.domain.core.Iamport
 import com.securepreferences.SecurePreferences
+import com.the.war.of.thewarofstars.R
 import com.the.war.of.thewarofstars.base.BaseViewModel
+import com.the.war.of.thewarofstars.contant.PayType
 import com.the.war.of.thewarofstars.model.PayNotiItem
 import com.the.war.of.thewarofstars.model.response.PayResponse
 import com.the.war.of.thewarofstars.repository.PayRepository
+import com.the.war.of.thewarofstars.util.DateUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -40,6 +47,7 @@ class PayViewModel(
 
         job?.cancel()
         job = viewModelScope.launch {
+            _isLoading.value = true
             payRepository.sendPayNotification(payNotiItem)
                 .flowOn(Dispatchers.IO)
                 .catch { exception ->
@@ -74,9 +82,9 @@ class PayViewModel(
                             "payStatus : ${it.payStatus}\n" +
                             "notiType : ${it.notiType}\n"
                     )
-
                     _payCompleteDetail.value = it
                 }
+            _isLoading.value = false
         }
     }
 }

@@ -53,61 +53,46 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
     private var isTermsChecked: Boolean = false
 
+    private lateinit var payRequest : IamPortRequest
+    private lateinit var payMerchantUid : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Iamport.init(this)
+        initializeImportSDK()
 
-        // 피드백받을 이메일에 밑줄
-        initializeUnderLine()
-
-        // intent 초기값 세팅
         initializeValues()
 
-        // 초기 뷰 세팅
         initializeView()
 
         binding {
 
+            payVm = payViewModel
+
             tvPayPhone.apply {
                 setOnClickListener {
-                    tvPayPhone.isSelected = true
-                    tvPayKakao.isSelected = false
-                    tvPaySamsung.isSelected = false
-                    payType = PayType.PHONE
+                    selectPayPhone()
                 }
             }
 
             tvPayKakao.apply {
                 setOnClickListener {
-                    tvPayPhone.isSelected = false
-                    tvPayKakao.isSelected = true
-                    tvPaySamsung.isSelected = false
-                    payType = PayType.KAKAO
+                    selectPaykakao()
+
                 }
             }
 
             tvPaySamsung.apply {
                 setOnClickListener {
-                    tvPayPhone.isSelected = false
-                    tvPayKakao.isSelected = false
-                    tvPaySamsung.isSelected = true
-                    payType = PayType.SAMSUNG
+                    selectPaySamsung()
                 }
             }
 
             layoutTermsPersonalUsageTitle.apply {
                 setOnClickListener {
                     when (isPersonalUsageTermsClicked) {
-                        true -> {
-                            tvTermsPersonalUsageContent.visibility = View.GONE
-                            isPersonalUsageTermsClicked = false
-                        }
-                        false -> {
-                            tvTermsPersonalUsageContent.visibility = View.VISIBLE
-                            tvTermsPersonalUsageContent.movementMethod = ScrollingMovementMethod()
-                            isPersonalUsageTermsClicked = true
-                        }
+                        OPEN -> openPersonalUsageTerms()
+                        CLOSE -> closePersonalUsageTerms()
                     }
                 }
             }
@@ -115,15 +100,8 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             layoutTermsPayServiceTitle.apply {
                 setOnClickListener {
                     when(isPayServiceTermsClicked) {
-                        true -> {
-                            tvTermsPayServiceContent.visibility = View.GONE
-                            isPayServiceTermsClicked = false
-                        }
-                        false -> {
-                            tvTermsPayServiceContent.visibility = View.VISIBLE
-                            tvTermsPayServiceContent.movementMethod = ScrollingMovementMethod()
-                            isPayServiceTermsClicked = true
-                        }
+                        OPEN ->  openPayServiceTerms()
+                        CLOSE -> closePayServiceTerms()
                     }
                 }
             }
@@ -148,8 +126,56 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         }
     }
 
+
+    private fun openPayServiceTerms() {
+        dataBinding.tvTermsPayServiceContent.visibility = View.VISIBLE
+        dataBinding.tvTermsPayServiceContent.movementMethod = ScrollingMovementMethod()
+        isPayServiceTermsClicked = true
+    }
+
+    private fun closePayServiceTerms() {
+        dataBinding.tvTermsPayServiceContent.visibility = View.GONE
+        isPayServiceTermsClicked = false
+    }
+
+    private fun openPersonalUsageTerms() {
+        dataBinding.tvTermsPersonalUsageContent.visibility = View.VISIBLE
+        dataBinding.tvTermsPersonalUsageContent.movementMethod = ScrollingMovementMethod()
+        isPersonalUsageTermsClicked = true
+    }
+
+    private fun closePersonalUsageTerms() {
+        dataBinding.tvTermsPersonalUsageContent.visibility = View.GONE
+        isPersonalUsageTermsClicked = false
+    }
+
+    private fun selectPaySamsung() {
+        dataBinding.tvPayPhone.isSelected = false
+        dataBinding.tvPayKakao.isSelected = false
+        dataBinding.tvPaySamsung.isSelected = true
+        payType = PayType.SAMSUNG
+    }
+
+    private fun selectPaykakao() {
+        dataBinding.tvPayPhone.isSelected = false
+        dataBinding.tvPayKakao.isSelected = true
+        dataBinding.tvPaySamsung.isSelected = false
+        payType = PayType.KAKAO
+    }
+
+    private fun selectPayPhone() {
+        dataBinding.tvPayPhone.isSelected = true
+        dataBinding.tvPayKakao.isSelected = false
+        dataBinding.tvPaySamsung.isSelected = false
+        payType = PayType.PHONE
+    }
+
+    private fun initializeImportSDK()
+        = Iamport.init(this)
+
+
     private fun showProcessDialog() {
-        val fragmentManager     = supportFragmentManager
+        val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         if (dialog.isAdded) {
             fragmentTransaction.remove(dialog)
@@ -162,7 +188,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
             override fun onDismiss(p0: DialogInterface?) {
 
                 if (isTermsChecked) {
-                    requestPay()
+                    startPayProcess()
                 }
 
             }
@@ -172,19 +198,26 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         })
     }
 
-    private fun requestPay() {
-        var request: IamPortRequest? = null
+    private fun startPayProcess() {
+        initializeMerchantUid()
 
-        val merchant_uid = "$sellerName|${DateUtil.getCurrentTimeMillisForPay()}"
-        Log.i(TAG, "clickPay\nmerchant_uid : $merchant_uid")
+        initializePayRequest()
 
+        requestPay()
+    }
+
+    private fun initializeMerchantUid() {
+        payMerchantUid = "$sellerName|${DateUtil.getCurrentTimeMillisForPay()}"
+    }
+
+    private fun initializePayRequest() {
         when (payType) {
             PayType.PHONE -> {
-                request = IamPortRequest(
+                payRequest = IamPortRequest(
                     pg           = PG.danal.makePgRawName(pgId = ""),
                     pay_method   = PayMethod.phone,
                     name         = productName,
-                    merchant_uid = merchant_uid,
+                    merchant_uid = payMerchantUid,
 //                    amount       = requireNotNull(price.toString()),
                     amount       = "100",
                     buyer_name   = buyerName,
@@ -193,36 +226,34 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
 
             }
             PayType.KAKAO -> {
-                request = IamPortRequest(
+                payRequest = IamPortRequest(
                     pg           = PG.nice.makePgRawName(pgId = ""),
                     pay_method   = PayMethod.kakaopay,
                     name         = productName,
-                    merchant_uid = merchant_uid,
+                    merchant_uid = payMerchantUid,
 //                                amount       = requireNotNull(price.toString()),
                     amount       = "100",
                     buyer_name   = buyerName
                 )
             }
             PayType.SAMSUNG -> {
-                request = IamPortRequest(
+                payRequest = IamPortRequest(
                     pg           = PG.nice.makePgRawName(pgId = ""),
                     pay_method   = PayMethod.samsung,
                     name         = productName,
-                    merchant_uid = merchant_uid,
+                    merchant_uid = payMerchantUid,
 //                                amount       = requireNotNull(price.toString()),
                     amount       = "100",
                     buyer_name   = buyerName
                 )
             }
         }
+    }
 
-        // 결제요청
+    private fun requestPay() {
         Iamport.payment(getString(R.string.import_franchisee_code),
-            iamPortRequest = request,
-            approveCallback = {
-                /* 최종 결제전 콜백 함수. */
-                Log.i(TAG, "결제전")
-            },
+            iamPortRequest = payRequest,
+            approveCallback = { },
             paymentResultCallback = {
                 /* 최종 결제결과 콜백 함수. */
                 callBackListener.result(it)
@@ -255,6 +286,7 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
                         isSuccess = jsonObject.getString("success").toBoolean()
                     }
                 }
+
                 Log.i(TAG, "callBackListener3\n " +
                         "isSuccess : $isSuccess\n " +
                         "merchant_uid : $merchant_uid")
@@ -323,6 +355,9 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         dataBinding.etEmail.setText(Application.instance?.userEmail)
         dataBinding.etGameID.setText(Application.instance?.userGameID)
         dataBinding.tvPay.text = DecimalFormat("###,###").format(price) + "원 결제 진행하기"
+
+        initializeUnderLine()
+
     }
 
     private fun initializeUnderLine() {
@@ -339,5 +374,9 @@ class PayActivity: BaseActivity<ActivityPayBinding>(R.layout.activity_pay){
         payViewModel.run(action)
     }
 
+    companion object {
+        const val OPEN = false
+        const val CLOSE = true
+    }
 
 }

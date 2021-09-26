@@ -48,7 +48,7 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
     private var payUID: String? = null
     private var payStatus: String? = null
 
-    var okDialog     = PayOkDialogFragment(this@PayCompleteActivity)
+    var okDialog = PayOkDialogFragment(this@PayCompleteActivity)
     var cancelDialog = PayCancelDialogFragment(this@PayCompleteActivity)
 
     private val TAG = "PayCompleteActivityLog"
@@ -68,7 +68,8 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
 
             tvPayOk.apply {
                 // 기본설정
-                isSelected = true
+
+                initializePayOkButtonSeleted()
 
                 setOnClickListener {
 
@@ -103,18 +104,10 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
             isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
                 when (isClickedOk) {
                     true -> {
-                        Intent(this@PayCompleteActivity, PayCompleteOkActivity::class.java).apply {
-                            startActivity(this)
-                        }
-                    }
-                }
-            })
-            isClickedOk.observe(this@PayCompleteActivity, { isClickedOk ->
-                when (isClickedOk) {
-                    true -> {
                         payCompleteViewModel.sendPayCompleteNotificationWithPayUID(payUID.toString())
                     }
-                    false -> {}
+                    false -> {
+                    }
                 }
             })
             payCompleteDetail.observe(this@PayCompleteActivity, { detail ->
@@ -122,6 +115,11 @@ class PayCompleteActivity: BaseActivity<ActivityPayCompleteBinding>(R.layout.act
             })
         }
     }
+
+    private fun initializePayOkButtonSeleted() {
+        dataBinding.tvPayOk.isSelected = true
+    }
+
 
     private fun startPayCompleteOkActivityAndSetDetail(detail: PayCompleteResponse) {
         Intent(this@PayCompleteActivity, PayCompleteOkActivity::class.java).apply {

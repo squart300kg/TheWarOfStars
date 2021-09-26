@@ -51,5 +51,6 @@
 
     <!--    결제 완료 페이지-->
     <string name="pay_ok_complete_guide">게임을 완료했으며, 경기 피드백(리플레이, 리플레이 분석 동영상)을 받았을 경우 클릭해 주세요</string>
+    <string name="pay_complete_ok_please_write_review">선수님을 위해 조금이라도 리뷰를 남겨주세요. 선수님께 큰 힘이 됩니다!</string>
 
 </resources>

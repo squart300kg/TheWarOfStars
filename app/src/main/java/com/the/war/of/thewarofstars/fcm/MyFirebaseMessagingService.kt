@@ -32,7 +32,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             when (remoteMessage.data[NotiInfo.NOTI_TYPE.type]) {
                 NotiType.CHATTING.type -> {
                     if (isChatting() == false) {
-                        Log.i(TAG, "CHATTING type")
 
                         val senderUID = remoteMessage.data[NotiInfo.SENDER_UID.type]
                         val senderName = remoteMessage.data[NotiInfo.SENDER_NAME.type]
@@ -60,9 +59,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     }
                 }
                 NotiType.PAY.type -> {
-                    Log.i(TAG, "PAY type")
-
-
                     val gamerUID = remoteMessage.data["gamerUID"]
                     val gamerName = remoteMessage.data["gamerName"]
                     val gamerCode = remoteMessage.data["gamerCode"]
